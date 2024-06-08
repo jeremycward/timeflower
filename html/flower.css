@@ -1,0 +1,41 @@
+.pageHeader {
+  border-style: solid;
+  border-width: 5px;
+  
+  
+}
+.pageFooter {
+	background-color: blueviolet;	
+	
+	
+}
+
+
+#fgHeader {
+	border-style: solid;
+  border-width: 5px;
+	
+}
+.trackHeader{
+	background: red;
+}
+
+.trackContent{
+	background: lightgray;
+}
+
+.gridFooter{
+	background: gray;
+}
+body {
+	background-color: gray;
+	display: flex;
+	align-items: stretch;
+	flex-direction: column ;
+	height:100vh;
+}
+.mainContent{
+	flex: flex-grow;
+	
+	background-color: azure;
+}

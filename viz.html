@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Timeline</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+        type="text/css" />
+    <style type="text/css">
+        #visualization {
+            width: 600px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+    <script id="item-template" type="text/x-handlebars-template">
+
+    <EM><span >{{content}}</span></EM>
+  </script>
+
+    <script id="group-template" type="text/x-handlebars-template">
+
+    <EM><span>{{name}}</span></EM>
+  </script>
+
+
+
+</head>
+
+<body>
+    <div id="visualization"></div>
+    <script type="text/javascript">
+        // DOM element where the Timeline will be attached
+        var container = document.getElementById('visualization');
+
+        var source = document.getElementById('item-template').innerHTML;
+        var groupSource = document.getElementById('group-template').innerHTML;
+        var template = Handlebars.compile(source);
+        var groupTemplate = Handlebars.compile(source);
+
+        var groups = [
+            {id: 1,content: 'Group 1'},
+            {id: 2,content: 'Group 2' },
+            {id: 3,content: 'Group 3' }
+
+            // more groups...
+        ];
+
+        // Create a DataSet (allows two way data-binding)
+        var items = new vis.DataSet([
+            { id: 1, content: 'item 1', start: '2014-04-20', group: 1 },
+            { id: 2, content: 'item 2', start: '2014-04-14', group: 2 },
+            { id: 3, content: 'item 3', start: '2014-04-18' , group: 3},
+            { id: 4, content: 'item 4', start: '2014-04-16', end: '2014-04-19', group: 3 },
+            { id: 5, content: 'item 5', start: '2014-04-25' , group:1},
+            { id: 6, content: 'item 6', start: '2014-04-27', type: 'point', group: 1 }
+        ]);
+
+        // Configuration for the Timeline
+        var options = {
+            template: template
+
+        };
+
+        // Create a Timeline
+        var timeline = new vis.Timeline(container, items, options);
+        timeline.setGroups(groups);
+        timeline.on('select', function (properties) {
+            alert('selected items: ' + properties.items);
+        });
+    </script>
+</body>
+
+</html>
