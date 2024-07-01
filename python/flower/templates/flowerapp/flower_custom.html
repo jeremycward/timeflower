@@ -1,0 +1,259 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"
+        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <script id="group-template" type="text/x-handlebars-template">
+        <EM><span>{{name}}</span></EM>
+    </script>
+
+    <script id="svg-template" type="text/x-handlebars-template">
+        <svg width={{width}} height={{height}}>
+            <polyline points ="{{plotLine width height plot}}" style='stroke:white;stroke-width:1;fill:red'/>
+            {{#each ygridLines }}
+            <line x1="0%" stroke-dasharray="5,2"   y1="{{this}}" x2="100%" y2="{{this}}" style="stroke:white; stroke-width:1"></line>
+            {{/each}}	
+        </svg>
+    
+    </script>
+
+    <script id="item-template" type="text/x-handlebars-template">
+        <div class="vis-item-content-layout">
+            <table>
+                <tr>           
+                    
+                    <td>
+                        {{# if img }}
+                        <div><img alt="photograph" src="{{img}}" width="30" , height="40" /></div>
+                        {{/if}}
+                    </td>
+                    <td> 
+                        <div><b>{{name}}</b></div>
+                        {{# if detail1}}<div>{{detail1}}</div>{{/if}}
+                        {{# if detail2}}<div>{{detail2}}</div>{{/if}}
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>        
+
+    </script>
+
+
+
+    <title>FLOWER CUSTOM</title>
+    <script>
+
+        class FlowerDataElement extends HTMLElement {
+            resolve() {
+            }
+        }
+        class FlowerTrack extends FlowerDataElement {
+            static groupTemplate = Handlebars.compile(document.getElementById('group-template').innerHTML)
+            static groups = []
+            resolve() {
+                FlowerTrack.groups.push({
+                    content: FlowerTrack.groupTemplate({ name: this.attributes.heading.value }),
+                    id: this.attributes.id.value
+                })
+            }
+        }
+
+        class TrackItem extends FlowerDataElement {
+            static items = []
+            static itemTemplate = Handlebars.compile(document.getElementById('item-template').innerHTML)
+            resolve() {
+                var itemName = this.attributes.name.value
+                TrackItem.items.push({
+                    id: this.attributes.id.value,
+                    group: this.parentElement.attributes.id.value,
+                    type: "range",
+                    start: this.attributes.start.value,
+                    end: this.attributes.end.value,
+                    content: TrackItem.itemTemplate({
+                        name: this.getAttribute('name'),
+                        detail1: this.getAttribute('detail1'),
+                        detail2: this.getAttribute('detail2'),
+                        img: this.getAttribute('img')
+                    })
+
+
+                })
+            }
+        }
+        class TimeSeriesPlot extends FlowerDataElement{
+            resolve(){
+                this.parentElement.plot.push(
+                    {
+                        x: this.getAttribute('x'),
+                        y: this.getAttribute('y')
+                    } 
+                );
+                
+            }
+        }
+        class TimeSeriesItem extends FlowerDataElement {
+            static TIME_SERIES_CLASS_NAME = "TimeSeriesItem"
+            static svgTemplate = Handlebars.compile(document.getElementById('svg-template').innerHTML);
+            static timeSeriesDataElementList = []
+            static GRID_LINE_POSITIONS = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%"]
+            static initialised = false
+            constructor() {
+                super()
+                this.correlationId = null                
+                this.plot = []
+                TimeSeriesItem.timeSeriesDataElementList.push(this)
+
+            }
+
+
+            static lazyInit() {
+                if (!TimeSeriesItem.initialised ) {
+                    TimeSeriesItem.initialised = true
+                    TimeSeriesItem.htmlContainerMap = new Map()
+                    var elementList = document.getElementsByClassName(TimeSeriesItem.TIME_SERIES_CLASS_NAME)
+                    for (let i = 0; i < elementList.length; i++) {
+                        var correlationId = elementList[i].getElementsByClassName('vis-item-content')[0].innerHTML
+                        console.log("found container for correlationId: " + correlationId)
+                        elementList[i].id = correlationId
+                    }
+                }
+            }
+
+            replaceHtmlTimeSeriesItemContent() {
+                var replacementTarget = document.getElementById(this.correlationId)
+                
+                var replacementHTML =
+                    TimeSeriesItem.svgTemplate(
+                        {                            
+                            ygridLines: TimeSeriesItem.GRID_LINE_POSITIONS,
+                            height: replacementTarget.style.height,
+                            width: replacementTarget.style.width,
+                            plot:  this.plot
+                            
+                        })
+                       replacementTarget.innerHTML = replacementHTML
+
+            }
+            resolve() {
+                this.correlationId = this.getAttribute('correlationId')
+                TrackItem.items.push({
+                    className: TimeSeriesItem.TIME_SERIES_CLASS_NAME,
+                    id: this.getAttribute('id'),
+                    start: this.getAttribute('start'),
+                    end: this.getAttribute('end'),
+                    group: this.parentElement.attributes.id.value,
+                    content: this.correlationId,
+                    style: "height:100px"
+                })
+
+
+
+
+            }
+
+        }
+        class Timeline extends FlowerDataElement {
+            static tlChanged(timeLine) {
+                TimeSeriesItem.lazyInit()
+                TimeSeriesItem.timeSeriesDataElementList.forEach(ts => { ts.replaceHtmlTimeSeriesItemContent() })
+            }
+
+
+        }
+
+        window.customElements.define('flower-time-line', Timeline)
+        window.customElements.define('flower-track', FlowerTrack)
+        window.customElements.define('track-item', TrackItem)
+        window.customElements.define('time-series-item', TimeSeriesItem)
+        window.customElements.define('time-series-plot', TimeSeriesPlot)
+
+    </script>
+</head>
+
+<body>
+    <div id="timeline_component"></div>
+    <flower-time-line target="timeline_component" id="tldata">
+        <flower-track type="sequence" heading="hello" id="1">
+            <track-item name="jeremy" detail1="crispan" detail2="ward" start="2024-01-01" end="2024-06-06"
+                id="500"></track-item>
+        </flower-track>
+
+        <flower-track type="TimeSeries" heading="graph" id="111" height="100px">
+            <time-series-item correlationId="item__7" name="graphItem" start="2024-01-01" end="2024-06-06"
+                id="5000">
+                <time-series-plot x="0" y="0"></time-series-plot>
+                <time-series-plot x="0.5" y="0.5"></time-series-plot>
+                <time-series-plot x="1" y="0.2"></time-series-plot>
+            </time-series-item>
+
+            <time-series-item correlationId="bladebla__" name="graphItem" start="2023-01-01" end="2023-06-06"
+                id="5005">
+                <time-series-plot x="0" y="0"></time-series-plot>
+                <time-series-plot x="0.5" y="0.5"></time-series-plot>
+                <time-series-plot x="0.678" y="0.15"></time-series-plot>
+                <time-series-plot x="0.878" y="0.95"></time-series-plot>
+                <time-series-plot x="1" y="0.2"></time-series-plot>
+            </time-series-item>
+
+
+        </flower-track>
+
+
+
+
+        <flower-track type="sequence" heading="second" id="2">
+            <track-item name="simon" start="2023-01-01" end="2024-06-06" id="600" detail1="ward"></track-item>
+            <track-item
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Margaret_Thatcher_%281983%29.jpg/220px-Margaret_Thatcher_%281983%29.jpg"
+                name="william" start="2022-10-07" end="2024-06-06" id="601"></track-item>
+        </flower-track>
+    </flower-time-line>
+
+
+    <script>
+
+
+        Handlebars.registerHelper("plotLine", (width, height, plot) => {
+            widthInt = Number(width.replace("px", ""))
+            heightInt = Number(height.replace("px", ""))
+            retVal = ` 0, ${heightInt} `
+            plot.forEach(element => {
+                retVal += ` ${element.x * widthInt},${heightInt - (element.y * heightInt)} `
+            })
+            retVal += ` ${widthInt}, ${heightInt}   `
+            console.log("plotline" + retVal)
+            return retVal
+        })
+
+
+        dataNode = document.getElementById('tldata');
+        let walker = document.createTreeWalker(dataNode, NodeFilter.SHOW_ELEMENT)
+        var currentNode = walker.currentNode
+        while (currentNode !== null) {
+            currentNode.resolve()
+            currentNode = walker.nextNode()
+        }
+        console.log(TrackItem.groups)
+        var container = document.getElementById('timeline_component');
+        var options = {}
+        var timeline = new vis.Timeline(container, TrackItem.items, options);
+        timeline.setGroups(FlowerTrack.groups);
+        timeline.on('changed', () => Timeline.tlChanged(timeline))
+
+    </script>
+
+
+</body>
+
+</html>

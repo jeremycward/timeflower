@@ -3,6 +3,8 @@
 
 <head>
 	<title>Timeline</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script> 
+	<script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
 		integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -59,8 +61,17 @@
 	</style>
 
 	<script id="item-template" type="text/x-handlebars-template">
+<div>
+<div
+    hx-get="/flowerapp/itemdetail"
+    hx-trigger="click"
+    hx-target="#flowerGridRight"
+    hx-swap="outerHTML"		
+>{{content}}</div>
+</div>
 
-    <EM><span >{{content}}</span></EM>
+
+    <h1><span >{{content}}</span></h1>
   </script>
 
 	<script id="group-template" type="text/x-handlebars-template">
@@ -100,6 +111,16 @@
 
 
 	<script type="text/javascript">
+		
+		window.Split(['#one','#two'],{
+        gutterSize: 10,direction:'horizontal'
+    })
+
+    window.Split(['#two','#three'],{
+        gutterSize: 10,direction:'horizontal'
+    })
+		
+
 		// DOM element where the Timeline will be attached
 		var container = document.getElementById('flowerGridMain');
 
@@ -129,15 +150,20 @@
 		// Configuration for the Timeline
 		var options = {
 			template: template,
-			verticalScroll: true
+			verticalScroll: true,			
 		};
 
 		// Create a Timeline
 		var timeline = new vis.Timeline(container, items, options);
 		timeline.setGroups(groups);
 		timeline.on('select', function (properties) {
-			alert('selected items: ' + properties.items);
+				console.log(properties)
+				htmx.ajax("GET",'http://localhost:8000/flowerapp/itemdetail', { target: '#flowerGridRight',swap:('innerHTML')})
+			
 		});
+
+
+
 	</script>
 </body>
 

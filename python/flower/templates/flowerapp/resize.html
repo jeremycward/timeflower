@@ -1,0 +1,19 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script> 
+</head>
+<div style="display: flex; flex-direction: row;">
+    <div id="one">content one</div>
+    <div id="two">content two</div>
+    <div id="three">content three</div>
+</div>
+<script>
+    window.Split(['#one','#two'],{
+        gutterSize: 10,direction:'horizontal'
+    })
+
+    window.Split(['#two','#three'],{
+        gutterSize: 10,direction:'horizontal'
+    })
+</script>
+</html>

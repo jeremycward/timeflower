@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Timeline</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+	<script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js"
+		integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+		integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript"
+		src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+	<link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+		type="text/css" />
+	<style type="text/css">
+		#flowerGridMain {
+			border: 1px solid red;
+			flex-grow: 100;
+			height: 100vh;
+
+		}
+
+		body {
+			height: 100vh;
+			display: flex;
+			background: black;
+			flex-direction: column;
+			padding: 0;
+			margin: 0px;
+
+		}
+
+		.mainHeader {
+			background-color: aqua;
+		}
+
+		.mainFooter {
+			background-color: blanchedalmond;
+		}
+
+		.mainContent {
+			background-color: lightgray;
+
+			flex-grow: 10;
+		}
+
+		.mainContentFlexLayout {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.flowerGridLeft {
+			width: 10vw;
+			background-color: lightcyan;
+
+		}
+
+		.flowerGridRight {
+			width: 10vw;
+			background-color: lightcyan;
+
+		}
+
+		.graphOverlay {
+			background-color: blueviolet;
+			z-index: 50;
+			position: absolute;
+			overflow: hidden;
+
+		}
+	</style>
+
+	<script id="item-template" type="text/x-handlebars-template">
+<div>
+<div
+    hx-get="/flowerapp/itemdetail"
+    hx-trigger="click"
+    hx-target="#flowerGridRight"
+    hx-swap="outerHTML"		
+>{{content}}</div>
+</div>
+</script>
+
+<script id="svg-template" type="text/x-handlebars-template">
+	<svg width={{width}} height={{height}}>
+		<polyline points ="{{plotLine width height plot}}" style='stroke:white;stroke-width:1;fill:red'/>
+		{{#each ygridLines }}
+		<line x1="0%" stroke-dasharray="5,2"   y1="{{this}}" x2="100%" y2="{{this}}" style="stroke:white; stroke-width:1"></line>
+		{{/each}}	
+	</svg>
+
+</script>
+
+	<script id="group-template" type="text/x-handlebars-template">
+
+    <EM><span>{{name}}</span></EM>
+
+
+  </script>
+
+	
+
+
+	<script id="graph-template" type="text/x-handlebars-template">
+	<div id="{{id}}" class="graphOverlay">	
+	<h5>{{content}}</h5>   
+	</div>
+  </script>
+
+
+
+</head>
+
+<body>
+
+
+
+
+	<div class="mainHeader">
+		<h1>Time FLower</h1>
+	</div>
+
+	<div class="mainContent">
+		<div class="mainContentFlexLayout">
+			<div class="flowerGridLeft" id="flowerGridLeft">
+				LHS
+			</div>
+			<div class="flowerGridMain" id="flowerGridMain">
+
+				<!-- <div class="graphOverlay" id="graph_7">
+					<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img">
+						<title id="title">A line chart showing some information</title>
+					  </svg>		
+				</div> -->
+
+
+
+			</div>
+
+			<div class="flowerGridRight" id="flowerGridRight">
+				RHS
+			</div>
+		</div>
+	</div>
+
+	<div class="mainFooter">
+		<h1>footer</h1>
+	</div>
+
+
+	<script type="text/javascript">
+        Handlebars.registerHelper("plotLine",(width,height, plot)=>{
+			widthInt = Number(width.replace("px",""))
+			heightInt = Number(height.replace("px","")) 
+			retVal= ` 0, ${heightInt} `
+			plot.forEach(element => {
+				retVal += ` ${element.x * widthInt},${heightInt - (element.y * heightInt)} `				
+			})
+			retVal += ` ${widthInt}, ${heightInt}   `
+			console.log("plotline" + retVal)
+			return retVal
+		})
+
+		var svgsource = document.getElementById('svg-template').innerHTML;		
+		var svgTemplate = Handlebars.compile(svgsource);
+
+		function tlChanged(timeLine) { 
+			var graphItemNode = document.getElementsByClassName("item__7")[0]			
+			
+			graphItemNode.innerHTML =svgTemplate(
+				{
+					ygridLines: ["10%","20%","30%","40%","50%","60%", "70%", "80%","90%"],
+					height:graphItemNode.style.height,
+					width:graphItemNode.style.width,
+					plot: [
+						   {x:0,y:0.75},
+						   {x:0.1,y:0.1},
+						   {x:0.2,y:0.3},
+						   {x:0.3,y:0.14},
+						   {x:0.4,y:0.04},
+						   {x:0.5,y:0.23384},
+						   {x:0.6,y:0.6},
+						   {x:0.7,y:0.3},
+						   {x:0.8,y:0.19},
+						   {x:0.88,y:0.3},
+					       {x:1,y:0.5},
+						   {x:1,y:0}
+						  ]
+				}) 
+
+
+
+
+		}
+		// DOM element where the Timeline will be attached
+		var container = document.getElementById('flowerGridMain');
+
+
+
+		var source = document.getElementById('graph-template').innerHTML;
+		var groupSource = document.getElementById('group-template').innerHTML;
+
+		var template = Handlebars.compile(source);
+		var groupTemplate = Handlebars.compile(groupSource);
+
+
+		var groups = [
+			{ id: 1, content: 'Group 1', className: 'group__1' },
+			{ id: 2, content: 'Group 2' },
+			{ id: 3, content: 'Group 3' },
+			{ id: 4, content: 'Group 4' },
+			{ id: 5, content: 'Group 5', className: 'group__5' }
+
+			// more groups...
+		];
+
+		// Create a DataSet (allows two way data-binding)
+		var items = new vis.DataSet([
+			{ id: 1, content: 'item 1', start: '2014-04-20', group: 1 },
+			{ id: 2, content: 'item 2', start: '2014-04-14', group: 2 },
+			{ id: 3, content: 'item 3', start: '2014-04-18', group: 3 },
+			{ id: 4, content: 'item 4', start: '2014-04-16', end: '2014-01-01', group: 3 },
+			{ id: 5, content: 'item 5', start: '2014-04-25', group: 1 },
+			{ id: 6, content: 'item 6', start: '2014-04-27', type: 'point', group: 1 },
+			{ id: 7, start: '2014-01-01', end: '2015-01-01', group: 4, content: "graph7content", className: "item__7", style: "height:100px" }
+		]);
+
+		// Configuration for the Timeline
+		var options = {
+			//template: template,
+			verticalScroll: true
+
+		};
+
+		// Create a Timeline
+		var timeline = new vis.Timeline(container, items, options);
+		timeline.setGroups(groups);
+		//timeline.on('changed', () => tlChanged(timeline))
+
+
+
+
+
+	</script>
+
+
+
+
+</body>
+
+</html>

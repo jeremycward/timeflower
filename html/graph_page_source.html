@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Timeline</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+	<script src="https://unpkg.com/htmx.org@1.9.12"
+		integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+	<link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+		type="text/css" />
+	<style type="text/css">
+		#flowerGridMain {
+			border: 3px solid darkgrey ;
+			flex-grow: 100;
+			height: 100vh;
+
+		}
+
+		body {
+			height: 100vh;
+			display: flex;
+			background: black;
+			flex-direction: column;
+			padding: 0;
+			margin: 0px;
+			font-size: small;
+			font-family: sans-serif;
+
+		}
+
+		.mainHeader {
+			background-color: aqua;
+		}
+
+		.mainFooter {
+			background-color: blanchedalmond;
+		}
+
+		.mainContent {
+			background-color: lightgray;
+			resize: both;
+
+			flex-grow: 10;
+		}
+
+		.mainContentFlexLayout {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.flowerGridLeft {
+			width: 10vw;
+			background-color: lightcyan;
+
+		}
+
+		.flowerGridRight {
+			width: 10vw;
+			background-color: lightcyan;
+			resize: both;
+
+		}
+
+
+		.vis-item {
+			border-color: darkgray;
+			background-color: whitesmoke;
+			font-size: xx-small;
+		}
+
+		.vis-item-content-layout {
+			display: flex;
+			flex-direction: row;
+		}
+	</style>
+
+
+
+
+
+</head>
+
+<body>
+
+
+	<div class="mainHeader">
+		<h1>Time Flower</h1>
+	</div>
+
+	<div class="mainContent">
+		<div class="mainContentFlexLayout">
+			<div class="flowerGridLeft" id="flowerGridLeft">
+				LHS
+			</div>
+			<div class="flowerGridMain" id="flowerGridMain">
+
+			</div>
+
+			<div class="flowerGridRight" id="flowerGridRight">
+				RHS
+			</div>
+		</div>
+	</div>
+
+	<div class="mainFooter">
+	</div>
+
+
+	<script type="text/javascript">
+
+		window.Split(['#flowerGridMain','#flowerGridRight'], {
+			gutterSize: 10, direction: 'horizontal', sizes: [75,25]
+		})
+
+
+
+
+		// DOM element where the Timeline will be attached
+		var container = document.getElementById('flowerGridMain');
+
+
+
+		var groups = [{'id': 1, 'content': '<div style="background-color: white;">\n    <h2>UK Prime Ministers</h2>\n</div>\n'}, 
+                      {'id': 2, 'content': '<div style="background-color: white;">\n    <h2>UK No 1 Hits</h2>\n</div>\n'}, 
+                      {'id': 3, 'content': '<div style="background-color: white;">\n    <h2>UK Unemployment</h2>\n</div>\n'}];
+
+		var items = [
+            {"id": 15, "start": "1937-05-28 00:00:00", "end": "1940-05-10 00:00:00", "group": 1, 
+            "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Chamberlain_Neville.jpg/220px-Chamberlain_Neville.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Neville Chamberlain</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 12, "start": "1940-05-10 00:00:00", "end": "1945-06-26 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sir_Winston_Churchill_%28cropped%29.jpg/220px-Sir_Winston_Churchill_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Winston Churchill</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 13, "start": "1945-06-26 00:00:00", "end": "1951-10-26 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Clement_Attlee_%28cropped%29.jpg/220px-Clement_Attlee_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Clement Atlee</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 14, "start": "1951-10-26 00:00:00", "end": "1955-04-06 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sir_Winston_Churchill_%28cropped%29.jpg/220px-Sir_Winston_Churchill_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Winston Churchill</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 11, "start": "1955-04-06 00:00:00", "end": "1957-01-10 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Anthony_Eden_%28retouched%29_%28cropped%29.jpg/220px-Anthony_Eden_%28retouched%29_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Anthony Eden</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 3, "start": "1957-01-10 00:00:00", "end": "1957-01-10 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Harold Macmillan</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 10, "start": "1957-01-10 00:00:00", "end": "1963-10-18 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Harold_Macmillan_%28cropped%29.jpg/220px-Harold_Macmillan_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Harold Macmillan</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 8, "start": "1963-10-18 00:00:00", "end": "1964-10-16 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Alec_Douglas-Home_%28c1963%29_%28cropped%29.jpg/220px-Alec_Douglas-Home_%28c1963%29_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Alec Douglas Hume</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 9, "start": "1964-10-16 00:00:00", "end": "1970-06-19 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Harold Wilson</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 2, "start": "1970-06-19 00:00:00", "end": "1974-03-04 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Edward_Heath_%28cropped%29.jpg/220px-Edward_Heath_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Ted Heath</b></div>\n                <div>Cons.</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 16, "start": "1974-03-04 00:00:00", "end": "1976-04-05 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Harold Wilson</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 4, "start": "1976-04-05 00:00:00", "end": "1979-05-04 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Prime_Minister_James_Callaghan_%28cropped%29.jpg/220px-Prime_Minister_James_Callaghan_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>James Callaghan</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 5, "start": "1979-05-04 00:00:00", "end": "1990-11-28 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Margaret_Thatcher_%281983%29.jpg/220px-Margaret_Thatcher_%281983%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Margaret Thatcher</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 6, "start": "1990-11-28 00:00:00", "end": "1997-05-02 00:00:00", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Major_PM_full_%28cropped%29.jpg/220px-Major_PM_full_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>John Major</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 7, "start": "1997-05-02 00:00:00", "end": "None", "group": 1, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tony_Blair_in_2002_%28cropped%29.jpg/220px-Tony_Blair_in_2002_%28cropped%29.jpg\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Tony Blair</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "box"}, {"id": 17, "start": "1995-03-12 00:00:00", "end": "1995-07-02 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://th.bing.com/th?id=OVFT.IcQnjpkemb6_VNnCzUbrji&amp;pid=News&amp;w=80&amp;h=80&amp;c=14&amp;rs=2&amp;qlt=90&amp;dpr=1.4\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>MIchael Jackson</b></div>\n                <div>Earth Song</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 25, "start": "1995-07-02 00:00:00", "end": "1995-07-30 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n            </td>\n            <td>\n                <div><b>The Outhere Brohers</b></div>\n                <div>Boom Boom Boom</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 24, "start": "1995-07-30 00:00:00", "end": "1995-08-20 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n            </td>\n            <td>\n                <div><b>Take That</b></div>\n                <div>Never Forget</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 23, "start": "1995-08-20 00:00:00", "end": "1995-09-03 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n            </td>\n            <td>\n                <div><b>Blur</b></div>\n                <div>Country House</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 22, "start": "1995-09-03 00:00:00", "end": "1995-09-17 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n            </td>\n            <td>\n                <div><b>Michael Jackson</b></div>\n                \n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 21, "start": "1995-09-17 00:00:00", "end": "1995-09-24 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n            </td>\n            <td>\n                <div><b>Shaggy</b></div>\n                <div>Bombastic</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 20, "start": "1995-09-24 00:00:00", "end": "1995-10-22 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://www.bing.com/th?id=OPEC.3k%2f1IVDp7Mg6kw474C474&amp;o=5&amp;pid=21.1&amp;w=148&amp;h=163&amp;qlt=100&amp;dpr=1.4&amp;bw=6&amp;bc=FFFFFF\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Simply Red</b></div>\n                <div>Fairgound</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 19, "start": "1995-10-22 00:00:00", "end": "1995-11-05 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://th.bing.com/th?id=OSK.mmcol8OrxoKUPeTxkOSmKQWEowpCqjDGuc3UZwPTFGV6vQc4&amp;w=76&amp;h=100&amp;c=8&amp;o=6&amp;dpr=1.4&amp;pid=SANGAM\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Coolio featuring LV</b></div>\n                <div>Ganstas Paradise</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", "type": "range"}, {"id": 18, "start": "1995-11-05 00:00:00", "end": "1996-05-05 00:00:00", "group": 2, "content": "<div class=\"vis-item-content-layout\">\n\n    <table>\n        <tr>           \n            \n            <td>\n                \n                <div><img alt=\"photograph\" src=\"https://www.bing.com/th?id=OPEC.I6FR3ie31db6bw474C474&amp;o=5&amp;pid=21.1&amp;w=160&amp;h=160&amp;qlt=100&amp;dpr=1.4&amp;c=8&amp;pcl=f5f5f5\" width=\"30\" , height=\"40\" /></div>\n                \n            </td>\n            <td>\n                <div><b>Robson and Jerome</b></div>\n                <div>I Believe</div>\n                \n                \n            </td>\n        </tr>\n    </table>\n    \n\n\n\n</div>", 
+            "type": "range"}];
+
+
+		// Configuration for the Timeline
+		var options = {
+			stack: true,
+			verticalScroll: true
+
+		};
+
+		// Create a Timeline
+		var timeline = new vis.Timeline(container, items, options);
+		timeline.setGroups(groups);
+
+
+		timeline.on('select', function (properties) {
+			htmx.ajax("GET", '/flowerapp/itemdetail', { target: '#flowerGridRight', swap: ('innerHTML'), values: { itemId: properties.items[0] } })
+
+		}
+		);
+
+
+	</script>
+
+
+
+
+
+
+
+</body>
+
+</html>

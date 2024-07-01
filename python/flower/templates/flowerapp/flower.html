@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Timeline</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+	<script src="https://unpkg.com/htmx.org@1.9.12"
+		integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+	<link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+		type="text/css" />
+	<style type="text/css">
+		#flowerGridMain {
+			border: 3px solid darkgrey ;
+			flex-grow: 100;
+			height: 100vh;
+
+		}
+
+		body {
+			height: 100vh;
+			display: flex;
+			background: black;
+			flex-direction: column;
+			padding: 0;
+			margin: 0px;
+			font-size: small;
+			font-family: sans-serif;
+
+		}
+
+		.mainHeader {
+			background-color: aqua;
+		}
+
+		.mainFooter {
+			background-color: blanchedalmond;
+		}
+
+		.mainContent {
+			background-color: lightgray;
+			resize: both;
+
+			flex-grow: 10;
+		}
+
+		.mainContentFlexLayout {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.flowerGridLeft {
+			width: 10vw;
+			background-color: lightcyan;
+
+		}
+
+		.flowerGridRight {
+			width: 10vw;
+			background-color: lightcyan;
+			resize: both;
+
+		}
+
+
+		.vis-item {
+			border-color: darkgray;
+			background-color: whitesmoke;
+			font-size: xx-small;
+		}
+
+		.vis-item-content-layout {
+			display: flex;
+			flex-direction: row;
+		}
+	</style>
+
+
+
+
+</head>
+
+<body>
+
+
+	<div class="mainHeader">
+		<h1>Time Flower</h1>
+	</div>
+
+	<div class="mainContent">
+		<div class="mainContentFlexLayout">
+			<div class="flowerGridLeft" id="flowerGridLeft">
+				LHS
+			</div>
+			<div class="flowerGridMain" id="flowerGridMain">
+
+			</div>
+
+			<div class="flowerGridRight" id="flowerGridRight">
+				RHS
+			</div>
+		</div>
+	</div>
+
+	<div class="mainFooter">
+	</div>
+
+
+	<script type="text/javascript">
+
+		window.Split(['#flowerGridMain','#flowerGridRight'], {
+			gutterSize: 10, direction: 'horizontal', sizes: [75,25]
+		})
+
+
+
+
+		// DOM element where the Timeline will be attached
+		var container = document.getElementById('flowerGridMain');
+
+
+
+		var groups = {{ jsonGroups }};
+
+		var items = {{ jsonItems }};
+
+
+		// Configuration for the Timeline
+		var options = {
+			stack: true,
+			verticalScroll: true
+
+		};
+
+		// Create a Timeline
+		var timeline = new vis.Timeline(container, items, options);
+		timeline.setGroups(groups);
+
+
+		timeline.on('select', function (properties) {
+			htmx.ajax("GET", '/flowerapp/itemdetail', { target: '#flowerGridRight', swap: ('innerHTML'), values: { itemId: properties.items[0] } })
+
+		}
+		);
+
+
+	</script>
+
+
+
+
+
+
+
+</body>
+
+</html>

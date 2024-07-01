@@ -1,0 +1,18 @@
+<div class="vis-item-content-layout">
+    <table>
+        <tr>           
+            
+            <td>
+                {% if item.img %}
+                <div><img alt="photograph" src="{{item.img}}" width="30" , height="40" /></div>
+                {% endif %}
+            </td>
+            <td> 
+                <div><b>{{item.name}}</b></div>
+                {% if item.detail1 is not Null %}<div>{{item.detail1}}</div>{% endif %}
+                {% if item.detail2 is not Null %}<div>{{item.detail2}}</div>{% endif %}
+                
+            </td>
+        </tr>
+    </table>
+</div>
