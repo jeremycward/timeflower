@@ -10,7 +10,7 @@ class CustomTimeSeriesPlotPointImportFormMixin(forms.Form):
 
 
 class CustomTimeSeriesPlotPointImportForm(CustomTimeSeriesPlotPointImportFormMixin,ImportForm):
-   pass
+    pass
     
 class CustomConfirmTimeSeriesPlotPointImportForm (CustomTimeSeriesPlotPointImportFormMixin, ConfirmImportForm) :
     pass

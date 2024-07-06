@@ -127,8 +127,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+
     "handlers": {"console": {"class": "logging.StreamHandler" , "level" : "DEBUG"}},
+
     "root": {
         "handlers": ["console"],
     },
+     "loggers": {
+        "django.db.backends": {"level": "INFO", "handlers": ["console"]},
+        "import_export": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+    
 }

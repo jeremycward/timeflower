@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .time_span_utils import build_widgets_from_items  
+from .time_span_utils import build_widgets_from_items  ,build_normalised_plot_points
 from .models import Track, Item
 from django.utils.safestring import SafeString
 # Create your views here.

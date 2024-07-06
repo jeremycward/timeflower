@@ -1,10 +1,12 @@
 import os
+from pathlib import Path
 import datetime
+from typing import List
 import tablib
 from tablib import Dataset
 from django.test import TestCase
 from flowerapp.models import Item, TimeSeriesPlotPoint,Track
-from flowerapp.time_span_utils import TimelineItemWidget, build_widgets_from_items, build_normalised_plot_points
+from flowerapp.time_span_utils import build_widgets_from_items, build_normalised_plot_points,NormalisedTimeSeriesPlotPoint,TimelineItemWidget
 from import_export import resources
 from import_export.resources import ModelResource
 
@@ -186,10 +188,13 @@ class ItemModelTests(TestCase):
         self.assertEqual(len(track1),1)
         childItems = TimeSeriesPlotPoint.objects.filter(track__id__exact=trackId)
         self.assertEqual(len(childItems),339)
-        build_normalised_plot_points(childItems)
-        
-
-
+        result : List[NormalisedTimeSeriesPlotPoint] = build_normalised_plot_points(childItems)
+        self.assertEqual(result[0].x,0)
+        self.assertEqual(result[0].pp.date.year,2018)
+        self.assertAlmostEqual(result[0].pp.value,120.19)
+        self.assertAlmostEqual(result[236].pp.value,190.63)        
+        self.assertAlmostEqual(result[236].y,0.9893862482)        
+        self.assertAlmostEqual(result[235].y,1.0)        
         
     @classmethod
     def setUpTestData(cls):        
@@ -197,10 +202,11 @@ class ItemModelTests(TestCase):
         print(cwd)
         # Set up data for the whole TestCase
         cls.Track = Track.objects.create(name='tst', itemType='EVE')
-        # read timetrack csv
-        
-        pp = open("python\\flower\\flowerapp\\importdata\\petrol_pump.csv",'r')
+        importFile =  Path(__file__).parent / "importdata" / "petrol_pump.csv"
+        pp = importFile.open()
         cls.imported_petrol_pump_data = Dataset().load(pp)
+        
+        
         
             
         

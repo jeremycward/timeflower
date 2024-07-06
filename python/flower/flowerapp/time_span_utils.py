@@ -4,14 +4,11 @@ from dataclasses import dataclass
 import numpy as np
 from flowerapp.models import TimeSeriesPlotPoint
 
-
-
 def date_time_combine(calendarDate,timeOfDay):
     ret_val = None
     if calendarDate !=None:
         ret_val = datetime.combine(calendarDate,datetime.min.time() if timeOfDay is None else timeOfDay)
     return ret_val            
-
 
 class TimelineItemWidget:
     def __init__(self,item,nextItem,groupId,itemContent):        
@@ -59,67 +56,39 @@ def build_normalised_plot_points(plotPoints):
     dates = []
     values = []
     
+    firstDate = plotPoints[0].date
+    lastDate = plotPoints[len(plotPoints)-1].date 
+    minTime = datetime.combine(firstDate,datetime.min.time())
+    maxTime = datetime.combine(lastDate,datetime.min.time())
     
-    
+    maxDurationSeconds = (maxTime - minTime).total_seconds()
     
     
     for pp in plotPoints:
+        startTime = date_time_combine (pp.date,datetime.min.time())
+        durationFromStart = (startTime - minTime)
+        normalisedDuration = durationFromStart.total_seconds() / maxDurationSeconds    
+        dates.append(normalisedDuration)
+        values.append(pp.value)            
         
-        dates.append(date_time_combine (pp.date,datetime.min.time()))
-        values.append(pp.value)
         
-                
         
-    npArray = np.array((dates,values))  
-    minTime = npArray[0,0].time()
-    maxTime =npArray[0,len(dates)-1].time()
-    minValue =  np.min(npArray,1)[1]  
-    maxValue = np.max(npArray,1)[1]
+    npArray = np.array([dates,values,plotPoints])  
+    minValue =  np.min(npArray[1]) 
+    maxValue = np.max(npArray[1])
+    maxRange = maxValue - minValue
+
+    for index, element in enumerate(npArray[1]) :
+        normalisedValue = (element - minValue) / maxRange                  
+        npArray[1][index]  = normalisedValue            
     
-    print (minValue)   
-    print (maxValue)
-    print (minTime)
-    print (maxTime)
-    
-    
-    
-        
-        
+    return [ NormalisedTimeSeriesPlotPoint(pp=element[2],x=element[0],y=element[1] ) for element in np.transpose(npArray)]
     
 
 
 @dataclass
 class NormalisedTimeSeriesPlotPoint:
-    x:int
-    y:int
-    date: datetime.date
-    value: float
-        
-    
-    
-                
-    
-    
-    
-    
-      
-      
-    
-
-              
-        
-
-        
-        
-
-    
-    
-    
-    
-    
-            
-        
-        
-        
-    
+    x:float
+    y:float
+    pp:TimeSeriesPlotPoint
     

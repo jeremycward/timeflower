@@ -18,6 +18,14 @@ class Track(models.Model):
     def __str__(self):
         return 'Track:' + self.name + 'Id:' + str(self.id)
 
+    def event_items(self):
+        return Item.objects.filter(track__id__exact=self.id)
+    
+    def event_items(self):
+        return Item.objects.filter(track__id__exact=self.id)
+    
+
+
 
 class Item(models.Model):    
     track = models.ForeignKey(Track, on_delete=models.CASCADE)    

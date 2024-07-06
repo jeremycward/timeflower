@@ -1,0 +1,56 @@
+<flower-time-line target="timeline_component" id="tldata">
+    {% for track in  tracks %}
+       <flower-track type="{{track.itemType}}" id='{{track.id}}'></flower-track>
+       {% if track.itemType == "SER" %}
+          {% for eventItem in track.event_items %}
+             <track-item 
+             name="{{eventItem.name}}"
+             detail1="{{eventItem.detail1}}"
+             detail2="{{eventItem.detail2 | default:''}}">
+            </track-item>
+          {% endfor%}
+       {% elif track.itemType == "TSE" %}
+        <time-series-item></time-series-item>
+       {% endif %}
+
+
+    {% endfor%}
+
+
+</flower-time-line>
+
+
+
+
+{% comment %} </flower-time-line>
+
+<flower-time-line target="timeline_component" id="tldata">
+    <flower-track type="sequence" heading="hello" id="1">
+        <track-item name="jeremy" detail1="crispan" detail2="ward" start="2024-01-01" end="2024-06-06"
+            id="500"></track-item>
+    </flower-track>
+
+    <flower-track type="TimeSeries" heading="graph" id="111" height="100px">
+        <time-series-item correlationId="item__7" name="graphItem" start="2024-01-01" end="2024-06-06"
+            id="5000">
+            <time-series-plot x="0" y="0"></time-series-plot>
+            <time-series-plot x="0.5" y="0.5"></time-series-plot>
+            <time-series-plot x="1" y="0.2"></time-series-plot>
+        </time-series-item>
+
+        <time-series-item correlationId="bladebla__" name="graphItem" start="2023-01-01" end="2023-06-06"
+            id="5005">
+            <time-series-plot x="0" y="0"></time-series-plot>
+            <time-series-plot x="0.5" y="0.5"></time-series-plot>
+            <time-series-plot x="0.678" y="0.15"></time-series-plot>
+            <time-series-plot x="0.878" y="0.95"></time-series-plot>
+            <time-series-plot x="1" y="0.2"></time-series-plot>
+        </time-series-item>
+
+
+    </flower-track>
+
+
+
+
+</flower-time-line> {% endcomment %}
