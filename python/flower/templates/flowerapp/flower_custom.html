@@ -132,7 +132,7 @@
 
             replaceHtmlTimeSeriesItemContent() {
                 var replacementTarget = document.getElementById(this.correlationId)
-                
+                if (replacementTarget !==null){
                 var replacementHTML =
                     TimeSeriesItem.svgTemplate(
                         {                            
@@ -143,6 +143,9 @@
                             
                         })
                        replacementTarget.innerHTML = replacementHTML
+
+                }
+                
 
             }
             resolve() {
@@ -180,42 +183,827 @@
 
 <body>
     <div id="timeline_component"></div>
-    <flower-time-line target="timeline_component" id="tldata">
-        <flower-track type="sequence" heading="hello" id="1">
-            <track-item name="jeremy" detail1="crispan" detail2="ward" start="2024-01-01" end="2024-06-06"
-                id="500"></track-item>
-        </flower-track>
 
-        <flower-track type="TimeSeries" heading="graph" id="111" height="100px">
-            <time-series-item correlationId="item__7" name="graphItem" start="2024-01-01" end="2024-06-06"
-                id="5000">
-                <time-series-plot x="0" y="0"></time-series-plot>
-                <time-series-plot x="0.5" y="0.5"></time-series-plot>
-                <time-series-plot x="1" y="0.2"></time-series-plot>
-            </time-series-item>
+<flower-time-line target="timeline_component" id="tldata">
+    
+       
+       
+       <flower-track type="sequence" heading="UK Prime Ministers" id="1">
 
-            <time-series-item correlationId="bladebla__" name="graphItem" start="2023-01-01" end="2023-06-06"
-                id="5005">
-                <time-series-plot x="0" y="0"></time-series-plot>
-                <time-series-plot x="0.5" y="0.5"></time-series-plot>
-                <time-series-plot x="0.678" y="0.15"></time-series-plot>
-                <time-series-plot x="0.878" y="0.95"></time-series-plot>
-                <time-series-plot x="1" y="0.2"></time-series-plot>
-            </time-series-item>
+        <track-item name="Neville Chamberlain" detail1="None" detail2="None" start="1937-05-28 00:00:00" end="1940-05-10 00:00:00"
+            id="15"></track-item>    
+
+        <track-item name="Winston Churchill" detail1="None" detail2="None" start="1940-05-10 00:00:00" end="1945-06-26 00:00:00"
+            id="12"></track-item>    
+
+        <track-item name="Clement Atlee" detail1="None" detail2="None" start="1945-06-26 00:00:00" end="1951-10-26 00:00:00"
+            id="13"></track-item>    
+
+        <track-item name="Winston Churchill" detail1="None" detail2="None" start="1951-10-26 00:00:00" end="1955-04-06 00:00:00"
+            id="14"></track-item>    
+
+        <track-item name="Anthony Eden" detail1="None" detail2="None" start="1955-04-06 00:00:00" end="1957-01-10 00:00:00"
+            id="11"></track-item>    
+
+        <track-item name="Harold Macmillan" detail1="None" detail2="None" start="1957-01-10 00:00:00" end="1957-01-10 00:00:00"
+            id="3"></track-item>    
+
+        <track-item name="Harold Macmillan" detail1="None" detail2="None" start="1957-01-10 00:00:00" end="1963-10-18 00:00:00"
+            id="10"></track-item>    
+
+        <track-item name="Alec Douglas Hume" detail1="None" detail2="None" start="1963-10-18 00:00:00" end="1964-10-16 00:00:00"
+            id="8"></track-item>    
+
+        <track-item name="Harold Wilson" detail1="None" detail2="None" start="1964-10-16 00:00:00" end="1970-06-19 00:00:00"
+            id="9"></track-item>    
+
+        <track-item name="Ted Heath" detail1="Cons." detail2="None" start="1970-06-19 00:00:00" end="1974-03-04 00:00:00"
+            id="2"></track-item>    
+
+        <track-item name="Harold Wilson" detail1="None" detail2="None" start="1974-03-04 00:00:00" end="1976-04-05 00:00:00"
+            id="16"></track-item>    
+
+        <track-item name="James Callaghan" detail1="None" detail2="None" start="1976-04-05 00:00:00" end="1979-05-04 00:00:00"
+            id="4"></track-item>    
+
+        <track-item name="Margaret Thatcher" detail1="None" detail2="None" start="1979-05-04 00:00:00" end="1990-11-28 00:00:00"
+            id="5"></track-item>    
+
+        <track-item name="John Major" detail1="None" detail2="None" start="1990-11-28 00:00:00" end="1997-05-02 00:00:00"
+            id="6"></track-item>    
+
+        <track-item name="Tony Blair" detail1="None" detail2="None" start="1997-05-02 00:00:00" end="None"
+            id="7"></track-item>    
 
 
-        </flower-track>
+</flower-track>
 
 
 
 
-        <flower-track type="sequence" heading="second" id="2">
-            <track-item name="simon" start="2023-01-01" end="2024-06-06" id="600" detail1="ward"></track-item>
-            <track-item
-                img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Margaret_Thatcher_%281983%29.jpg/220px-Margaret_Thatcher_%281983%29.jpg"
-                name="william" start="2022-10-07" end="2024-06-06" id="601"></track-item>
-        </flower-track>
-    </flower-time-line>
+
+    
+
+       
+
+
+    
+       
+       
+       <flower-track type="sequence" heading="UK No 1 Hits" id="2">
+
+        <track-item name="MIchael Jackson" detail1="Earth Song" detail2="None" start="1995-03-12 00:00:00" end="1995-07-02 00:00:00"
+            id="17"></track-item>    
+
+        <track-item name="The Outhere Brohers" detail1="Boom Boom Boom" detail2="None" start="1995-07-02 00:00:00" end="1995-07-30 00:00:00"
+            id="25"></track-item>    
+
+        <track-item name="Take That" detail1="Never Forget" detail2="None" start="1995-07-30 00:00:00" end="1995-08-20 00:00:00"
+            id="24"></track-item>    
+
+        <track-item name="Blur" detail1="Country House" detail2="None" start="1995-08-20 00:00:00" end="1995-09-03 00:00:00"
+            id="23"></track-item>    
+
+        <track-item name="Michael Jackson" detail1="None" detail2="None" start="1995-09-03 00:00:00" end="1995-09-17 00:00:00"
+            id="22"></track-item>    
+
+        <track-item name="Shaggy" detail1="Bombastic" detail2="None" start="1995-09-17 00:00:00" end="1995-09-24 00:00:00"
+            id="21"></track-item>    
+
+        <track-item name="Simply Red" detail1="Fairgound" detail2="None" start="1995-09-24 00:00:00" end="1995-10-22 00:00:00"
+            id="20"></track-item>    
+
+        <track-item name="Coolio featuring LV" detail1="Ganstas Paradise" detail2="None" start="1995-10-22 00:00:00" end="1995-11-05 00:00:00"
+            id="19"></track-item>    
+
+        <track-item name="Robson and Jerome" detail1="I Believe" detail2="None" start="1995-11-05 00:00:00" end="1996-05-05 00:00:00"
+            id="18"></track-item>    
+
+
+</flower-track>
+
+
+
+
+
+    
+
+       
+
+
+    
+       
+       
+       <flower-track type="TSE" id='3' heading="UK Unemployment" height="100px">
+          <time-series-item correlationId ="" name="" start="", end="" >
+                    
+</time-series-item>
+
+        
+
+       </flower-track>          
+       
+
+
+    
+       
+       
+       <flower-track type="TSE" id='4' heading="Cost of living" height="100px">
+          <time-series-item correlationId ="4" name="Cost of living" start="2018-01-01", end="2024-06-24" >
+         
+                    <time-series-plot x="0.0" y="0.17674203968620203" value="120.19" date= "Jan. 1, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.0029585798816568047" y="0.18054914628518678" value="120.52" date= "Jan. 8, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.005917159763313609" y="0.18562528841716644" value="120.96" date= "Jan. 15, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.008875739644970414" y="0.19185509921550523" value="121.5" date= "Jan. 22, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.011834319526627219" y="0.19404706968158736" value="121.69" date= "Jan. 29, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.014792899408284023" y="0.19450853714813104" value="121.73" date= "Feb. 5, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.01775147928994083" y="0.19277803414859243" value="121.58" date= "Feb. 12, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.020710059171597635" y="0.18054914628518678" value="120.52" date= "Feb. 19, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.023668639053254437" y="0.16935856022150428" value="119.55" date= "Feb. 26, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.026627218934911243" y="0.16635902168897093" value="119.29" date= "March 5, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.029585798816568046" y="0.16428241808952462" value="119.11" date= "March 12, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.03254437869822485" y="0.16497461928934007" value="119.17" date= "March 19, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.03550295857988166" y="0.1656668204891555" value="119.23" date= "March 26, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.038461538461538464" y="0.16797415782187358" value="119.43" date= "April 2, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.04142011834319527" y="0.17408860175357624" value="119.96" date= "April 9, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.04437869822485207" y="0.18101061375173047" value="120.56" date= "April 16, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.047337278106508875" y="0.1911628980156898" value="121.44" date= "April 23, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.05029585798816568" y="0.20016151361329018" value="122.22" date= "April 30, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.05325443786982249" y="0.21227503461005987" value="123.27" date= "May 7, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.05621301775147929" y="0.22438855560682958" value="124.32" date= "May 14, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.05917159763313609" y="0.24296262113520997" value="125.93" date= "May 21, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.0621301775147929" y="0.2619981541301337" value="127.58" date= "May 28, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.0650887573964497" y="0.2718043377941855" value="128.43" date= "June 4, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.06804733727810651" y="0.27388094139363184" value="128.61" date= "June 11, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.07100591715976332" y="0.26592062759575447" value="127.92" date= "June 18, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.07396449704142012" y="0.25738347946469775" value="127.18" date= "June 25, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.07692307692307693" y="0.25" value="126.54" date= "July 2, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.07988165680473373" y="0.2549607752653437" value="126.97" date= "July 9, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.08284023668639054" y="0.2607291185971388" value="127.47" date= "July 16, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.08579881656804733" y="0.2610752191970465" value="127.5" date= "July 23, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.08875739644970414" y="0.2615366866635902" value="127.54" date= "July 30, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.09171597633136094" y="0.26707429626211354" value="128.02" date= "Aug. 6, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.09467455621301775" y="0.27134287032764165" value="128.39" date= "Aug. 13, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.09763313609467456" y="0.27595754499307784" value="128.79" date= "Aug. 20, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.10059171597633136" y="0.28045685279187815" value="129.18" date= "Aug. 27, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.10355029585798817" y="0.2871481310567603" value="129.76" date= "Sept. 3, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.10650887573964497" y="0.29268574065528385" value="130.24" date= "Sept. 10, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.10946745562130178" y="0.29672358098754037" value="130.59" date= "Sept. 17, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.11242603550295859" y="0.29672358098754037" value="130.59" date= "Sept. 24, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.11538461538461539" y="0.28968620212275015" value="129.98" date= "Oct. 1, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.11834319526627218" y="0.29164743885556066" value="130.15" date= "Oct. 8, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.12130177514792899" y="0.29926165205353017" value="130.81" date= "Oct. 15, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1242603550295858" y="0.30122288878634035" value="130.98" date= "Oct. 22, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.12721893491124261" y="0.29730041532071966" value="130.64" date= "Oct. 29, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1301775147928994" y="0.29118597138901714" value="130.11" date= "Nov. 5, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.13313609467455623" y="0.2776880479926164" value="128.94" date= "Nov. 12, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.13609467455621302" y="0.2599215505306876" value="127.4" date= "Nov. 19, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1390532544378698" y="0.24111675126903542" value="125.77" date= "Nov. 26, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.14201183431952663" y="0.22415782187355782" value="124.3" date= "Dec. 3, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.14497041420118342" y="0.20189201661282877" value="122.37" date= "Dec. 10, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.14792899408284024" y="0.18631748961698189" value="121.02" date= "Dec. 17, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.15088757396449703" y="0.18158744808490995" value="120.61" date= "Dec. 24, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.15384615384615385" y="0.17662667281956623" value="120.18" date= "Dec. 31, 2018"></time-series-plot>                    
+         
+                    <time-series-plot x="0.15680473372781065" y="0.17766497461928923" value="120.27" date= "Jan. 7, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.15976331360946747" y="0.16912782648823252" value="119.53" date= "Jan. 14, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.16272189349112426" y="0.1643977849561606" value="119.12" date= "Jan. 21, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.16568047337278108" y="0.16635902168897093" value="119.29" date= "Jan. 28, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.16863905325443787" y="0.16451315182279638" value="119.13" date= "Feb. 4, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.17159763313609466" y="0.16266728195662197" value="118.97" date= "Feb. 11, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.17455621301775148" y="0.16359021688970918" value="119.05" date= "Feb. 18, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.17751479289940827" y="0.16555145362251952" value="119.22" date= "Feb. 25, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1804733727810651" y="0.17131979695431465" value="119.72" date= "March 4, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1834319526627219" y="0.17570373788647886" value="120.1" date= "March 11, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1863905325443787" y="0.18008767881864327" value="120.48" date= "March 18, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1893491124260355" y="0.18412551915089978" value="120.83" date= "March 25, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.19230769230769232" y="0.19416243654822332" value="121.7" date= "April 1, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.1952662721893491" y="0.206275957544993" value="122.75" date= "April 8, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.19822485207100593" y="0.22138901707429623" value="124.06" date= "April 15, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.20118343195266272" y="0.23719427780341487" value="125.43" date= "April 22, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.20414201183431951" y="0.2479233964005537" value="126.36" date= "April 29, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.20710059171597633" y="0.2610752191970465" value="127.5" date= "May 6, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.21005917159763313" y="0.2664974619289339" value="127.97" date= "May 13, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.21301775147928995" y="0.27272727272727254" value="128.51" date= "May 20, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.21597633136094674" y="0.27999538532533436" value="129.14" date= "May 27, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.21893491124260356" y="0.28311029072450383" value="129.41" date= "June 3, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.22189349112426035" y="0.27711121365943675" value="128.89" date= "June 10, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.22485207100591717" y="0.2629210890632209" value="127.66" date= "June 17, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.22781065088757396" y="0.2513844023996307" value="126.66" date= "June 24, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.23076923076923078" y="0.24942316566682035" value="126.49" date= "July 1, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.23372781065088757" y="0.25369173973234876" value="126.86" date= "July 8, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.23668639053254437" y="0.25680664513151813" value="127.13" date= "July 15, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.23964497041420119" y="0.2646515920627595" value="127.81" date= "July 22, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.24260355029585798" y="0.26718966312874937" value="128.03" date= "July 29, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2455621301775148" y="0.27111213659437006" value="128.37" date= "Aug. 5, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2485207100591716" y="0.2709967697277343" value="128.36" date= "Aug. 12, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2514792899408284" y="0.26880479926165185" value="128.17" date= "Aug. 19, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.25443786982248523" y="0.26938163359483147" value="128.22" date= "Aug. 26, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.257396449704142" y="0.265228426395939" value="127.86" date= "Sept. 2, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2603550295857988" y="0.26442085832948775" value="127.79" date= "Sept. 9, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.26331360946745563" y="0.2543839409321642" value="126.92" date= "Sept. 16, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.26627218934911245" y="0.2527688047992616" value="126.78" date= "Sept. 23, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2692307692307692" y="0.2543839409321642" value="126.92" date= "Sept. 30, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.27218934911242604" y="0.25380710659898476" value="126.87" date= "Oct. 7, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.27514792899408286" y="0.2542685740655283" value="126.91" date= "Oct. 14, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2781065088757396" y="0.24838486386709735" value="126.4" date= "Oct. 21, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.28106508875739644" y="0.24111675126903542" value="125.77" date= "Oct. 28, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.28402366863905326" y="0.23869404706968153" value="125.56" date= "Nov. 4, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2869822485207101" y="0.23904014766958925" value="125.59" date= "Nov. 11, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.28994082840236685" y="0.2389247808029533" value="125.58" date= "Nov. 18, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.29289940828402367" y="0.23592524227041978" value="125.32" date= "Nov. 25, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2958579881656805" y="0.23004153207198888" value="124.81" date= "Dec. 2, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.2988165680473373" y="0.22934933087217343" value="124.75" date= "Dec. 9, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.30177514792899407" y="0.22450392247346554" value="124.33" date= "Dec. 16, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3047337278106509" y="0.22254268574065517" value="124.16" date= "Dec. 23, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3076923076923077" y="0.23177203507152733" value="124.96" date= "Dec. 30, 2019"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3106508875739645" y="0.24480849100138438" value="126.09" date= "Jan. 6, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3136094674556213" y="0.25726811259806176" value="127.17" date= "Jan. 13, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3165680473372781" y="0.25738347946469775" value="127.18" date= "Jan. 20, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.31952662721893493" y="0.25911398246423617" value="127.33" date= "Jan. 27, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3224852071005917" y="0.2420396862021226" value="125.85" date= "Feb. 3, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3254437869822485" y="0.22911859713890168" value="124.73" date= "Feb. 10, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.32840236686390534" y="0.21838947854176272" value="123.8" date= "Feb. 17, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.33136094674556216" y="0.2143516382095062" value="123.45" date= "Feb. 24, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3343195266272189" y="0.2025842178126442" value="122.43" date= "March 2, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.33727810650887574" y="0.20039224734656194" value="122.24" date= "March 9, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.34023668639053256" y="0.17835717581910468" value="120.33" date= "March 16, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3431952662721893" y="0.17039686202122745" value="119.64" date= "March 23, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.34615384615384615" y="0.08744808491001382" value="112.45" date= "March 30, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.34911242603550297" y="0.06183664051684355" value="110.23" date= "April 6, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3520710059171598" y="0.05076142131979685" value="109.27" date= "April 13, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.35502958579881655" y="0.043377941855099106" value="108.63" date= "April 20, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.35798816568047337" y="0.03472542685740645" value="107.88" date= "April 27, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3609467455621302" y="0.031033687125057656" value="107.56" date= "May 4, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.363905325443787" y="0.02976465159206274" value="107.45" date= "May 11, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3668639053254438" y="0.0025380710659898345" value="105.09" date= "May 18, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3698224852071006" y="0.0" value="104.87" date= "May 25, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3727810650887574" y="0.003461005999077032" value="105.17" date= "June 1, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3757396449704142" y="0.010036917397323377" value="105.74" date= "June 8, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.378698224852071" y="0.017305029995385322" value="106.37" date= "June 15, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3816568047337278" y="0.026072911859713784" value="107.13" date= "June 22, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.38461538461538464" y="0.039686202122750314" value="108.31" date= "June 29, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3875739644970414" y="0.05260729118597141" value="109.43" date= "July 6, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3905325443786982" y="0.07348869404706956" value="111.24" date= "July 13, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.39349112426035504" y="0.08491001384402398" value="112.23" date= "July 20, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.39644970414201186" y="0.08987078910936769" value="112.66" date= "July 27, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.3994082840236686" y="0.09275496077526524" value="112.91" date= "Aug. 3, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.40236686390532544" y="0.09402399630826017" value="113.02" date= "Aug. 10, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.40532544378698226" y="0.09425473004153208" value="113.04" date= "Aug. 17, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.40828402366863903" y="0.09633133364097823" value="113.22" date= "Aug. 24, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.41124260355029585" y="0.09713890170742964" value="113.29" date= "Aug. 31, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.41420118343195267" y="0.09806183664051683" value="113.37" date= "Sept. 7, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4171597633136095" y="0.0974850023073372" value="113.32" date= "Sept. 14, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.42011834319526625" y="0.0973696354407014" value="113.31" date= "Sept. 21, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4230769230769231" y="0.09725426857406544" value="113.3" date= "Sept. 28, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4260355029585799" y="0.09679280110752192" value="113.26" date= "Oct. 5, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4289940828402367" y="0.09598523304107053" value="113.19" date= "Oct. 12, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4319526627218935" y="0.09586986617443471" value="113.18" date= "Oct. 19, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4349112426035503" y="0.09540839870789104" value="113.14" date= "Oct. 26, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4378698224852071" y="0.09506229810798332" value="113.11" date= "Nov. 2, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4408284023668639" y="0.08802491924319329" value="112.5" date= "Nov. 9, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4437869822485207" y="0.08629441624365469" value="112.35" date= "Nov. 16, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4467455621301775" y="0.0871019843101061" value="112.42" date= "Nov. 23, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.44970414201183434" y="0.0892939547761882" value="112.61" date= "Nov. 30, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4526627218934911" y="0.09575449930779877" value="113.17" date= "Dec. 7, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4556213017751479" y="0.1032533456391323" value="113.82" date= "Dec. 14, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.45857988165680474" y="0.1102907245039225" value="114.43" date= "Dec. 21, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.46153846153846156" y="0.11582833410244568" value="114.91" date= "Dec. 28, 2020"></time-series-plot>                    
+         
+                    <time-series-plot x="0.46449704142011833" y="0.12136594370096902" value="115.39" date= "Jan. 4, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.46745562130177515" y="0.1300184586986617" value="116.14" date= "Jan. 11, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.47041420118343197" y="0.13913244116289802" value="116.93" date= "Jan. 18, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.47337278106508873" y="0.15263036455929843" value="118.1" date= "Jan. 25, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.47633136094674555" y="0.16462851868943235" value="119.14" date= "Feb. 1, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.47928994082840237" y="0.17074296262113517" value="119.67" date= "Feb. 8, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4822485207100592" y="0.18066451315182275" value="120.53" date= "Feb. 15, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.48520710059171596" y="0.18920166128287944" value="121.27" date= "Feb. 22, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4881656804733728" y="0.1995846792801107" value="122.17" date= "March 1, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4911242603550296" y="0.20846792801107514" value="122.94" date= "March 8, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4940828402366864" y="0.21954314720812182" value="123.9" date= "March 15, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.4970414201183432" y="0.22727272727272713" value="124.57" date= "March 22, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5" y="0.23373327180433767" value="125.13" date= "March 29, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5029585798816568" y="0.2350023073373326" value="125.24" date= "April 5, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5059171597633136" y="0.23684817720350715" value="125.4" date= "April 12, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5088757396449705" y="0.23777111213659435" value="125.48" date= "April 19, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5118343195266272" y="0.24146285186894315" value="125.8" date= "April 26, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.514792899408284" y="0.24480849100138438" value="126.09" date= "May 3, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5177514792899408" y="0.24988463313336404" value="126.53" date= "May 10, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5207100591715976" y="0.2574988463313335" value="127.19" date= "May 17, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5236686390532544" y="0.2655745269958467" value="127.89" date= "May 24, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5266272189349113" y="0.26857406552838026" value="128.15" date= "May 31, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5295857988165681" y="0.2748038763267189" value="128.69" date= "June 7, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5325443786982249" y="0.2838024919243192" value="129.47" date= "June 14, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5355029585798816" y="0.29107060452238104" value="130.1" date= "June 21, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5384615384615384" y="0.2983387171204428" value="130.73" date= "June 28, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5414201183431953" y="0.3095293031841253" value="131.7" date= "July 5, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5443786982248521" y="0.3184125519150899" value="132.47" date= "July 12, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5473372781065089" y="0.32683433317951066" value="133.2" date= "July 19, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5502958579881657" y="0.3300646054453159" value="133.48" date= "July 26, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5532544378698225" y="0.33848638670973696" value="134.21" date= "Aug. 2, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5562130177514792" y="0.34413936317489596" value="134.7" date= "Aug. 9, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5591715976331361" y="0.3449469312413475" value="134.77" date= "Aug. 16, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5621301775147929" y="0.34390862944162437" value="134.68" date= "Aug. 23, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5650887573964497" y="0.34367789570835244" value="134.66" date= "Aug. 30, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5680473372781065" y="0.3448315643747114" value="134.76" date= "Sept. 6, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5710059171597633" y="0.3447161975080756" value="134.75" date= "Sept. 13, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5739644970414202" y="0.3459852330410707" value="134.86" date= "Sept. 20, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5769230769230769" y="0.3497923396400553" value="135.19" date= "Sept. 27, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5798816568047337" y="0.3602907245039223" value="136.1" date= "Oct. 4, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5828402366863905" y="0.37263497923396377" value="137.17" date= "Oct. 11, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5857988165680473" y="0.39905399169358563" value="139.46" date= "Oct. 18, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5887573964497042" y="0.42616520535302255" value="141.81" date= "Oct. 25, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.591715976331361" y="0.4479695431472079" value="143.7" date= "Nov. 1, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5946745562130178" y="0.46181356714351635" value="144.9" date= "Nov. 8, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.5976331360946746" y="0.47300415320719885" value="145.87" date= "Nov. 15, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6005917159763313" y="0.48477157360406065" value="146.89" date= "Nov. 22, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6035502958579881" y="0.49215505306875856" value="147.53" date= "Nov. 29, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.606508875739645" y="0.48477157360406065" value="146.89" date= "Dec. 6, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6094674556213018" y="0.47704199353945537" value="146.22" date= "Dec. 13, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6124260355029586" y="0.4648131056760497" value="145.16" date= "Dec. 20, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6153846153846154" y="0.46204430087678794" value="144.92" date= "Dec. 27, 2021"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6183431952662722" y="0.46342870327641883" value="145.04" date= "Jan. 3, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.621301775147929" y="0.460890632210429" value="144.82" date= "Jan. 10, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6242603550295858" y="0.4606598984771574" value="144.8" date= "Jan. 17, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6272189349112426" y="0.46146746654360865" value="144.87" date= "Jan. 24, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6301775147928994" y="0.4715043839409322" value="145.74" date= "Jan. 31, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6331360946745562" y="0.47831102907245043" value="146.33" date= "Feb. 7, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.636094674556213" y="0.4854637748038761" value="146.95" date= "Feb. 14, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6390532544378699" y="0.49492385786802034" value="147.77" date= "Feb. 21, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6420118343195266" y="0.511652053530226" value="149.22" date= "Feb. 28, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6449704142011834" y="0.5546838947854174" value="152.95" date= "March 7, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6479289940828402" y="0.635556068297185" value="159.96" date= "March 14, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.650887573964497" y="0.697969543147208" value="165.37" date= "March 21, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6538461538461539" y="0.6665897554222427" value="162.65" date= "March 28, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6568047337278107" y="0.6580526072911859" value="161.91" date= "April 4, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6597633136094675" y="0.6565528380249191" value="161.78" date= "April 11, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6627218934911243" y="0.6552838024919241" value="161.67" date= "April 18, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.665680473372781" y="0.6572450392247345" value="161.84" date= "April 25, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6686390532544378" y="0.6646285186894322" value="162.48" date= "May 2, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6715976331360947" y="0.6784725426857406" value="163.68" date= "May 9, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6745562130177515" y="0.6947392708814027" value="165.09" date= "May 16, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6775147928994083" y="0.7235809875403784" value="167.59" date= "May 23, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6804733727810651" y="0.7555376095985233" value="170.36" date= "May 30, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6834319526627219" y="0.808952468850946" value="174.99" date= "June 6, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6863905325443787" y="0.8959390862944161" value="182.53" date= "June 13, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6893491124260355" y="0.9457775726811258" value="186.85" date= "June 20, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6923076923076923" y="0.992847254268574" value="190.93" date= "June 27, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6952662721893491" y="1.0" value="191.55" date= "July 4, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.6982248520710059" y="0.9893862482694968" value="190.63" date= "July 11, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7011834319526628" y="0.9696585140747574" value="188.92" date= "July 18, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7041420118343196" y="0.9428934010152282" value="186.6" date= "July 25, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7071005917159763" y="0.8987078910936779" value="182.77" date= "Aug. 1, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7100591715976331" y="0.8395246885094598" value="177.64" date= "Aug. 8, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7130177514792899" y="0.7997231195200737" value="174.19" date= "Aug. 15, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7159763313609467" y="0.7645362251961234" value="171.14" date= "Aug. 22, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7189349112426036" y="0.7527688047992616" value="170.12" date= "Aug. 29, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7218934911242604" y="0.7390401476695893" value="168.93" date= "Sept. 5, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7248520710059172" y="0.7238117212736502" value="167.61" date= "Sept. 12, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.727810650887574" y="0.6991232118135671" value="165.47" date= "Sept. 19, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7307692307692307" y="0.6821642824180895" value="164.0" date= "Sept. 26, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7337278106508875" y="0.6668204891555143" value="162.67" date= "Oct. 3, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7366863905325444" y="0.6601292108906321" value="162.09" date= "Oct. 10, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7396449704142012" y="0.668435625288417" value="162.81" date= "Oct. 17, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.742603550295858" y="0.6893170281495155" value="164.62" date= "Oct. 24, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7455621301775148" y="0.7037378864790031" value="165.87" date= "Oct. 31, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7485207100591716" y="0.7008537148131057" value="165.62" date= "Nov. 7, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7514792899408284" y="0.6867789570835255" value="164.4" date= "Nov. 14, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7544378698224852" y="0.6738578680203045" value="163.28" date= "Nov. 21, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.757396449704142" y="0.6490539916935855" value="161.13" date= "Nov. 28, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7603550295857988" y="0.6267881864328563" value="159.2" date= "Dec. 5, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7633136094674556" y="0.5895246885094599" value="155.97" date= "Dec. 12, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7662721893491125" y="0.5676049838486384" value="154.07" date= "Dec. 19, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7692307692307693" y="0.5430318412551914" value="151.94" date= "Dec. 26, 2022"></time-series-plot>                    
+         
+                    <time-series-plot x="0.772189349112426" y="0.5310336871250576" value="150.9" date= "Jan. 2, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7751479289940828" y="0.5203045685279186" value="149.97" date= "Jan. 9, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7781065088757396" y="0.5066912782648821" value="148.79" date= "Jan. 16, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7810650887573964" y="0.5" value="148.21" date= "Jan. 23, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7840236686390533" y="0.4996538994000923" value="148.18" date= "Jan. 30, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7869822485207101" y="0.5014997692662667" value="148.34" date= "Feb. 6, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7899408284023669" y="0.49734656206737404" value="147.98" date= "Feb. 13, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7928994082840237" y="0.4959621596677435" value="147.86" date= "Feb. 20, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7958579881656804" y="0.4923857868020305" value="147.55" date= "Feb. 27, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.7988165680473372" y="0.4874250115366866" value="147.12" date= "March 6, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8017751479289941" y="0.485694508537148" value="146.97" date= "March 13, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8047337278106509" y="0.4816566682048915" value="146.62" date= "March 20, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8076923076923077" y="0.47692662667281954" value="146.21" date= "March 27, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8106508875739645" y="0.47127365020766027" value="145.72" date= "April 3, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8136094674556213" y="0.47242731887401923" value="145.82" date= "April 10, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8165680473372781" y="0.4736963544070143" value="145.93" date= "April 17, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8195266272189349" y="0.47265805260729116" value="145.84" date= "April 24, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8224852071005917" y="0.47115828334102444" value="145.71" date= "May 1, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8254437869822485" y="0.46642824180895254" value="145.3" date= "May 8, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8284023668639053" y="0.4589293954776188" value="144.65" date= "May 15, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8313609467455622" y="0.44727734194739244" value="143.64" date= "May 22, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.834319526627219" y="0.43920166128287946" value="142.94" date= "May 29, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8372781065088757" y="0.43874019381633594" value="142.9" date= "June 5, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8402366863905325" y="0.43654822335025384" value="142.71" date= "June 12, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8431952662721893" y="0.43931702814951523" value="142.95" date= "June 19, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8461538461538461" y="0.44485463774803874" value="143.43" date= "June 26, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.849112426035503" y="0.44450853714813104" value="143.4" date= "July 3, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8520710059171598" y="0.4383940932164282" value="142.87" date= "July 10, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8550295857988166" y="0.43724042455006923" value="142.77" date= "July 17, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8579881656804734" y="0.4394323950161514" value="142.96" date= "July 24, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8609467455621301" y="0.45293031841255177" value="144.13" date= "July 31, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.863905325443787" y="0.47658052607291185" value="146.18" date= "Aug. 7, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8668639053254438" y="0.49492385786802034" value="147.77" date= "Aug. 14, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8698224852071006" y="0.5137286571296723" value="149.4" date= "Aug. 21, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8727810650887574" y="0.5290724503922472" value="150.73" date= "Aug. 28, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8757396449704142" y="0.5403784033225657" value="151.71" date= "Sept. 4, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.878698224852071" y="0.556414397784956" value="153.1" date= "Sept. 11, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8816568047337278" y="0.5674896169820027" value="154.06" date= "Sept. 18, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8846153846153846" y="0.5830641439778494" value="155.41" date= "Sept. 25, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8875739644970414" y="0.5901015228426396" value="156.02" date= "Oct. 2, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8905325443786982" y="0.5891785879095522" value="155.94" date= "Oct. 9, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.893491124260355" y="0.5793724042455006" value="155.09" date= "Oct. 16, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8964497041420119" y="0.574065528380249" value="154.63" date= "Oct. 23, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.8994082840236687" y="0.5664513151822795" value="153.97" date= "Oct. 30, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9023668639053254" y="0.557568066451315" value="153.2" date= "Nov. 6, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9053254437869822" y="0.5482233502538069" value="152.39" date= "Nov. 13, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.908284023668639" y="0.5264190124596215" value="150.5" date= "Nov. 20, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9112426035502958" y="0.49746192893401014" value="147.99" date= "Nov. 27, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9142011834319527" y="0.47115828334102444" value="145.71" date= "Dec. 4, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9171597633136095" y="0.4491232118135672" value="143.8" date= "Dec. 11, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9201183431952663" y="0.4227041993539454" value="141.51" date= "Dec. 18, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9230769230769231" y="0.40909090909090917" value="140.33" date= "Dec. 25, 2023"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9260355029585798" y="0.4142824180895246" value="140.78" date= "Jan. 1, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9289940828402367" y="0.40205353022611895" value="139.72" date= "Jan. 8, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9319526627218935" y="0.3994000922934933" value="139.49" date= "Jan. 15, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9349112426035503" y="0.398246423627134" value="139.39" date= "Jan. 22, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9378698224852071" y="0.40424550069220105" value="139.91" date= "Jan. 29, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9408284023668639" y="0.41162898015689897" value="140.55" date= "Feb. 5, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9437869822485208" y="0.42005076142131975" value="141.28" date= "Feb. 12, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9467455621301775" y="0.4382787263497924" value="142.86" date= "Feb. 19, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9497041420118343" y="0.4509690816797416" value="143.96" date= "Feb. 26, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9526627218934911" y="0.45985233041070583" value="144.73" date= "March 4, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9556213017751479" y="0.45950622981079814" value="144.7" date= "March 11, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9585798816568047" y="0.45985233041070583" value="144.73" date= "March 18, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9615384615384616" y="0.46365943700969076" value="145.06" date= "March 25, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9644970414201184" y="0.47738809413936306" value="146.25" date= "April 1, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9674556213017751" y="0.48500230733733257" value="146.91" date= "April 8, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9704142011834319" y="0.5032302722658053" value="148.49" date= "April 15, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9733727810650887" y="0.5115366866635902" value="149.21" date= "April 22, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9763313609467456" y="0.5147669589293955" value="149.49" date= "April 29, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9792899408284024" y="0.5153437932625748" value="149.54" date= "May 6, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9822485207100592" y="0.5117674203968618" value="149.23" date= "May 13, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.985207100591716" y="0.507152745731426" value="148.83" date= "May 20, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9881656804733728" y="0.49353945546838945" value="147.65" date= "May 27, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9911242603550295" y="0.48915551453622524" value="147.27" date= "June 3, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9940828402366864" y="0.47738809413936306" value="146.25" date= "June 10, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="0.9970414201183432" y="0.46400553760959845" value="145.09" date= "June 17, 2024"></time-series-plot>                    
+         
+                    <time-series-plot x="1.0" y="0.456391324411629" value="144.43" date= "June 24, 2024"></time-series-plot>                    
+                    
+</time-series-item>
+
+        
+
+       </flower-track>          
+       
+
+
+    
+
+
+</flower-time-line>
+
+
+
 
 
     <script>

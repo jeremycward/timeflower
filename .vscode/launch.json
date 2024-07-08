@@ -28,6 +28,19 @@
             "autoStartBrowser": false,
             "program": "${workspaceFolder}\\python\\flower\\manage.py"
         },
+        {
+            "name": "tag tests",
+            "type": "debugpy",
+            "request": "launch",
+            "args": [
+                "test", "flowerapp.test_track_template"
+            ],
+            "justMyCode": false,
+            "django": true,
+            "autoStartBrowser": false,
+            "program": "${workspaceFolder}\\python\\flower\\manage.py"
+        }
+
 
         
     ]

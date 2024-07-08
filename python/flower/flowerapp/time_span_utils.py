@@ -2,7 +2,9 @@ from datetime import datetime
 from datetime import date
 from dataclasses import dataclass
 import numpy as np
-from flowerapp.models import TimeSeriesPlotPoint
+from flowerapp.models import TimeSeriesPlotPoint,Track
+from django import template
+
 
 def date_time_combine(calendarDate,timeOfDay):
     ret_val = None
@@ -39,10 +41,11 @@ class TimelineItemWidget:
             
             
             
-                  
+                     
                 
                 
             
+    
 def build_widgets_from_items(model_items,templateFunction,groupId):
     items = []
     for idx,thisItem in enumerate(model_items):                    
@@ -51,8 +54,13 @@ def build_widgets_from_items(model_items,templateFunction,groupId):
           items.append(TimelineItemWidget(thisItem,nextItem,groupId,itemContent))          
     return items      
 
-def build_normalised_plot_points(plotPoints):
+
+
     
+
+def build_normalised_plot_points(plotPoints):
+    if not plotPoints:
+        return []
     dates = []
     values = []
     
@@ -85,10 +93,18 @@ def build_normalised_plot_points(plotPoints):
     return [ NormalisedTimeSeriesPlotPoint(pp=element[2],x=element[0],y=element[1] ) for element in np.transpose(npArray)]
     
 
-
 @dataclass
 class NormalisedTimeSeriesPlotPoint:
     x:float
     y:float
     pp:TimeSeriesPlotPoint
+
+@dataclass
+class NormalisedTimeSeriesTrack:
+    track: Track  
+    start: date
+    end: date
+    name: str
+    correlationId: str
+    normalisedPlotPoints: list[NormalisedTimeSeriesPlotPoint]
     

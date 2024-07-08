@@ -1,0 +1,12 @@
+<time-series-item correlationId ="{{normalised_track.correlationId}}" name="{{normalised_track.name}}" start="{{normalised_track.start}}", end="{{normalised_track.end}}" >
+         {% for plot_point in normalised_track.normalisedPlotPoints %}
+                    <time-series-plot x="{{plot_point.x}}" y="{{plot_point.y}}" value="{{plot_point.pp.value}}" date= "{{plot_point.pp.date }}"></time-series-plot>                    
+         {% endfor %}           
+</time-series-item>
+
+        {% comment %} <time-series-item correlationId="item__7" name="graphItem" start="2024-01-01" end="2024-06-06"
+            id="5000">
+            <time-series-plot x="0" y="0"></time-series-plot>
+            <time-series-plot x="0.5" y="0.5"></time-series-plot>
+            <time-series-plot x="1" y="0.2"></time-series-plot>
+        </time-series-item> {% endcomment %}

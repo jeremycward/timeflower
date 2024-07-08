@@ -1,16 +1,14 @@
+{% load flower_tags%}
+
 <flower-time-line target="timeline_component" id="tldata">
     {% for track in  tracks %}
-       <flower-track type="{{track.itemType}}" id='{{track.id}}'></flower-track>
+       
        {% if track.itemType == "SER" %}
-          {% for eventItem in track.event_items %}
-             <track-item 
-             name="{{eventItem.name}}"
-             detail1="{{eventItem.detail1}}"
-             detail2="{{eventItem.detail2 | default:''}}">
-            </track-item>
-          {% endfor%}
+       {% event_track track %}
        {% elif track.itemType == "TSE" %}
-        <time-series-item></time-series-item>
+       <flower-track type="{{track.itemType}}" id='{{track.id}}' heading="{{track.name}}" height="100px">
+          {% time_series_track track %}
+       </flower-track>          
        {% endif %}
 
 

@@ -1,0 +1,16 @@
+<flower-track type="sequence" heading="{{eventTrack.track.name}}" id="{{eventTrack.track.id}}">
+{%   for evtItem in eventTrack.items  %}
+        <track-item name="{{evtItem.item.name}}" detail1="{{evtItem.item.detail1}}" detail2="{{evtItem.item.detail2}}" start="{{evtItem.start}}" end="{{evtItem.end}}"
+            id="{{evtItem.item.id}}"></track-item>    
+{% endfor %}
+
+</flower-track>
+
+
+
+
+
+    {% comment %} <flower-track type="sequence" heading="hello" id="1">
+        <track-item name="jeremy" detail1="crispan" detail2="ward" start="2024-01-01" end="2024-06-06"
+            id="500"></track-item>
+    </flower-track> {% endcomment %}

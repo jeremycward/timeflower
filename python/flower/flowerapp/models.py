@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 class Track(models.Model):
     EVENT="EVE"
@@ -18,12 +17,12 @@ class Track(models.Model):
     def __str__(self):
         return 'Track:' + self.name + 'Id:' + str(self.id)
 
-    def event_items(self):
-        return Item.objects.filter(track__id__exact=self.id)
     
     def event_items(self):
-        return Item.objects.filter(track__id__exact=self.id)
+        return Item.objects.filter(track__id__exact=self.id).order_by('start','startTime')
     
+    def time_series_items(self):
+        return TimeSeriesPlotPoint.objects.filter(track__id__exact=self.id).order_by("date")
 
 
 
