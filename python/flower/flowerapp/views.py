@@ -8,7 +8,10 @@ from django.utils.safestring import SafeString
 # Create your views here.
 def itemdetail(request):
     template = loader.get_template("flowerapp/item_iframe.html")            
-    return HttpResponse(template.render({},request))
+    itemid=request.GET.get('itemId')
+    item= Item.objects.get(id__exact=itemid)
+    additional_info = item.additional_info
+    return HttpResponse(template.render({"info_url": additional_info},request))
 
 
 def index(request):
@@ -23,14 +26,10 @@ def index(request):
       for widg in itemWidgets:
           itemWidgetsJson.append(widg.as_map())
           
-          
-          
-        
 
    template = loader.get_template("flowerapp/flower.html")
    context = {
-        "jsonGroups": SafeString(str(tracks)),
-        "jsonItems" : SafeString(json.dumps(itemWidgetsJson))
+       "timeline_data" : Track.objects.all()
    }
 
    return HttpResponse(template.render(context, request))

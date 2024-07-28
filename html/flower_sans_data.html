@@ -1,0 +1,522 @@
+{% load flower_tags%}
+<!doctype html>
+<html>
+
+<head>
+
+    <title>SansData</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+
+    <script src="https://unpkg.com/htmx.org@1.9.12"
+        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+        crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v5.js"></script>
+
+
+
+
+    <script id="track-item-template" type="text/x-handlebars-template">
+        <div class="sequenceTrackItemLayout">
+            <div class="trackItemHeading">{{name}}</div>
+            <div><img alt="photograph" src="{{img}}" width="80" , height="100"/></div>
+            <div>
+                {{#each detailRows}}
+                <h5>
+                    {{this}}
+                </h5>
+                
+                
+                {{/each}}
+            </div>
+            
+        </div>
+      </script>
+
+
+    <style type="text/css">
+        body {
+            height: 100vh;
+            display: flex;
+            background: black;
+            flex-direction: column;
+            padding: 0;
+            margin: 0px;
+            font-size: small;
+            font-family: sans-serif;
+        }
+
+        .trackItemHeading {
+            writing-mode: vertical-lr;
+            text-align: left;
+            background-color: black;
+            color: white;
+
+
+        }
+
+        .sequenceTrackItemLayout {
+            display: flex;
+            overflow:hidden;
+            background: linear-gradient(to right, white ,gray);
+            
+        }
+
+        .flowerTimelineContainer {
+            border-color:black;
+            border-style: solid;
+            border-width: 1px;
+
+        }
+
+
+        .flowerGridMain {
+            border: 3px solid darkgrey;
+            flex-grow: 100;
+            height: 80vh;
+            display: flex;
+        }
+
+        .flowerAxis {
+            height: 3vh;
+        }
+
+        .flowerAxisViewport {
+            height: 10vh;
+
+            flex-grow: 100;
+        }
+
+
+
+        .flowerMargin {
+
+            width: 10vh;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .flowerViewport {
+
+            flex-grow: 100;
+            display: flex;
+            flex-direction: column;
+            ;
+        }
+
+
+
+        .mainHeader {
+            background-color: black;
+            color: white;
+            height: 10vh;
+        }
+
+        .mainFooter {
+            background-color: black;
+            color: white;
+            height: 10vh;
+        }
+
+        .mainContent {
+            background-color: whitesmoke;
+        }
+
+        .mainContentFlexLayout {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 100;
+        }
+
+        .flowerGridLeft {
+            width: 10vw;
+            background-color: grey;
+
+        }
+
+        .flowerGridRight {
+            width: 10vw;
+            background-color: grey;
+            resize: both;
+
+        }
+
+
+        .vis-item {
+            border-color: black;
+            background-color: white;
+            font-size: x-small;
+        }
+
+        .vis-item-content-layout {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+
+    <script>
+
+        class TimeSpan {
+            static empty() {
+                return new TimeSpan(new Date(8.64e15), new Date(-8.64e15))
+            }
+            constructor(date1, date2) {
+                this.start = date1
+                this.end = date2
+            }
+
+            merge(newRange) {
+                if (newRange.start < this.start) {
+                    this.start = newRange.start
+                }
+                if (newRange.end > this.end) {
+                    this.end = newRange.end
+                }
+
+            }
+            include(point) {
+                if (point < this.start) {
+                    this.start = point
+                }
+                if (point > this.end) {
+                    this.end = point
+                }
+
+            }
+            domain() {
+                return [this.start, this.end]
+            }
+
+
+        }
+
+        class TimelineElement extends HTMLElement {
+            connectedCallback() {
+                this.range = TimeSpan.empty()
+            }
+            includeRange(newRange) {
+                this.range.merge(newRange)
+            }
+
+            getTimeTracks() {
+                var ret_val = []
+                for (let i = 0; i < this.children.length; i++) {
+                    ret_val.push(this.children.item(i))
+                }
+                return [...ret_val]
+            }
+
+        }
+
+        class FLowerTrackElement extends HTMLElement {
+            heading() {
+                return this.getAttribute('heading')
+            }
+            type() {
+                return this.getAttribute('type')
+            }
+            calculateXAxis(width) {
+                this.x = d3.scaleTime()
+                    .domain(this.xDomain)
+                    .range([0, width])
+            }
+            includeRange(newRange) {
+                this.range.merge(newRange)
+                this.parentNode.includeRange(this.range)
+            }
+            calculateWidth() {
+
+            }
+            connectedCallback() {
+                this.range = TimeSpan.empty()
+                this.timeTrackItems = []
+                this.width = 0
+            }
+
+
+
+        }
+        class TimeSeriesItemElement extends HTMLElement {
+            initialisePlotData() {
+                // get plot points
+                this.xDomain = d3.extent(this.plotPoints, (pp => pp.date))
+                this.yDomain = [0, d3.max(this.plotPoints, (pp => pp.value))]
+                pushDomainToParentNode(xDomain, parentNode.xDomain)
+                this.parentNode.xDomain[0] = this.minD(this.xDomain[0], this.parentNode.xDomain[0])
+                this.parentNode.xDomain[1] = this.maxD(this.xDomain[1], this.parentNode.xDomain[1])
+            }
+            addPlotPoint(pp) {
+                this.range.include(pp.date)
+                this.parentNode.includeRange(this.range)
+            }
+
+            connectedCallback() {
+                this.range = TimeSpan.empty()
+                this.plotPoints = []
+            }
+        }
+
+
+        class TimeSeriesPlotElement extends HTMLElement {
+            connectedCallback() {
+                this.parentNode.addPlotPoint({ date: new Date(this.getAttribute('date')), value: this.getAttribute('value') })
+            }
+        }
+
+
+        class TrackItemElement extends HTMLElement {
+            connectedCallback() {
+                const d1 = new Date(this.getAttribute('start'))
+                const d2 = new Date(this.getAttribute('end'))
+                this.range = new TimeSpan(d1, d2)
+                this.parentNode.includeRange(this.range)
+                this.parentNode.timeTrackItems.push(this)
+                this.name = this.getAttribute('name')
+                this.img = this.getAttribute('img')
+                const det1val = this.getAttribute('detail1')
+                const det2val = this.getAttribute('detail2')
+                this.detailRows = [
+                    det1val.length > 0 ? det1val : undefined,
+                    det2val.length > 0 ? det2val : undefined
+                ].filter(it => it !== undefined)
+
+            }
+
+        }
+        window.customElements.define('track-item', TrackItemElement)
+        window.customElements.define('time-series-plot', TimeSeriesPlotElement)
+        window.customElements.define('time-series-item', TimeSeriesItemElement)
+        window.customElements.define('flower-time-line', TimelineElement)
+        window.customElements.define('flower-track', FLowerTrackElement)
+        window.customElements.define('timetrack-item-view', HTMLElement)
+
+        var trackItemSource = document.getElementById('track-item-template').innerHTML;
+        var trackItemTemplate = Handlebars.compile(trackItemSource);
+
+        const trackItemRenderFunctions = {
+            sequence: d => trackItemTemplate(d)
+        }
+
+
+
+
+
+        function redrawTimeLine_() {
+            dataNode = document.getElementById('tldata');
+            console.log(dataNode)
+
+        }
+
+        function redrawTimeLine() {
+            dataNode = document.getElementById('tldata');
+            flowerVpWidth = $('#flowerViewport').width()
+            const tracks = dataNode.getTimeTracks()
+            const x = d3.scaleTime()
+                .domain(dataNode.range.domain())
+                .range([0, flowerVpWidth]).nice()
+            const trackHeight = 100
+
+            //main time axes .. top and bottom
+            d3.select('#flowerAxisBase')
+                .select('svg')
+                .select('g')
+                .attr('transform', 'translate(0,0)')
+                .call(d3.axisBottom(x))
+
+            d3.select('#flowerAxisTop')
+                .select('svg')
+                .select('g')
+                .attr('transform', 'translate(0,20)')
+                .call(d3.axisTop(x))
+
+
+            //class name for time track containers
+            d3.selectAll('#flowerTimeLineViewportContainer')
+                .selectAll('.flowerTimelineContainer')
+                .data(tracks)
+                .join("div")
+                .style('position', 'relative')
+                .style('left', d => x(d.range.domain()[0]) - x(d.parentNode.range.domain()[0]))
+                .style('width', d => x(d.range.domain()[1]) - x(d.range.domain()[0]))
+                .style('height', trackHeight)
+                .attr('class', d => `flowerTimelineContainer ${d.type()}_type`)
+
+            //margin headings
+            d3.select('#flowerTimeLineHeadingContainer')
+                .selectAll('div')
+                .data(tracks)
+                .join('div')
+                .style('height', trackHeight)
+                .attr('class', 'flowerTimelineContainer ')
+                .text(d => d.heading())
+
+
+
+
+            // sequence track types  .. first add the track item containers
+
+
+
+            d3.selectAll('.sequence_type')
+                .data(tracks.filter(tr => tr.type() == 'sequence'))
+                .selectAll('.trackItemContainer')
+                .data(d => d.timeTrackItems)
+                .join('div')
+                .attr('class', 'trackItemContainer')
+                .style('position', 'absolute')
+                .style('left', d => x(d.range.start) - x(d.parentNode.range.start))
+                .style('width', d => x(d.range.end) - x(d.range.start))
+                .style('height', trackHeight)
+                .html(d => trackItemRenderFunctions['sequence'](d))
+
+
+
+
+
+
+
+        }
+
+
+
+        //     d3.selectAll('.TSE_type')
+        //         .selectAll('svg')
+        //         .data(tracks.filter(tr => tr.type() == 'TSE'))
+        //         .call(calculateAxes, flowerVpWidth, trackHeight)
+        //         .join('svg')
+        //         .selectAll('path')
+        //         .data(d => [d.plotPoints])
+        //         .join('path')
+        //         .attr("fill", "none")
+        //         .attr("stroke", "steelblue")
+        //         .attr("stroke-width", 1.5)
+        //         .attr("d", d3.line()
+        //             .x(function (d) { return x(d.date) })
+        //             .y(function (d) { return .14 })
+        //         )
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <flower-time-line target="timeline_component" id="tldata">
+        <flower-track type="sequence" heading="UK Prime Ministers" id="1">
+            <track-item name="Theresa May" detail1="Conservative" detail2="Wood Green" start="2016-07-13 00:00:00"
+                end="2019-07-24 00:00:00" id="28"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+                additional_info=""></track-item>
+
+            <track-item name="Boris Johnson" detail1="Conservative" detail2="Richmond" start="2019-07-24 00:00:00"
+                end="2022-09-06 00:00:00" id="29"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/220px-Boris_Johnson_official_portrait_%28cropped%29.jpg"
+                additional_info=""></track-item>
+
+            <track-item name="Liz Truss" detail1="Conservative" detail2="Huddersfield" start="2022-09-06 00:00:00"
+                end="2022-10-25 00:00:00" id="30"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Official_portrait_of_Liz_Truss_%28cropped%29.jpg/220px-Official_portrait_of_Liz_Truss_%28cropped%29.jpg"
+                additional_info=""></track-item>
+
+            <track-item name="Rishi Sunak" detail1="Conservative" detail2="Wimbledon" start="2022-10-25 00:00:00"
+                end="2024-07-05 00:00:00" id="31"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg/220px-Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg"
+                additional_info=""></track-item>
+
+            <track-item name="Keir Starmer" detail1="Labour" detail2="" start="2024-07-05 00:00:00"
+                end="2026-07-05 00:00:00" id="32"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg/220px-Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg"
+                additional_info=""></track-item>
+        </flower-track>
+        <flower-track type="TSE" id='4' heading="Cost of living" height="100px">
+            <time-series-item correlationId="4" name="Cost of living1">
+                <time-series-plot value="120.19" date="2018-01-01"></time-series-plot>
+                <time-series-plot value="191.55" date="2022-06-04"></time-series-plot>
+                <time-series-plot value="144.43" date="2024-06-24"></time-series-plot>
+            </time-series-item>
+            <time-series-item correlationId="5" name="Cost of living2">
+                <time-series-plot value="12.19" date="2015-01-01"></time-series-plot>
+                <time-series-plot value="191.55" date="2016-06-04"></time-series-plot>
+            </time-series-item>
+
+        </flower-track>
+    </flower-time-line>
+
+    <div class="mainHeader">
+        <h1>SansData</h1>
+    </div>
+
+    <div class="mainContent">
+        <div class="mainContentFlexLayout">
+            <div class="flowerGridLeft" id="flowerGridLeft">
+                LHS
+            </div>
+
+            <div class="flowerGridMain">
+                <div class="flowerMargin">
+                    <div class="flowerAxis">
+                    </div>
+                    <div class="flowerAxisViewport" id="flowerTimeLineHeadingContainer">
+                    </div>
+                    <div class="flowerAxis">
+                        axisBase
+                    </div>
+                </div>
+                <div class="flowerViewport" id="flowerViewport">
+                    <div class="flowerAxis" id="flowerAxisTop">
+                        <svg width="100%" height="100%">
+                            <g></g>
+                        </svg>
+                    </div>
+                    <div class="flowerAxisViewport" id="flowerTimeLineViewportContainer">
+                    </div>
+                    <div class="flowerAxis" id="flowerAxisBase">
+                        <svg width="100%" height="100%">
+                            <g></g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="flowerGridRight" id="flowerGridRight">
+                RHS
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="mainFooter">
+        <h2>Footer</h2>
+    </div>
+
+    <script type="text/javascript">
+        window.Split(['.flowerGridMain', '.flowerGridRight'], {
+            gutterSize: 10, direction: 'horizontal', sizes: [75, 25]
+        })
+
+        redrawTimeLine()
+        let doit
+        const observer = new ResizeObserver((entries) => {
+            clearTimeout(doit)
+            doit = setTimeout(redrawTimeLine, 150)
+        })
+        observer.observe(document.querySelector('.flowerGridMain'))
+
+
+
+    </script>
+</body>
+
+</html>

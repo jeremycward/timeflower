@@ -1,3 +1,4 @@
+
 from django import template
 from ..models import Track,Item
 from ..time_span_utils import NormalisedTimeSeriesTrack, NormalisedTimeSeriesPlotPoint, build_normalised_plot_points,date_time_combine
@@ -27,7 +28,10 @@ def time_series_track(track):
         normalisedPlotPoints= norm_pp)
     return {"normalised_track" :  norm_track}
 
-
+@register.inclusion_tag("flowerapp/timeline.html")
+def timeline_data():
+    return {"tracks" : Track.objects.all()}
+    
 @register.inclusion_tag("flowerapp/event_track.html")
 def event_track(track):
     return {"eventTrack" : SequencedEventTrack(track)}        

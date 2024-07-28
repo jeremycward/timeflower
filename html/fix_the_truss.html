@@ -1,4 +1,5 @@
-{% load flower_tags%}
+
+
 <!doctype html>
 <html>
 
@@ -22,18 +23,28 @@
 		src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
 	<link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
 		type="text/css" />
+	<script id="test-template" type="text/x-handlebars-template">
+        <div style="width:50%;height: 100%, background:red">
+        <span>hello</span>
+
+        </div>
+
+
+    </script>
 	
-	{% verbatim %}
+	
 	<script id="group-template" type="text/x-handlebars-template">
         <EM><span>{{name}}</span></EM>
     </script>
-    <script id="svg-template" type="text/x-handlebars-template">
-	    
-        <svg width={{width}} height={{height}}>
+    <script id="svg-template" type="text/x-handlebars-template">	    
+
+        <svg width={{width}} height={{height}} >
+            <g transform="{{svgTranslate width proportionCut}}">
             <polyline points ="{{plotLine width height plot}}" style='stroke:white;stroke-width:1;fill:red'/>
             {{#each ygridLines }}
             <line x1="0%" stroke-dasharray="5,2"   y1="{{this}}" x2="100%" y2="{{this}}" style="stroke:white; stroke-width:1"></line>
             {{/each}}	
+            </g>
         </svg>
     </script>   
     <script id="item-template" type="text/x-handlebars-template">	    
@@ -57,7 +68,7 @@
         </div>        
     </script>
 
-	{% endverbatim %}
+	
 	
 	<style type="text/css">
 		#flowerGridMain {
@@ -177,6 +188,7 @@
             }
         }
         class TimeSeriesItem extends FlowerDataElement {
+            
             static TIME_SERIES_CLASS_NAME = "TimeSeriesItem"
             static svgTemplate = Handlebars.compile(document.getElementById('svg-template').innerHTML);
             static timeSeriesDataElementList = []
@@ -198,29 +210,41 @@
                     var elementList = document.getElementsByClassName(TimeSeriesItem.TIME_SERIES_CLASS_NAME)
                     for (let i = 0; i < elementList.length; i++) {
                         var correlationId = elementList[i].getElementsByClassName('vis-item-content')[0].innerHTML
-                        console.log("found container for correlationId: " + correlationId)
+                        
                         elementList[i].id = correlationId
                     }
                 }
             }
 
             replaceHtmlTimeSeriesItemContent() {
-                var replacementTarget = document.getElementById(this.correlationId)
-                if (replacementTarget !==null){
+                const {start,end} = Timeline.timeline.getWindow()                
+                const dataStart = Timeline.timeline.itemSet.groups[this.correlationId].orderedItems.byStart[0].data.start
+                const dataEnd = Timeline.timeline.itemSet.groups[this.correlationId].orderedItems.byStart[0].data.end
+                const startOffset = dataStart - start
+                const endOffset =  end - dataEnd
+                var proportionCut = 0
+                if (startOffset < 0 && endOffset < 0){
+                    var totalWidth = dataEnd-dataStart
+                    var cutoff = startOffset * -1
+                    proportionCut = cutoff / totalWidth                    
+                    console.log(`propCut ${proportionCut}` )
+                }
+
+
+
+                var replacementTarget = document.getElementById(this.correlationId)                              
                 var replacementHTML =
                     TimeSeriesItem.svgTemplate(
                         {                            
                             ygridLines: TimeSeriesItem.GRID_LINE_POSITIONS,
                             height: replacementTarget.style.height,
                             width: replacementTarget.style.width,
+                            proportionCut: proportionCut,
                             plot:  this.plot
                             
                         })
-                       replacementTarget.innerHTML = replacementHTML
-
-                }
-                
-
+                       //replacementTarget.innerHTML = replacementHTML                
+            
             }
             resolve() {
                 this.correlationId = this.getAttribute('correlationId')
@@ -229,8 +253,10 @@
                     id: this.getAttribute('id'),
                     start: this.getAttribute('start'),
                     end: this.getAttribute('end'),
-                      group: this.parentElement.attributes.id.value,
-                    content: this.correlationId,
+                      group: this.parentElement.attributes.id.value,                    
+                    //content: this.correlationId,
+                    content: '',
+                    type: "background",
                     style: "height:100px"
                 })
 
@@ -238,6 +264,7 @@
 
         }
         class Timeline extends FlowerDataElement {
+            static timeline = null
             static tlChanged(timeLine) {
                 TimeSeriesItem.lazyInit()
                 TimeSeriesItem.timeSeriesDataElementList.forEach(ts => { ts.replaceHtmlTimeSeriesItemContent() })
@@ -282,7 +309,94 @@
 	<div class="mainFooter">
 	</div>
     
-	{% timeline_data %}
+	
+
+<flower-time-line target="timeline_component" id="tldata">
+    
+       
+       
+       <flower-track type="sequence" heading="UK Prime Ministers" id="1">
+
+        <track-item name="Theresa May" detail1="" detail2="" start="2016-07-13 00:00:00" end="2019-07-24 00:00:00"
+            id="28" img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg" additional_info=""></track-item>    
+
+        <track-item name="Boris Johnson" detail1="" detail2="" start="2019-07-24 00:00:00" end="2022-09-06 00:00:00"
+            id="29" img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/220px-Boris_Johnson_official_portrait_%28cropped%29.jpg" additional_info=""></track-item>    
+
+        <track-item name="Liz Truss" detail1="" detail2="" start="2022-09-06 00:00:00" end="2022-10-25 00:00:00"
+            id="30" img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Official_portrait_of_Liz_Truss_%28cropped%29.jpg/220px-Official_portrait_of_Liz_Truss_%28cropped%29.jpg" additional_info=""></track-item>    
+
+        <track-item name="Rishi Sunak" detail1="" detail2="" start="2022-10-25 00:00:00" end="2024-07-05 00:00:00"
+            id="31" img="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg/220px-Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg" additional_info=""></track-item>    
+
+        <track-item name="Keir Starmer" detail1="" detail2="" start="2024-07-05 00:00:00" end="None"
+            id="32" img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg/220px-Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg" additional_info=""></track-item>    
+
+
+</flower-track>
+
+
+
+
+
+
+       
+
+
+    
+       
+       
+       
+
+
+
+
+       
+
+
+    
+       
+       
+       
+
+
+    
+       
+       
+       <flower-track type="TSE" id='4' heading="Cost of living" height="100px">
+          <time-series-item correlationId ="4" name="Cost of living" start="2018-01-01", end="2024-06-24" >
+         
+                    <time-series-plot x="0.0" y="0.17674203968620203" value="120.19" date= "Jan. 1, 2018"></time-series-plot>                    
+         
+         
+                                    
+         
+                    <time-series-plot x="0.6952662721893491" y="1.0" value="191.55" date= "July 4, 2022"></time-series-plot>                    
+         
+
+         
+         
+         
+                    <time-series-plot x="1.0" y="0.0" value="144.43" date= "June 24, 2024"></time-series-plot>                    
+                    
+</time-series-item>
+
+        
+
+       </flower-track>          
+       
+
+
+    
+
+
+</flower-time-line>
+
+
+
+
+
+
 
 
 
@@ -291,16 +405,27 @@
 		window.Split(['#flowerGridMain','#flowerGridRight'], {
 			gutterSize: 10, direction: 'horizontal', sizes: [75,25]
 		})
+        Handlebars.registerHelper("svgTranslate",(width, cutProportion)=>{
+            const ret_val = `translate(${Number(width.replace("px", "")) * cutProportion * -1 },0)` 
+            console.log(ret_val)
+            return ret_val
+
+        })
 
         Handlebars.registerHelper("plotLine", (width, height, plot) => {
             widthInt = Number(width.replace("px", ""))
             heightInt = Number(height.replace("px", ""))
             retVal = ` 0, ${heightInt} `
+            
             plot.forEach(element => {
-                retVal += ` ${element.x * widthInt},${heightInt - (element.y * heightInt)} `
+                var xPos = element.x * widthInt                    
+                
+                
+                            
+                retVal += ` ${xPos},${heightInt - (element.y * heightInt)} `
             })
             retVal += ` ${widthInt}, ${heightInt}   `
-            console.log("plotline" + retVal)
+            
             return retVal
         })
 
@@ -314,22 +439,26 @@
             currentNode.resolve()
             currentNode = walker.nextNode()
         }
-        console.log(TrackItem.groups)
+       
 
 		var container = document.getElementById('flowerGridMain');
-				var options = {
+		var options = {
 			stack: false,
-			verticalScroll: true
+			verticalScroll: true,
+            align: 'left'            
+		}
+        
 
-		};
+        
 
 
-        var timeline = new vis.Timeline(container, TrackItem.items, options);
-        timeline.setGroups(FlowerTrack.groups);
-        timeline.on('changed', () => Timeline.tlChanged(timeline))
+        Timeline.timeline = new vis.Timeline(container, TrackItem.items, options);
+       
+        Timeline.timeline.setGroups(FlowerTrack.groups);
+        Timeline.timeline.on('changed', () => Timeline.tlChanged(Timeline.timeline))
 
-		timeline.on('select', function (properties) {
-			htmx.ajax("GET", '/flowerapp/itemdetail', { target: '#flowerGridRight', swap: ('innerHTML'), values: { itemId: properties.items[0] } })
+		Timeline.timeline.on('select', function (properties) {
+			//htmx.ajax("GET", '/flowerapp/itemdetail', { target: '#flowerGridRight', swap: ('innerHTML'), values: { itemId: properties.items[0] } })
 
 		}
 		);

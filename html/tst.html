@@ -1,38 +1,306 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
-		<title>TestFlower</title>
-		<!--
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"/>
-		!-->
-		<link rel="stylesheet" href="./flower.css"/>
-	</head>
-	<body>
-		<!-- Example Code -->
-		<div class="container text-center">
-			<div class="row">
-				<div class="col" id="fgHeader">Grid Header</div>
-			</div>
-			<div class="row">
-				<div class="col-2 trackHeader">Track Header</div>
-				<div class="col-10 trackContent">Track content</div>
-			</div>
-			<div class="row">
-				<div class="col-2  trackHeader">Track Header</div>
-				<div class="col-10 trackContent">Track content</div>
-			</div>
-			<div class="row">
-				<div class="col gridFooter" id="fgFooter">
-					<svg width="100%" height="10" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="0" cy="5" r="4" stroke="green" stroke-width="4" fill="yellow"/>
-					</svg>
-				</div>
-			</div>
-		</div>
-		<!-- End Example Code -->
-	</body>
+
+<head>
+
+	<title>Planets</title>
+	<meta charset="utf-8">
+
+
+	<script src="https://d3js.org/d3.v5.js"></script>
+	<style type="text/css">
+		/* HTML elements */
+		/* ============= */
+
+		/* Base elements */
+
+		body {
+			font-family: Avenir, sans-serif;
+			font-size: 0.75rem;
+			margin: 0;
+		}
+
+		#headline {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			color: #555;
+		}
+
+		#pink {
+			border-bottom: 2px solid deeppink;
+			padding-bottom: 0.25rem;
+		}
+
+		/* Links */
+
+		a {
+			color: #555;
+			transition: color 200ms;
+		}
+
+		a:link {
+			text-decoration: none;
+		}
+
+		a:visited {
+			color: #555;
+		}
+
+		a:hover {
+			color: deeppink;
+		}
+
+		a:active {
+			color: #555;
+		}
+
+
+		/* SVG elements */
+		/* ============ */
+
+		svg {
+			border: 1px solid #ccc;
+		}
+
+		/* Axes */
+
+		.tick text {
+			font-family: Avenir, sans-serif;
+			fill: #555;
+			font-size: 0.75rem;
+		}
+
+		.tick line,
+		.lines {
+			stroke: #555;
+			stroke-width: 0.5;
+			shape-rendering: crispEdges;
+		}
+
+		path.domain {
+			display: none;
+		}
+
+		/* Chart */
+
+		circle {
+			fill: white;
+			stroke: deeppink;
+			stroke-width: 4px;
+		}
+
+		.label {
+			fill: #777;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1 id="headline">Measuring our planets'
+		<span id="pink">
+			<a href="https://en.wikipedia.org/wiki/Solar_System#Distances_and_scales" target="_blank">distances</a>
+		</span>
+	</h1>
+
+	<div id="vis"></div>
+
+	<script type="text/javascript">
+
+
+		function make(data) {
+
+			/* Set up */
+			/* ====== */
+
+			/* Dimensions and base */
+			/* ------------------- */
+
+			var margin = {
+				top: window.innerHeight * 0.3,
+				left: 50,
+				bottom: window.innerHeight * 0.4,
+				right: 50
+			};
+
+			// The chart *and* screen height.
+			var height = window.innerHeight - margin.top - margin.bottom;
+
+			// Calculate width 
+			var mapScale = 1 / 10e4;
+			var maxDist = d3.max(data, function (d) { return d.distance; });
+
+			// The full width of all planets
+			var chartWidth = maxDist * mapScale;
+
+			// SVG width will only be as large as screen
+			var screenWidth = window.innerWidth - margin.left - margin.right;
+
+
+			/* SVG */
+
+			var svg = d3.select('#vis')
+				.append('svg')
+				.attr('width', screenWidth + margin.left + margin.right)
+				// .attr('width', chartWidth) // try and make it veery wide.
+				.attr('height', height + margin.top + margin.bottom)
+				.append('g')
+				.attr('class', 'chart')
+				.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+			var listenerRect = svg
+				.append('rect')
+				.attr('class', 'listener-rect')
+				.attr('x', 0)
+				.attr('y', -margin.top)
+				.attr('width', screenWidth)
+				.attr('height', height + margin.top + margin.bottom)
+				.style('opacity', 0);
+			// .style('fill', 'aliceblue') // check the area it covers!
+			// .style('opacity', 0.5);
+
+
+
+			/* Scales */
+			/* ====== */
+
+			var rExtent = d3.extent(data, function (d) { return d.radius; });
+
+			// Make the sun fit into the height 
+			// with a little bit of breathing space.
+			var rScale = d3.scaleLinear()
+				.domain([0, rExtent[1]])
+				.range([3, height / 2 * 0.9]);
+
+			var xScale = d3.scaleLinear()
+				.domain([0, maxDist])
+				.range([0, chartWidth]);
+			// .range([0, screenWidth]); // try this!
+
+
+			/* Axes components */
+			/* --------------- */
+
+			var xAxis = d3.axisBottom(xScale)
+				.tickSizeOuter(0)
+				.tickPadding(10)
+				.tickValues(data.map(function (el) { return el.distance; }))
+				.tickFormat(function (d, i) {
+					return data[i].planet + ' ' + d3.format(',')(d) + ' km';
+				});
+
+
+			/* Axes draw */
+			/* --------- */
+
+			var xAxisDraw = svg.insert('g', ':first-child')
+				.attr('class', 'x axis')
+				.call(xAxis);
+
+			// Move the axis-labels and -lines down
+			var labelHeight = xAxisDraw.select('text').node().getBBox().height;
+			xAxisDraw.attr('transform', 'translate(0, ' + (height + labelHeight * data.length) + ')');
+
+			// Position the axis text
+			xAxisDraw.selectAll('text')
+				.attr('y', function (d, i) { return -(i * labelHeight + labelHeight); })
+				.attr('dx', '-0.15em')
+				.attr('dy', '1.15em')
+				.style('text-anchor', 'start');
+
+			// Draw the axis lines
+			xAxisDraw.selectAll('line')
+				.attr('y1', function (d, i) { return -(i * labelHeight + labelHeight); })
+				.attr('y2', function (d, i) {
+					return -(i * labelHeight + labelHeight + // the start position from axis-y 0
+						(data.length - 1 - i) * labelHeight + // label start to the chart bottom
+						height); // the height
+				});
+
+
+
+			/* Build vis */
+			/* ========= */
+
+			/* Sun and planets */
+			/* --------------- */
+
+			var gPlanets = svg.insert('g', '.listener-rect').attr('class', 'planet-group');
+
+			var planets = gPlanets.selectAll('.planet')
+				.data(data).enter()
+				.append('circle')
+				.attr('class', 'planet')
+				.attr('id', function (d) { return d.planet; })
+				.attr('cx', function (d) { return xScale(d.distance); })
+				.attr('cy', 0)
+				.attr('r', function (d) {
+					d.scaledRadius = rScale(d.radius);
+					return d.scaledRadius;
+				});
+			var zoom = d3.zoom().on('zoom', zoomed);
+			listenerRect.call(zoom)
+
+			function zoomed() {
+				var transform = d3.event.transform
+				transform.x = Math.min(0, transform.x);
+				transform.y = 0;
+				gPlanets.attr('transform', transform.toString())
+				var xScaleNew = transform.rescaleX(xScale);
+				xAxis.scale(xScaleNew);
+				xAxisDraw.call(xAxis);
+				// Stagger the axis-labels 
+				xAxisDraw.selectAll('text')
+					.attr('y', function (d, i) { return -(i * labelHeight + labelHeight); })
+				// Stagger the axis-lines 
+				xAxisDraw.selectAll('line').attr('y1',
+					function (d, i) {
+						return -(i * labelHeight + labelHeight);
+					})
+					.attr('y2', function (d, i) {
+						return -(i * labelHeight + labelHeight + (data.length - 1 - i) * labelHeight + height);
+					});
+
+
+
+			}
+
+
+
+		} // make()
+
+
+		/* Data load and visual */
+		/* ==================== */
+
+		const planets_data = [
+			{ planet: "Sun", distance: 0, radius: 695000 },
+			{ planet: "Mercury", distance: 58000000, radius: 2440 },
+			{ planet: "Venus", distance: 108000000, radius: 6052 },
+			{ planet: "Earth", distance: 150000000, radius: 6378 },
+			{ planet: "Mars", distance: 228000000, radius: 3397 },
+			{ planet: "Jupiter", distance: 778000000, radius: 71492 },
+			{ planet: "Saturn", distance: 1429000000, radius: 60268 },
+			{ planet: "Uranus", distance: 2871000000, radius: 25559 },
+			{ planet: "Neptune", distance: 4504000000, radius: 24766 },
+			{ planet: "Pluto", distance: 5913000000, radius: 1150 }
+		]
+
+
+
+
+
+		make(planets_data)
+
+
+
+	</script>
+
+</body>
+
 </html>
