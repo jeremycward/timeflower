@@ -1,8 +1,11 @@
 {% load flower_tags%}
 <!doctype html>
 <html>
+
 <head>
-    <title>SansData</title>
+
+    <title>SinData</title>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
@@ -19,12 +22,10 @@
 
     <script id="time-series-track-header" type="text/x-handlebars-template">
         <div class="timeSeriesHeader">
-            <div class="timeSeriesHeaderDescription">{{heading}}</div>
-            <div id={{timeSeriesAxisGutterId}} class="timeSeriesAxisGutter" trackId="{{trackId}}" trackType={{type}}>
-                <svg width="30" height="100">
-                    <g transform="translate(30,0)">
-
-                    </g>
+            <div>{{heading}}</div>
+            <div>
+                <svg>
+                    <g></g>
                  </svg>
             </div>
 
@@ -44,19 +45,8 @@
         <div class="timeSeriesTrackItemLayout">
             </div>
             <svg width="100%" height="100%" class="timeSeriesItemSvg">
-                <defs>
-                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#05a"/>
-                    <stop offset="100%" stop-color="#0a5"/>
-                    </linearGradient>
-                    </defs>
                 <g>
-                    {{#each tickRules}}
-                    <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:pink;stroke-width:1"/>                     
-                    {{/each}}
-
                     <path d="{{path}}" fill="transparent" stroke="black"/>
-                    
                 </g>
             </svg>
 
@@ -73,33 +63,21 @@
                 {{#each detailRows}}
                 <h5>
                     {{this}}
-                </h5>                                
+                </h5>
+                
+                
                 {{/each}}
             </div>
             
         </div>
-    
-    </script>
-    <script id="eventline-item-template" type="text/x-handlebars-template">
-      <div class="timeSeriesTrackItemLayout">
-    
-    <svg width="100%" height="100%" class="timeSeriesItemSvg">
-        <g>
-            <line x1="0" y1="10" x2="20" y2="40" style="stroke:black;stroke-width:5"/>                                 
-        </g>
-    </svg>
-    </div>
-</script>
-
-    
-</div>
+      </script>
 
 
     <style type="text/css">
         body {
             height: 100vh;
             display: flex;
-            background: black;
+            background: white;
             flex-direction: column;
             padding: 0;
             margin: 0px;
@@ -110,7 +88,7 @@
         .trackItemHeading {
             writing-mode: vertical-lr;
             text-align: left;
-            background-color: black;
+            background-color: blue;
             color: white;
 
 
@@ -118,16 +96,6 @@
 
         .timeSeriesHeader {
             display: flex;
-        }
-        .timeSeriesHeaderDescription{
-            flex-grow: 100;
-            color: black;
-        }
-
-        .timeSeriesAxisGutter{
-            width: '20px';            
-            background-color: darkgray;            
-            color: pink;
         }
 
         .timeSeriesTrackItemLayout {
@@ -156,10 +124,8 @@
         }
 
         .flowerTrackHeadingContainer {
-            background-color: darkgray;
-            color: black;
-            border-width: 1px;
-            border-style: solid;
+            background-color: black;
+            color: white;
 
 
         }
@@ -261,6 +227,16 @@
                 this.start = date1
                 this.end = date2
             }
+            domain(){
+                return [this.start,this.end]
+            }
+            scale(flowerVpWidth){
+                return d3.scaleTime()
+                .domain(this.domain())
+                .range([0, flowerVpWidth])
+                .nice()                
+
+            }
 
             merge(newRange) {
                 if (newRange.start < this.start) {
@@ -280,47 +256,63 @@
                 }
 
             }
-            domain() {
-                return [this.start, this.end]
-            }
-
-
         }
 
-        class TimelineElement extends HTMLElement {
+        class FlowerAlbumElement extends HTMLElement {
             connectedCallback() {
                 this.range = TimeSpan.empty()
+                console.log(this.children)
+                this.tracks = []
             }
             includeRange(newRange) {
                 this.range.merge(newRange)
-            }
 
-            getTimeTracks() {
-                var ret_val = []
-                for (let i = 0; i < this.children.length; i++) {
-                    ret_val.push(this.children.item(i))
-                }
-                return [...ret_val]
             }
+            addTrack(track) {
+                this.range.includeRange(track.range)
+            }
+            render() {
+                const flowerVpWidth = $('#flowerViewport').width()
+                // create the time  scale                
+                const scale = this.range.scale(flowerVpWidth)
 
+                d3.select('#flowerAxisTop')
+                    .select('svg')
+                    .select('g')
+                    .attr('transform', 'translate(0,20)')
+                    .call(d3.axisTop(scale))
+
+                d3.select('#flowerAxisBase')
+                    .select('svg')
+                    .select('g')
+                    .attr('transform', 'translate(0,0)')
+                    .call(d3.axisBottom(scale))
+                    for (const child of this.children) {
+                           child.render()
+                    }                 
+                    
+
+            }
         }
 
         class FLowerTrackElement extends HTMLElement {
-            static trackRegistry = new Map()
 
             static headingTemplates = {
                 'TSE': Handlebars.compile(document.getElementById('time-series-track-header').innerHTML),
-                'sequence': Handlebars.compile(document.getElementById('sequence-track-header').innerHTML),
-                'eventline': Handlebars.compile(document.getElementById('sequence-track-header').innerHTML),
+                'sequence': Handlebars.compile(document.getElementById('sequence-track-header').innerHTML)
+            }
+            static postProcessingFuncs = {
+                'TSE': () => { }
             }
 
-            renderAxisGutter() {
-                this.gutterFuncs[this.type]()
+            postProcessHeading(selection) {
+                console.log(`svg ${selection}`)
             }
 
             innerHtml() {
                 const template = FLowerTrackElement.headingTemplates[this.type]
-                return template(this)                
+                const ret_val = template(this)
+                return ret_val
             }
             calculateXAxis(width) {
                 this.x = d3.scaleTime()
@@ -332,49 +324,33 @@
                 this.parentNode.includeRange(this.range)
             }
             connectedCallback() {
-                this.y = undefined
                 this.range = TimeSpan.empty()
                 this.timeTrackItems = []
                 this.width = 0
                 this.maxYValue = 0
                 this.heading = this.getAttribute('heading')
                 this.type = this.getAttribute('type')
-                this.trackId = this.getAttribute('id')
-                this.timeSeriesAxisGutterId = `timeSeriesAxisGutterId_${this.trackId}`
+                const button = document.createElement("button")
+                button.innerText = this.heading
+                this.appendChild(button)
                 
-                this.gutterFuncs = {
-                    'TSE': () => {                        
-                        let seln = d3.select(`#${this.timeSeriesAxisGutterId}`)
-                        .select('svg')
-                        .select('g')                        
-                        .call(d3.axisLeft(this.y))                        
-                    },
-                    'sequence': () => {
-                    },
-                    'eventline': () => {
-                    }
-
-                }
-                FLowerTrackElement.trackRegistry.set(this.trackId, this)
+            }
+            render(){
+                $('#flowerTimeLineViewportContainer').append("")
 
 
             }
 
 
+
         }
-
-
-
-        
 
         class TimeSeriesPlotElement extends HTMLElement {
             connectedCallback() {
                 this.parentNode.addPlotPoint({ date: new Date(this.getAttribute('date')), value: this.getAttribute('value') })
             }
         }
-        class SVGPlottableItemElement extends HTMLElement{
-            
-        }
+
         class TimeSeriesItemElement extends HTMLElement {
             static trackItemTemplate = Handlebars.compile(
                 document.getElementById('time-series-item-template').innerHTML
@@ -402,16 +378,14 @@
 
                 var startOffset = xScale(this.range.start)
                 var commandLine = ''
-                var width = xScale(this.range.end) - xScale(this.range.start)
 
                 for (const [index, pp] of this.plotPoints.entries()) {
                     const commandCode = index > 0 ? 'L' : 'M'
                     commandLine = ` ${commandLine} ${commandCode} ${xScale(pp.date) - startOffset} ${this.parentNode.y(pp.value)}  `
 
                 }
-                let tickRules = this.parentNode.y.ticks().map((tck)=>this.parentNode.y(tck))
 
-                return TimeSeriesItemElement.trackItemTemplate({ 'path': commandLine , 'tickRules': tickRules , 'width': width })
+                return TimeSeriesItemElement.trackItemTemplate({ 'path': commandLine })
             }
 
         }
@@ -443,52 +417,14 @@
                 return TrackItemElement.trackItemTemplate(this)
             }
 
-        }
-        
-        class EventlineItemElement extends HTMLElement{
-            static eventlineItemTemplate = Handlebars.compile(
-                document.getElementById('eventline-item-template').innerHTML
-            );
-
-            connectedCallback(){
-                this.range=TimeSpan.empty()
-                this.eventPlots = []                
-            }
-            innerHtml(xScale, itemWidth, itemHeight) {
-                return EventlineItemElement.eventlineItemTemplate(this)
-            }
-            addPlotPoint(epp){
-                this.range.include(epp.date)
-            }
-
-
 
         }
-        class EventlinePlotElement extends HTMLElement {
-            connectedCallback() {
-                this.name = this.getAttribute('name')
-                const det1val = this.getAttribute('detail1')
-                const det2val = this.getAttribute('detail2')
-                this.detailRows = [
-                    det1val.length > 0 ? det1val : undefined,
-                    det2val.length > 0 ? det2val : undefined
-                ].filter(it => it !== undefined)
-
-                this.parentNode.addPlotPoint(this)
-
-
-            }
-
-        }
-
         window.customElements.define('track-item', TrackItemElement)
         window.customElements.define('time-series-plot', TimeSeriesPlotElement)
         window.customElements.define('time-series-item', TimeSeriesItemElement)
-        window.customElements.define('flower-time-line', TimelineElement)
+        window.customElements.define('flower-time-line', FlowerAlbumElement)
         window.customElements.define('flower-track', FLowerTrackElement)
         window.customElements.define('timetrack-item-view', HTMLElement)
-        window.customElements.define('event-item', EventlineItemElement)
-        window.customElements.define('event-plot', EventlinePlotElement)
 
         Handlebars.registerHelper("header_axis", function (x) {
             var scale = d3.scaleLinear().domain([0, 100]).range([0, 100])
@@ -513,75 +449,13 @@
 
         function redrawTimeLine() {
             dataNode = document.getElementById('tldata');
-            flowerVpWidth = $('#flowerViewport').width()
-            const tracks = dataNode.getTimeTracks()
-            const x = d3.scaleTime()
-                .domain(dataNode.range.domain())
-                .range([0, flowerVpWidth]).nice()
-            const trackHeight = 100
-
-            //main time axes .. top and bottom
-            d3.select('#flowerAxisBase')
-                .select('svg')
-                .select('g')
-                .attr('transform', 'translate(0,0)')
-                .call(d3.axisBottom(x))
-
-            d3.select('#flowerAxisTop')
-                .select('svg')
-                .select('g')
-                .attr('transform', 'translate(0,20)')
-                .call(d3.axisTop(x))
-
-
-            //class name for time track containers
-            d3.selectAll('#flowerTimeLineViewportContainer')
-                .selectAll('.flowerTimelineContainer')
-                .data(tracks)
-                .join("div")
-                .style('position', 'relative')
-                .style('left', d => x(d.range.domain()[0]) - x(d.parentNode.range.domain()[0]))
-                .style('width', d => x(d.range.domain()[1]) - x(d.range.domain()[0]))
-                .style('height', trackHeight)
-                .attr('class', d => `flowerTimelineContainer flowerTrackItemContainer`)
+            dataNode.render()
 
 
 
-            const headingHtml =
-                d3.selectAll('.flowerTrackItemContainer')
-                    .data(tracks)
-                    .selectAll('.trackItemContainer')
-                    .data(d => d.timeTrackItems)
-                    .join('div')
-                    .attr('class', 'trackItemContainer')
-                    .style('position', 'absolute')
-                    .style('left', d => x(d.range.start) - x(d.parentNode.range.start))
-                    .style('width', d => x(d.range.end) - x(d.range.start))
-                    .style('height', trackHeight)
-                    .html(d => d.innerHtml(x, x(d.range.end) - x(d.range.start), trackHeight))
-
-
-            //margin headings
-
-            d3.select('#flowerTimeLineHeadingContainer')
-                .selectAll('div')
-                .data(tracks)
-                .join('div')
-                .style('height', trackHeight)
-                .attr('class', 'flowerTrackHeadingContainer')
-                .html(d => d.innerHtml())
-
-
-            // margin gutter (scale if needed for time series)    
-            $('.timeSeriesAxisGutter').each((index, element) => {
-                const trackId = element.getAttribute('trackId')
-                FLowerTrackElement.trackRegistry.get(trackId).renderAxisGutter()                
-            })
 
 
         }
- 
-
 
 
 
@@ -633,19 +507,11 @@
             <time-series-item name="Cost of living2">
                 <time-series-plot value="50" date="2018-01-01"></time-series-plot>
                 <time-series-plot value="60" date="2018-06-04"></time-series-plot>
-                <time-series-plot value="133" date="2019-01-01"></time-series-plot>
+                <time-series-plot value="100" date="2019-01-01"></time-series-plot>
             </time-series-item>
 
 
         </flower-track>
-        <!-- <flower-track type="eventline" heading="Current Affairs" id="5">
-            <event-item>
-                <event-plot name="An event" detail1="detail1" detail2="" date="2022-01-01"/>
-                <event-plot name="An event2" detail1="detail2" detail2="" date="2022-01-02"/>
-                <event-plot name="An event3" detail1="detail3" detail2="" date="2022-01-15"/>
-            </event-item>
-
-        </flower-track> -->
     </flower-time-line>
 
     <div class="mainHeader">
@@ -669,6 +535,7 @@
                     </div>
                 </div>
                 <div class="flowerViewport" id="flowerViewport">
+
                     <div class="flowerAxis" id="flowerAxisTop">
                         <svg width="100%" height="100%">
                             <g></g>
@@ -682,6 +549,7 @@
                         </svg>
                     </div>
                 </div>
+
             </div>
             <div class="flowerGridRight" id="flowerGridRight">
                 RHS
@@ -706,9 +574,6 @@
             doit = setTimeout(redrawTimeLine, 150)
         })
         observer.observe(document.querySelector('.flowerGridMain'))
-
-
-
     </script>
 </body>
 
