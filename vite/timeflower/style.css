@@ -1,0 +1,173 @@
+
+
+body {
+  height: 100vh;
+  display: flex;
+  background: black;
+  flex-direction: column;
+  padding: 0;
+  margin: 0px;
+  font-size: small;
+  font-family: sans-serif;
+}
+
+.flowerTrackItemsContainer {
+  display: inline-flex
+}
+
+.eventlinePlotItemHeading {
+  border-style:solid;
+  border-width: 1px;
+  border-color: black;
+  background-color: beige;
+}
+
+.trackItemHeading {
+  writing-mode: vertical-lr;
+  text-align: left;
+  background-color: black;
+  color: white;
+
+
+}
+
+.timeSeriesHeader {
+  display: flex;
+  background-color: blue;
+}
+
+.timeSeriesHeaderDescription {
+  flex-grow: 100;
+  color: black;
+}
+
+.timeSeriesAxisGutter {
+  width: '30px';
+  color:black;
+}
+
+.timeSeriesTrackItemLayout {
+  display: flex;
+  overflow: hidden;
+
+}
+
+.sequenceTrackItemLayout {
+  display: flex;
+  overflow: hidden;
+  
+  background: beige;
+  
+
+}
+
+.timeSeriesItemSvg {
+  background: beige;
+}
+
+.flowerTimelineContainer {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+
+}
+
+.flowerTrackHeadingContainer {
+  
+  background-color:beige;
+  width: 100%;
+  height: 100%;
+
+
+ 
+  
+}
+
+.rowStripe {
+  
+  background: linear-gradient(to bottom, bisque, white);
+
+
+}
+
+.flowerGridMain {
+  border: 3px solid darkgrey;
+  flex-grow: 100;
+  height: 80vh;
+  display: flex;
+}
+
+.flowerAxis {
+  height: 3vh;
+}
+
+.flowerAxisViewport {
+  height: 10vh;
+  flex-grow: 100;
+  background-color: white;
+}
+
+.flowerAxisViewportHeader {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1000;
+}
+
+
+
+.flowerMargin {
+
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: #C0C0C0;
+
+}
+
+.flowerViewport {
+  flex-grow: 100;
+  display: flex;
+  flex-direction: column;
+  background-color: #C0C0C0;
+  ;
+}
+
+
+
+.mainHeader {
+  background-color: black;  
+  height: 20px;
+}
+
+.mainFooter {
+  background-color: black;
+  color: blue;
+  height: 40px;
+}
+
+.mainContent {
+  background-color: whitesmoke;
+}
+
+.mainContentFlexLayout {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 100;
+}
+
+.flowerGridLeft {
+  width: 10vw;
+  background-color: grey;
+
+}
+
+.flowerGridRight {
+  width: 10vw;
+  background-color: grey;
+  resize: both;
+
+}
+
+.flowerTrackItemContainer {
+  overflow: visible;
+}

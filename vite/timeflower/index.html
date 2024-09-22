@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>TimeFlower</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+    integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+
+  <script src="https://unpkg.com/htmx.org@1.9.12"
+    integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+    crossorigin="anonymous"></script>
+
+  <script src="https://d3js.org/d3.v7.js"></script>
+  <script id="time-series-track-header" type="text/x-handlebars-template">
+
+    <div class="timeSeriesHeader flowerTrackHeadingContainer">
+            <div class="timeSeriesHeaderDescription">{{heading}}</div>
+            <div id={{timeSeriesAxisGutterId}} class="timeSeriesAxisGutter" trackId="{{trackId}}" trackType={{type}}>
+                <svg width="30" height="100">
+                    <g> 
+                    
+                    </g>
+                 </svg>
+            </div>
+
+        </div>        
+    </script>
+  <script id="sequence-track-header" type="text/x-handlebars-template">
+        <div class="flowerTrackHeadingContainer" style="height:{{trackHeight}}px">
+            <span>{{heading}}</span>        
+        </div>
+    </script>
+
+  <script id="eventline-track-header" type="text/x-handlebars-template">
+        <div class="flowerTrackHeadingContainer">
+            <span>{{heading}}</span>        
+        </div>        
+    </script>
+
+  <script id="time-series-item-template" type="text/x-handlebars-template">
+        <div class="timeSeriesTrackItemLayout" id="{{id}}">
+     
+            <svg width="100%" height="100%" class="timeSeriesItemSvg">
+                <defs>
+                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#05a"/>
+                    <stop offset="100%" stop-color="#0a5"/>
+                    </linearGradient>
+                    </defs>
+                <g>
+                    {{#each tickRules}}
+                    <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:#E0E0E0;stroke-width:1"/>                     
+                    <circle></circle>
+                    {{/each}}
+                    <path d="{{path}}" fill="transparent" stroke="black"/>                    
+                </g>
+            </svg>            
+        </div>
+      </script>
+
+
+      <script id="time-series-row-stripe-template" type="text/x-handlebars-template">
+        <div>     
+            <svg width="100%" height="100%" class="timeSeriesItemSvg">            
+                <g>
+                  {{#each tickRules}}
+                  <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:#E0E0E0;stroke-width:1"/>                                       
+                  {{/each}}
+                </g>
+            </svg>            
+        </div>
+      </script>
+
+
+
+  <script id="track-item-template" type="text/x-handlebars-template">
+        <div class="sequenceTrackItemLayout" id={{htmlId}}>
+            <div class="trackItemHeading">{{name}}</div>
+            <div><img alt="photograph" src="{{img}}" width="80" , height="100"/></div>
+            <div>
+                {{#each detailRows}}
+                <h5>
+                    {{this}}
+                </h5>                                
+                {{/each}}
+            </div>
+            
+        </div>
+    
+    </script>
+  <script id="eventline-item-template" type="text/x-handlebars-template">
+
+    <svg width="100%" height="100%" >
+        <style>
+            .small {
+              font: bold 12px sans-serif;
+            }
+        
+        </style>
+        <g>
+                <line x1="{{0}}" y1="{{yoffset idx}}" x2="{{0}}" y2="100" style="stroke:black;stroke-width:1"/>                                                
+                <foreignobject class="node" x="{{0}}" y="{{yoffset idx}}" width="80" height="100">
+                    <div class="eventlinePlotItemHeading">{{name}}</div>                
+                </foreignobject>                
+        </g>
+    </svg>
+      
+</script>
+
+
+
+  <script type="module" src="/registry.js"></script>
+
+</head>
+
+<body>
+  <flower-time-line target="timeline_component" id="tldata">
+    <flower-track type="eventline" heading="Current Affairs" id="5">
+      <event-item id="ca_3393_2" name="1111111" detail1="firstdetail1" detail2="" date="1990-01-01"></event-item>
+      <event-item id="ca_3393_3" name="3333" detail1="firstdetail1" detail2="" date="1950-01-01"/></event-item>
+      <event-item id="ca_3393_4" name="4" detail1="firstdetail4" detail2="" date="2010-01-01"></event-item>
+      <event-item id="ca_3393_5" name="5" detail1="firstdetail5" detail2="" date="2015-01-01"/></event-item>
+      <event-item id="ca_3393_6" name="sizsiz" detail1="firstdetail5" detail2="" date="2015-02-01"/></event-item>
+
+  </flower-track>
+
+
+    <flower-track type="sequence" heading="UK Prime Ministers" id="1">
+
+      <track-item name="churchill" detail1="Conservative" detail2="Wood Green" start="1945-01-01 00:00:00"
+        end="1963-01-01 00:00:00" id="winnie"
+        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+        additional_info=""></track-item>
+
+
+
+      <track-item name="Ted Heath" detail1="Conservative" detail2="Wood Green" start="1990-01-01 00:00:00"
+        end="2000-01-01 00:00:00" id="THeath"
+        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+        additional_info=""></track-item>
+
+
+
+      <track-item name="Theresa May" detail1="Conservative" detail2="Wood Green" start="2010-01-01 00:00:00"
+        end="2020-01-01 00:00:00" id="TMay"
+        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+        additional_info="">
+      </track-item>
+
+    </flower-track>
+
+    <flower-track type="sequence" heading="monarchs" id="row2monarchs">
+      <track-item name="QE2" detail1="" detail2="" start="1953-01-01 00:00:00" end="2023-01-01 00:00:00" id="LizII"
+        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+        additional_info="">
+      </track-item>
+
+    </flower-track>
+
+    <flower-track type="TSE" id='4' heading="Cost of living" maxY="150" minY="10">
+      <time-series-item name="Cost of living" start="2015-01-01" end="2019-12-31" id="costofLv">
+        <time-series-plot value="20" date="2015-01-01"></time-series-plot>
+        <time-series-plot value="30" date="2015-06-04"></time-series-plot>
+        <time-series-plot value="40" date="2016-01-01"></time-series-plot>
+        <time-series-plot value="50" date="2018-01-01"></time-series-plot>
+        <time-series-plot value="60" date="2018-06-04"></time-series-plot>
+        <time-series-plot value="133" date="2019-12-31"></time-series-plot>
+      </time-series-item>
+    </flower-track>
+
+
+ 
+
+
+  </flower-time-line>
+
+  <div class="mainHeader">
+    <h1>SansData</h1>
+  </div>
+
+  <div class="mainContent">
+    <div class="mainContentFlexLayout">
+      <div class="flowerGridLeft" id="flowerGridLeft">
+        LHS
+      </div>
+
+      <div class="flowerGridMain">
+        <div class="flowerViewport" id="flowerViewport">
+          <div class="flowerAxisViewport" id="flowerTimeLineViewportContainer">
+          </div>
+        </div>
+      </div>
+      <div class="flowerGridRight" id="flowerGridRight">
+        RHS
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="mainFooter">
+
+  </div>
+
+
+</body>
+<script type="module" src="/main.js"></script>
+
+</html>

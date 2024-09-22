@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+
+        class InvoicePageElement extends HTMLElement {
+            connectedCallback() {
+                this.htmlId = "ggg"
+                this.setAttribute('total',0)
+                console.log('adding page')
+                
+
+
+                this.innerHTML = `<h3> Invoice number: ${this.getAttribute('id')}</h3> <b>${this.getAttribute('total')}`
+
+            }
+        }
+        class InvoiceItem extends HTMLElement {
+            connectedCallback() {
+                console.log('adding item')
+                this.parentNode.setAttribute('total', 100)
+
+                this.innerHTML = `<div> ${this.parentNode.htmlId} item: ${this.getAttribute('amount')}</div>`
+                this.innerHTML
+            }
+        }
+        class ProductType extends HTMLElement {
+            connectedCallback() {
+                console.log('adding product')
+                this.innerHTML = `<div> prod</div>`
+
+            }
+        }
+
+
+
+        window.customElements.define('invoice-page', InvoicePageElement)
+        window.customElements.define('invoice-item', InvoiceItem)
+        window.customElements.define('product-type', ProductType)
+
+    </script>
+</head>
+
+<body>
+
+
+
+
+    <h1> hello there </h1>
+
+    <invoice-page id="44333922">
+        <invoice-item amount="13">
+            <product-type>
+
+            </product-type>
+        </invoice-item>
+
+        <invoice-item amount="1">
+            <product-type>
+
+            </product-type>
+        </invoice-item>
+
+
+
+    </invoice-page>
+
+
+
+
+
+</body>

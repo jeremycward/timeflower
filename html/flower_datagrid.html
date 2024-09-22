@@ -1,0 +1,927 @@
+{% load flower_tags%}
+<!doctype html>
+<html>
+
+<head>
+    <title>gRID</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+
+    <script src="https://unpkg.com/htmx.org@1.9.12"
+        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+        crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v7.js"></script>
+
+    <script src="../vite/timeflower/Timespan.js" type="module"></script>
+    <script src="../vite/timeflower/GridPositionReckoner.js" type="module"></script>
+
+    <script id="time-series-track-header" type="text/x-handlebars-template">
+        <div class="timeSeriesHeader flowerT  rackHeadingContainer">
+            <div class="timeSeriesHeaderDescription">{{heading}}</div>
+            <div id={{timeSeriesAxisGutterId}} class="timeSeriesAxisGutter" trackId="{{trackId}}" trackType={{type}}>
+                <svg width="30" height="100">
+                    <g transform="translate(30,0)">
+
+                    </g>
+                 </svg>
+            </div>
+
+        </div>
+        
+    </script>
+
+
+    <script id="sequence-track-header" type="text/x-handlebars-template">
+        <div class="flowerTrackHeadingContainer" style="height:{{trackHeight}}px">
+            <span>{{heading}}</span>        
+        </div>
+    </script>
+
+    <script id="eventline-track-header" type="text/x-handlebars-template">
+        <div class="flowerTrackHeadingContainer" style="height:{{trackHeight}}px">
+            <span>{{heading}}</span>        
+        </div>
+        
+    </script>
+
+    <script id="time-series-item-template" type="text/x-handlebars-template">
+        <div class="timeSeriesTrackItemLayout">
+            </div>
+            <svg width="100%" height="100%" class="timeSeriesItemSvg">
+                <defs>
+                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#05a"/>
+                    <stop offset="100%" stop-color="#0a5"/>
+                    </linearGradient>
+                    </defs>
+                <g>
+                    {{#each tickRules}}
+                    <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:#E0E0E0;stroke-width:1"/>                     
+                    <circle></circle>
+                    {{/each}}
+
+                    <path d="{{path}}" fill="transparent" stroke="black"/>
+                    
+                </g>
+            </svg>
+
+            
+        </div>
+      </script>
+
+
+    <script id="track-item-template" type="text/x-handlebars-template">
+        <div class="sequenceTrackItemLayout" id={{htmlId}}>
+            <div class="trackItemHeading">{{name}}</div>
+            <div><img alt="photograph" src="{{img}}" width="80" , height="100"/></div>
+            <div>
+                {{#each detailRows}}
+                <h5>
+                    {{this}}
+                </h5>                                
+                {{/each}}
+            </div>
+            
+        </div>
+    
+    </script>
+    <script id="eventline-item-template" type="text/x-handlebars-template">
+
+
+    <svg width="100%" height="100%" class="timeSeriesItemSvg">
+        <style>
+            .small {
+              font: bold 12px sans-serif;
+            }
+        
+        </style>
+        <g>
+            {{#each plottedPoints}}
+                <line x1="{{this.x}}" y1="{{yoffset @index}}" x2="{{this.x}}" y2="100" style="stroke:black;stroke-width:1"/>                                                
+                <!-- <text x="{{this.x}}" y="{{yoffset @index}}" class="small">{{this.name}}</text>   -->
+                <foreignobject class="node" x="{{this.x}}" y="{{yoffset @index}}" width="80" height="100">
+                    <div class="eventlinePlotItemHeading">{{this.name}}</div>                
+                </foreignobject>
+
+            {{/each}}
+        </g>
+    </svg>
+    
+</script>
+
+
+    </div>
+
+
+    <style type="text/css">
+        body {
+            height: 100vh;
+            display: flex;
+            background: black;
+            flex-direction: column;
+            padding: 0;
+            margin: 0px;
+            font-size: small;
+            font-family: sans-serif;
+        }
+
+        .flowerTrackItemsContainer {
+            display: inline-flex
+        }
+
+        .eventlinePlotItemHeading {
+            background-color: black;
+            color: white;
+        }
+
+        .trackItemHeading {
+            writing-mode: vertical-lr;
+            text-align: left;
+            background-color: black;
+            color: white;
+
+
+        }
+
+        .timeSeriesHeader {
+            display: flex;
+        }
+
+        .timeSeriesHeaderDescription {
+            flex-grow: 100;
+            color: black;
+        }
+
+        .timeSeriesAxisGutter {
+            width: '20px';
+            background-color: darkgray;
+            color: #E0E0E0;
+        }
+
+        .timeSeriesTrackItemLayout {
+            display: flex;
+            background: linear-gradient(to right, white, gray);
+            overflow: hidden;
+
+        }
+
+        .sequenceTrackItemLayout {
+            display: flex;
+            overflow: hidden;
+            background: linear-gradient(to right, white, gray);
+
+        }
+
+        .timeSeriesItemSvg {
+            background: linear-gradient(to right, white, gray);
+        }
+
+        .flowerTimelineContainer {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+
+        }
+
+        .flowerTrackHeadingContainer {
+            background-color: darkgray;
+            color: black;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+
+
+        .flowerGridMain {
+            border: 3px solid darkgrey;
+            flex-grow: 100;
+            height: 80vh;
+            display: flex;
+        }
+
+        .flowerAxis {
+            height: 3vh;
+        }
+
+        .flowerAxisViewport {
+            height: 10vh;
+            flex-grow: 100;
+        }
+
+        .flowerAxisViewportHeader {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1000;
+        }
+
+
+
+        .flowerMargin {
+
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            background-color: #C0C0C0;
+
+        }
+
+        .flowerViewport {
+
+            flex-grow: 100;
+            display: flex;
+            flex-direction: column;
+            background-color: #C0C0C0;
+            ;
+        }
+
+
+
+        .mainHeader {
+            background-color: black;
+            color: white;
+            height: 20px;
+        }
+
+        .mainFooter {
+            background-color: black;
+            color: blue;
+            height: 40px;
+        }
+
+        .mainContent {
+            background-color: whitesmoke;
+        }
+
+        .mainContentFlexLayout {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 100;
+        }
+
+        .flowerGridLeft {
+            width: 10vw;
+            background-color: grey;
+
+        }
+
+        .flowerGridRight {
+            width: 10vw;
+            background-color: grey;
+            resize: both;
+
+        }
+
+        .flowerTrackItemContainer {
+            overflow: visible;
+        }
+    </style>
+
+    <script>
+        import TimeSpan from  '../vite/timeflower/GridPositionReckoner.js'
+        
+
+        // class TimeSpan {
+        //     static empty() {
+        //         return new TimeSpan(new Date(8.64e15), new Date(-8.64e15))
+        //     }
+        //     constructor(date1, date2) {
+        //         this.start = date1
+        //         this.end = date2
+        //     }
+
+
+
+        //     isVisibleInsideScale(xScale) {
+
+        //         const startVisible = this.start.getTime() >= xScale.domain()[0].getTime() && this.start.getTime() <= xScale.domain()[1].getTime()
+        //         const endVisible = this.end.getTime() >= xScale.domain()[0].getTime() && this.end.getTime() <= xScale.domain()[1].getTime()
+        //         console.log(`${startVisible} ${endVisible}`)
+        //         return startVisible || endVisible
+
+        //     }
+
+        //     merge(newRange) {
+        //         if (newRange.start < this.start) {
+        //             this.start = newRange.start
+        //         }
+        //         if (newRange.end > this.end) {
+        //             this.end = newRange.end
+        //         }
+
+        //     }
+        //     include(point) {
+        //         if (point < this.start) {
+        //             this.start = point
+        //         }
+        //         if (point > this.end) {
+        //             this.end = point
+        //         }
+
+        //     }
+        //     domain() {
+        //         return [this.start, this.end]
+        //     }
+
+        // }
+        // class GridPositionReckoner {
+
+        //     static startName = "rowStart"
+        //     static endName = "rowEnd"
+
+        //     pushColumnName ( xOffset, name)  {
+        //         if (!this.colTags.has(xOffset)) {
+        //             this.colTags.set(xOffset, [])
+        //         }
+        //         this.colTags.get(xOffset).push(name)
+        //     }
+        //     static calcGridColumnCss(colTags) {
+        //         const sortedMap = new Map([...colTags.entries()].sort((lhs, rhs) => { return lhs - rhs }))
+        //         var clauseBody = ""
+        //         var currentOffset = 0
+        //         for (const [key, value] of sortedMap.entries()) {
+        //             const namesClause = `[${value.join(' ')}]`
+        //             const adjustedPosn = Math.max(0, (key - currentOffset))
+        //             const posnClause = ` ${adjustedPosn}px `
+        //             currentOffset = adjustedPosn
+        //             clauseBody = ` ${clauseBody} ${posnClause} ${namesClause} `
+        //         }                
+        //         return clauseBody
+
+        //     }
+        //     doOneTrackItem (trackItem, trackNumber)  {
+        //         const col_start = Math.round(this.xScale(trackItem.range.start))
+        //         const col_end = Math.round(this.xScale(trackItem.range.end))
+        //         const col_end_constrained = Math.min(this.xScale.range()[1], col_end)
+        //         const col_start_label = `${trackItem.htmlId}Start`
+        //         const col_end_label = `${trackItem.htmlId}End`
+                
+                
+        //         this.pushColumnName(Math.round(col_start), col_start_label)
+        //         this.pushColumnName( Math.round(col_end_constrained), col_end_label)
+               
+        //         const gridPosnCssInfo = {
+        //             gridColumnStart: col_start_label,
+        //             gridColumnEnd: col_end_label,
+        //             gridRow: `${trackNumber}`,
+        //             htmlId: trackItem.htmlId,
+        //             display: trackItem.range.isVisibleInsideScale(this.xScale) ? 'grid' : 'none'
+
+        //         }
+        //         this.itemComponents.push(gridPosnCssInfo)
+
+        //     }
+
+
+        //     constructor(xScale, viewportWidth, tracks) {
+        //         this.xScale = xScale
+        //         this.itemComponents = []
+        //         this.colTags = new Map()
+        //         let trackNumber = 1
+        //         tracks.forEach((tr) => { 
+        //             for (let itemCtr = 0; itemCtr < tr.timeTrackItems.length; itemCtr++) {
+        //                     this.doOneTrackItem(tr.timeTrackItems[itemCtr], trackNumber )
+        //             }                
+        //             trackNumber++
+        //         })
+
+        //     }
+
+        // }
+        class TimelineRenderer {
+            static newOrExistingItem(elementId, creatorFunc, updateFuncs) {
+                var foundElement = $(`#${elementId}`)
+                var foundElement = foundElement.length > 0 ? foundElement : creatorFunc()
+                updateFuncs.forEach(func => { func(foundElement) })
+                return foundElement
+            }
+
+
+            // before removing ref to element range
+            constructor() {
+
+                this.trackHeight = 100
+                this.viewportWidth = $('#flowerViewport').width()
+                this.dataElement = document.getElementById('tldata')
+                this.xscale = d3.scaleTime()
+                this.originalX = this.xscale
+                    .domain(this.dataElement.range.domain())
+                    .range([0, this.viewportWidth]).nice()
+
+            }
+            resize() {
+                this.viewportWidth = $('#flowerViewport').width()
+                this.redraw()
+            }
+
+            redraw() {
+
+                d3.select('#flowerAxisTop')
+                    .select('svg')
+                    .select('g')
+                    .attr('transform', 'translate(0,20)')
+                    .call(d3.axisTop(this.xscale))
+
+                d3.select('#flowerAxisBase')
+                    .select('svg')
+                    .select('g')
+                    .attr('transform', 'translate(0,0)')
+                    .call(d3.axisBottom(this.xscale))
+
+                var verticalOffset = 0
+
+                const reckoner = new GridPositionReckoner(this.xscale, this.viewportWidth, this.dataElement.getTimeTracks())
+
+                const itemMapper = (itemComp) => {
+
+                    return $(`<div>${itemComp.htmlId}</div>`).css(
+                        {
+                            gridColumnStart: itemComp.gridColumnStart,
+                            gridColumnEnd: itemComp.gridColumnEnd,
+                            gridRowStart: itemComp.gridRow,
+                            gridRowEnd: itemComp.gridRow,
+                            backgroundColor: 'yellow',
+                            display: itemComp.display
+                        }
+                    ).attr('id',itemComp.htmlId)
+                }
+
+                const gridTemplateCss = GridPositionReckoner.calcGridColumnCss(reckoner.colTags)
+
+
+                
+                TimelineRenderer.newOrExistingItem('flowerGridWrapper',
+                /*creatorFunc*/() => {
+
+
+                        $('#flowerTimeLineViewportContainer').append(
+                            $('<div></div>')
+                                .attr('id', 'flowerGridWrapper')
+                                .css(
+                                    {
+                                        display: 'grid',
+                                        'grid-template-columns': gridTemplateCss,
+                                        brderColor: 'red',
+                                        gap: '0px',
+                                        gridAutoRows: 'minmax(100px, auto)'
+                                    }
+                                )
+                        )
+
+
+
+                        reckoner.itemComponents.forEach(itemComp => {
+                            $('#flowerGridWrapper')
+                                .append(itemMapper(itemComp))
+                        })
+
+
+                    },
+                /*[updaterFunc])*/[() => {
+                        $('#flowerGridWrapper').css({
+                            gridTemplateColumns: gridTemplateCss
+
+                        })
+                        reckoner.itemComponents.forEach(itemComp => {
+                            console.log(`item ${itemComp.htmlId} display ${itemComp.display}`)
+                            $(`#${itemComp.htmlId}`).css({
+                                display: itemComp.display
+
+                            })
+
+                                
+                        })
+
+                    }]
+                )
+
+            }
+
+
+            rescale(transform) {
+                
+                this.xscale = transform.rescaleX(this.originalX)
+            }
+
+        }
+
+        class TimelineElement extends HTMLElement {
+
+
+            connectedCallback() {
+                this.range = new TimeSpan(new Date('1950-01-01'), new Date('2050-01-01'))
+                this.pendingTransforms = new Array()
+
+            }
+            includeRange(newRange) {
+                this.range.merge(newRange)
+
+            }
+
+            getTimeTracks() {
+                var ret_val = []
+                for (let i = 0; i < this.children.length; i++) {
+                    ret_val.push(this.children.item(i))
+                }
+                return [...ret_val]
+            }
+
+        }
+
+        class FLowerTrackElement extends HTMLElement {
+            static trackCtr = 0
+            static trackRegistry = new Map()
+
+            static headingTemplates = {
+                'TSE': Handlebars.compile(document.getElementById('time-series-track-header').innerHTML),
+                'sequence': Handlebars.compile(document.getElementById('sequence-track-header').innerHTML),
+                'eventline': Handlebars.compile(document.getElementById('eventline-track-header').innerHTML),
+            }
+            static rhPadding = {
+                'TSE': 0,
+                'sequence': 0,
+                'eventline': 100,
+            }
+
+            renderAxisGutter() {
+                this.gutterFuncs[this.type]()
+            }
+
+            innerHtml() {
+                const template = FLowerTrackElement.headingTemplates[this.type]
+                return template(this)
+            }
+            includeRange(newRange) {
+                this.range.merge(newRange)
+                this.parentNode.includeRange(this.range)
+            }
+            redraw(x, verticalOffset, trackHeight) {
+                let left = x(this.range.start)
+                let right = x(this.range.end)
+                let top = verticalOffset
+                const creatorFunc = () => {
+                    const foundElement =
+                        $('<div></div>')
+                            .attr('id', this.htmlId)
+                            .css(
+                                {
+                                    position: 'relative',
+                                    borderStyle: 'solid',
+                                    borderColor: 'white',
+                                    borderWidth: '1px',
+                                    height: `${trackHeight}px`
+                                }
+                            )
+                    $('#flowerTimeLineViewportContainer').append(foundElement)
+                    return foundElement
+                }
+                const updaterFunc = (foundElement) => {
+                    foundElement.css(
+                        {
+                            left: left, width: (right - left)
+                        }
+                    )
+
+                }
+                TimelineRenderer.newOrExistingItem(this.htmlId, creatorFunc, [updaterFunc])
+                this.timeTrackItems.forEach(trackItem => { trackItem.redraw(x) })
+
+            }
+
+
+            connectedCallback() {
+                this.htmlId = `track_${++FLowerTrackElement.trackCtr}`
+                this.y = undefined
+                this.range = TimeSpan.empty()
+                this.timeTrackItems = []
+                this.width = 0
+                this.maxYValue = 0
+                this.heading = this.getAttribute('heading')
+                this.type = this.getAttribute('type')
+                this.trackId = this.getAttribute('id')
+                this.timeSeriesAxisGutterId = `timeSeriesAxisGutterId_${this.trackId}`
+
+                this.gutterFuncs = {
+                    'TSE': () => {
+                        let seln = d3.select(`#${this.timeSeriesAxisGutterId}`)
+                            .select('svg')
+                            .select('g')
+                            .call(d3.axisLeft(this.y))
+                    },
+                    'sequence': () => {
+                    },
+                    'eventline': () => {
+                    }
+
+                }
+                FLowerTrackElement.trackRegistry.set(this.trackId, this)
+            }
+            renderHeader() {
+                let newEl = document.createElement('div');
+                const template = FLowerTrackElement.headingTemplates[this.type]
+                this.trackHeight = 100
+                newEl.innerHTML = template(this)
+                $('#flowerTimeLineHeadingContainer').append(newEl)
+                this.gutterFuncs[this.type]()
+            }
+
+
+        }
+
+        class TimeSeriesPlotElement extends HTMLElement {
+            connectedCallback() {
+                this.parentNode.addPlotPoint({ date: new Date(this.getAttribute('date')), value: this.getAttribute('value') })
+            }
+        }
+        class SVGPlottableItemElement extends HTMLElement {
+            addPlotPoint(pp) {
+                this.range.include(pp.date)
+                this.parentNode.includeRange(this.range)
+                this.plotPoints.push(pp)
+            }
+
+            connectedCallback() {
+                this.range = TimeSpan.empty()
+                this.plotPoints = []
+                this.parentNode.timeTrackItems.push(this)
+                this.name = this.getAttribute('name')
+            }
+
+        }
+        class TimeSeriesItemElement extends SVGPlottableItemElement {
+            static trackItemTemplate = Handlebars.compile(
+                document.getElementById('time-series-item-template').innerHTML
+            );
+            addPlotPoint(pp) {
+                super.addPlotPoint(pp)
+                this.parentNode.maxYValue = Math.max(this.parentNode.maxYValue, pp.value)
+            }
+            innerHtml(xScale, itemWidth, itemHeight) {
+                const posn = this.calc_offset_width(xScale)
+                const maxY = this.parentNode.maxYValue
+                this.parentNode.y = d3.scaleLinear()
+                    .domain([maxY, 0])
+                    .range([0, itemHeight]);
+                var commandLine = ''
+                for (const [index, pp] of this.plotPoints.entries()) {
+                    const commandCode = index > 0 ? 'L' : 'M'
+                    commandLine = ` ${commandLine} ${commandCode} ${xScale(pp.date) - posn.startOffset} ${this.parentNode.y(pp.value)}  `
+                }
+
+                let tickRules = this.parentNode.y.ticks()
+                    .filter((el, item) => item % 2 == 0)
+                    .map((tck) => this.parentNode.y(tck))
+
+
+                return TimeSeriesItemElement.trackItemTemplate({ 'path': commandLine, 'tickRules': tickRules, 'width': posn.width })
+            }
+        }
+
+
+
+        class TrackItemElement extends HTMLElement {
+           
+ static trackItemTemplate = Handlebars.compile(
+                document.getElementById('track-item-template').innerHTML
+            );
+            connectedCallback() {
+                this.htmlId = `track_item_${this.id}`
+                const d1 = new Date(this.getAttribute('start'))
+                const d2 = new Date(this.getAttribute('end'))
+                this.range = new TimeSpan(d1, d2)
+                this.parentNode.includeRange(this.range)
+                this.parentNode.timeTrackItems.push(this)
+                this.name = this.getAttribute('name')
+                this.img = this.getAttribute('img')
+                const det1val = this.getAttribute('detail1')
+                const det2val = this.getAttribute('detail2')
+                this.detailRows = [
+                    det1val.length > 0 ? det1val : undefined,
+                    det2val.length > 0 ? det2val : undefined
+                ].filter(it => it !== undefined)
+
+            }
+            // innerHtml(xScale, itemWidth, itemHeight) {
+            //     return TrackItemElement.trackItemTemplate(this)
+            // }
+            redraw(xScale) {
+                const left = xScale(this.range.start)
+                const right = xScale(this.range.end)
+                const width = right - left
+                const startOffset = xScale(this.parentNode.range.start)
+
+
+
+
+                const creatorFunc = () => {
+                    const foundElement = $(TrackItemElement.trackItemTemplate(this))
+
+                    $(`#${this.parentNode.htmlId}`).append(foundElement).css(
+                        {
+                            position: 'absolute',
+
+                        }
+                    )
+                    return foundElement
+                }
+                const updaterFunc = (foundElement) => {
+                    foundElement.css(
+                        {
+                            left: (left - startOffset),
+                            width: width
+
+                        }
+                    )
+
+                }
+                TimelineRenderer.newOrExistingItem(this.htmlId, creatorFunc, [updaterFunc])
+
+
+
+            }
+
+        }
+
+        class EventlineItemElement extends SVGPlottableItemElement {
+            static eventlineItemTemplate = Handlebars.compile(
+                document.getElementById('eventline-item-template').innerHTML
+            );
+
+            // innerHtml(xScale, itemWidth, itemHeight) {
+            //     const posn = this.calc_offset_width(xScale)
+            //     this.plottedPoints = this.plotPoints.map(it => {
+            //         const xPos = xScale(it.date)
+            //         return {                         
+            //             x: xPos - posn.startOffset, name: it.name 
+            //         }
+            //     })
+            //     return EventlineItemElement.eventlineItemTemplate(this)
+            // }
+
+        }
+        class EventlinePlotElement extends HTMLElement {
+            connectedCallback() {
+                this.name = this.getAttribute('name')
+                const det1val = this.getAttribute('detail1')
+                const det2val = this.getAttribute('detail2')
+                this.detailRows = [
+                    det1val.length > 0 ? det1val : undefined,
+                    det2val.length > 0 ? det2val : undefined
+                ].filter(it => it !== undefined)
+                this.parentNode.addPlotPoint({ date: new Date(this.getAttribute('date')), name: this.name })
+
+            }
+        }
+
+        window.customElements.define('track-item', TrackItemElement)
+        window.customElements.define('time-series-plot', TimeSeriesPlotElement)
+        window.customElements.define('time-series-item', TimeSeriesItemElement)
+        window.customElements.define('flower-time-line', TimelineElement)
+        window.customElements.define('flower-track', FLowerTrackElement)
+        window.customElements.define('timetrack-item-view', HTMLElement)
+        window.customElements.define('event-item', EventlineItemElement)
+        window.customElements.define('event-plot', EventlinePlotElement)
+        Handlebars.registerHelper("yoffset", function (idx) {
+            return ((idx % 4) * 20) + 15
+        })
+        const trackItemRenderFunctions = {
+            sequence: d => trackItemTemplate(d),
+            TSE: d => timeSeriesItemTemplate(d)
+        }
+    </script>
+</head>
+
+<body>
+    <flower-time-line target="timeline_component" id="tldata">
+        <flower-track type="sequence" heading="UK Prime Ministers" id="1">
+
+            <track-item name="Ted Heath" detail1="Conservative" detail2="Wood Green" 
+            start="1990-01-01 00:00:00"
+            end="2000-01-01 00:00:00" id="THeath"
+            img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+            additional_info=""></track-item>
+
+
+            <track-item name="Theresa May" detail1="Conservative" detail2="Wood Green" 
+                start="2010-01-01 00:00:00"
+                end="2020-01-01 00:00:00" id="TMay"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+                additional_info=""></track-item>
+
+            <!-- <track-item name="Boris Johnson" detail1="Conservative" detail2="Richmond" 
+                start="2019-07-01 00:00:00"
+                end="2023-01-01" id="29"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/220px-Boris_Johnson_official_portrait_%28cropped%29.jpg"
+                additional_info=""></track-item> -->
+
+
+        </flower-track>
+
+        <!-- <flower-track type="sequence" heading="monarchs" id="20090">
+
+            <track-item name="Charley I" start="1603-01-01 00:00:00" end="1645-03-02 00:00:00" id="27ICH_"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+                additional_info="" detail1="" detail2="">
+            </track-item>
+
+
+
+            <track-item name="Liz II" start="1960-01-01 00:00:00" end="2022-03-02 00:00:00" id="2899777"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+                additional_info="" detail1="" detail2="">
+            </track-item>
+            <track-item name="Charley III" start="2022-03-02 00:00:00" end="2029-03-02 00:00:00" id="99238"
+                img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+                additional_info="" detail1="" detail2="">
+            </track-item>
+
+
+
+
+        </flower-track> -->
+
+    </flower-time-line>
+
+    <div class="mainHeader">
+        <h1>SansData</h1>
+    </div>
+
+    <div class="mainContent">
+        <div class="mainContentFlexLayout">
+            <div class="flowerGridLeft" id="flowerGridLeft">
+                LHS
+            </div>
+
+            <div class="flowerGridMain">
+                <div class="flowerMargin">
+                    <div class="flowerAxis">
+                    </div>
+                    <div class="flowerAxisViewportHeader" id="flowerTimeLineHeadingContainer">
+                    </div>
+                    <div class="flowerAxis">
+
+                    </div>
+                </div>
+                <div class="flowerViewport" id="flowerViewport">
+                    <div class="flowerAxis" id="flowerAxisTop">
+                        <svg width="100%" height="100%">
+                            <g></g>
+                        </svg>
+                    </div>
+                    <div class="flowerAxisViewport" id="flowerTimeLineViewportContainer">
+                    </div>
+                    <div class="flowerAxis" id="flowerAxisBase">
+                        <svg width="100%" height="100%">
+                            <g></g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="flowerGridRight" id="flowerGridRight">
+                RHS
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="mainFooter">
+
+    </div>
+
+    <script type="text/javascript">
+
+        window.Split(['.flowerGridMain', '.flowerGridRight'], {
+            gutterSize: 10, direction: 'horizontal', sizes: [75, 25]
+        })
+        const renderer = new TimelineRenderer(document.getElementById('tldata'))
+        renderer.redraw()
+        let doit
+        d3.select('#flowerViewport').call(d3.zoom()
+            .on('zoom', (evt, dat) => {
+                renderer.rescale(evt.transform)
+                renderer.redraw()
+
+            }))
+
+
+
+        const observer = new ResizeObserver((entries) => {
+            clearTimeout(doit)
+            doit = setTimeout(redrawAsync, 150)
+        })
+        observer.observe(document.querySelector('.flowerGridMain'))
+
+        function redrawAsync() {
+            renderer.resize()
+        }
+
+
+    </script>
+</body>
+
+</html>

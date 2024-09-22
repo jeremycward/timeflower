@@ -1,0 +1,17 @@
+{
+  "name": "timeflower",
+  "version": "1.0.0",
+  "description": "timeflower javascript components",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "jeremy Ward",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
