@@ -2,15 +2,54 @@ import { TimeSpan } from "./Timespan"
 import { GridPositionReckoner } from "./GridPositionReckoner"
 import Handlebars from "handlebars"
 
+const RENDER_HINTS = {
+    xscale: 0,
+    trackHeight: 1,
+    yscale: 2,
+    ticks: 3,  
+    viewportWidth: 4,
+    itemIndex: 5,
+    tickRules: 6
+}
+
 const trackItemStrategy = (itemComp) => itemTemplateStrategies[itemComp.trackType]
 const headerHtmlId = track => `${track.htmlId}_header`
-const rowStripeElementId = track =>`${track.htmlId}_rowStripeElement`
+const rowStripeElementId = track => `${track.htmlId}_rowStripeElement`
 const trackHeaderStrategy = (trackData) => itemTemplateStrategies[trackData.type]
+const axisTopId = 'flowerAxisTop'
+const axisBaseId = 'flowerAxisBase'
+
+const axisContainerMaker = (elementId, rowStart, rowEnd, xScale) => {
+    const axisElement = $("<div>")
+    axisElement.attr('id', elementId)
+    axisElement.addClass("flowerAxis")
+    axisElement.css({
+        gridRowStart: rowStart,
+        gridRowEnd: rowEnd,
+        gridColumnStart: 'axis_start',
+        gridColumnEnd: 'axis_end',
+
+    })
+
+    $('#flowerGridWrapper').append(axisElement)
+
+    axisElement.append(emptySvg)
+    const isTopAxis = rowStart == 1 && rowEnd == 1
+    const transFormAmount = isTopAxis ? 29 : 0
+    d3.select(`#${elementId}`)
+
+        .select('svg')
+        .select('g')
+        .attr('transform', `translate(0,${transFormAmount})`)
+        .call(isTopAxis ? d3.axisTop(xScale) : d3.axisBottom(xScale))
+
+}
+
 
 const calc_offset_width = (xScale, range) => {
     var startOffset = xScale(range.start)
-    var width = xScale(range.end) - xScale(range.start)
-    return { startOffset: startOffset, width: width }
+    
+    return { startOffset: startOffset }
 }
 const plot_points_from_ts_item_element = (itemElement) => {
     const childCount = itemElement.childElementCount
@@ -21,10 +60,8 @@ const plot_points_from_ts_item_element = (itemElement) => {
             date: new Date(ppElement.getAttribute('date')),
             value: parseFloat(ppElement.getAttribute('value'))
         })
-
     }
     return retVal
-
 }
 const TSETrackTemplate = Handlebars.compile(document.getElementById('time-series-row-stripe-template').innerHTML)
 const headingTemplates = {
@@ -36,47 +73,51 @@ const trackItemTemplates = {
     'TSE': Handlebars.compile(document.getElementById('time-series-item-template').innerHTML),
     'sequence': Handlebars.compile(document.getElementById('track-item-template').innerHTML),
     'eventline': Handlebars.compile(document.getElementById('eventline-item-template').innerHTML)
-
 }
 
 const dataMappers = {
     'eventline': {
         dataMapper:
-            (dataElement, xscale, itemHeight, itemIndex) => {
-                const xPos = xscale(dataElement.date)
+            (dataElement, trackRenderingHints) => {
+                const xPos = trackRenderingHints.get(RENDER_HINTS.xscale)(dataElement.date)
                 return {
                     x: xPos,
-                    idx: itemIndex,
+                    idx: trackRenderingHints.get(RENDER_HINTS.itemIndex),
                     name: dataElement.name
                 }
             }
 
     },
     'TSE': {
-        dataMapper: (dataElement, xScale, itemHeight,trackRenderingHints) => {
+        dataMapper: (dataElement, trackRenderingHints) => {
             const plotPoints = plot_points_from_ts_item_element(dataElement)
-            const posn = calc_offset_width(xScale, TimeSpan.valueOf(dataElement))            
-            const y = d3.scaleLinear()
-                .domain(dataElement.parentNode.yDomain)
-                .range([0, itemHeight]);
+            const xScale = trackRenderingHints.get(RENDER_HINTS.xscale)
+            const posn = calc_offset_width(xScale, TimeSpan.valueOf(dataElement))
+            const y = trackRenderingHints.get(RENDER_HINTS.yscale)
+
+
+            const windowRangeStart = xScale.domain()[0]
+            const itemRangeStart = new Date(dataElement.getAttribute('start'))
+            const hasOverHang = itemRangeStart < windowRangeStart
+            const overHangAmt = hasOverHang ? Math.round(xScale(itemRangeStart))  : 0                                             
 
             var commandLine = ''
             for (const [index, pp] of plotPoints.entries()) {
                 const commandCode = index > 0 ? 'L' : 'M'
-                commandLine = ` ${commandLine} ${commandCode} ${xScale(pp.date)   - posn.startOffset} ${y(pp.value)}  `
+                commandLine = ` ${commandLine} ${commandCode} ${xScale(pp.date) - posn.startOffset} ${y(pp.value)} `
             }
 
-            let tickRules = y.ticks()
-                .filter((el, item) => item % 2 == 0)
-                .map((tck) => y(tck))
-
-              return { 'path': commandLine, 'tickRules': tickRules, 'width': posn.width, id: `${dataElement.htmlId}Content` }
+            return {
+                'path': commandLine, 'tickRules': trackRenderingHints.get(RENDER_HINTS.tickRules),                
+                'width': posn.width, id: `${dataElement.htmlId}Content`,
+                'leftOverHang' : overHangAmt
+            }
         }
 
     },
     'sequence': {
         dataMapper:
-            (dataElement, xscale) => {
+            (dataElement, trackRenderingHints) => {
                 const d1 = new Date(dataElement.getAttribute('start'))
                 const d2 = new Date(dataElement.getAttribute('end'))
                 const det1val = dataElement.getAttribute('detail1')
@@ -97,8 +138,8 @@ const dataMappers = {
     }
 
 }
-const defaultItemAttachFunction = (itemComp, xScale, trackHeight, itemIndex) => {
-    const mappedData = dataMappers[itemComp.trackType].dataMapper(itemComp.dataElement, xScale, trackHeight, itemIndex)
+const defaultItemAttachFunction = (itemComp, trackRenderingHints) => {
+    const mappedData = dataMappers[itemComp.trackType].dataMapper(itemComp.dataElement, trackRenderingHints)
     const trackItemHtml = trackItemTemplates[itemComp.trackType](mappedData)
     $(`#${itemComp.htmlId}`).append(trackItemHtml)
 }
@@ -109,59 +150,63 @@ const defaultHeaderAttachFunction = (track) => {
 const itemTemplateStrategies = {
     'eventline': {
         attachTrackItem: defaultItemAttachFunction,
-        refreshTrackItem: (itemContainer, xScale, trackHeight, itemIndex) => {
+        refreshTrackItem: (itemContainer, trackRenderingHints) => {
             $(`#${itemContainer.htmlId}`).css({
                 display: itemContainer.display
             })
         },
         attachHeader: defaultHeaderAttachFunction,
-        rowStripeDecorator: ()=>{},
-        trackRenderingHints: (track)=>new Map()
+        rowStripeDecorator: () => { },
+        trackRenderingHints: (track) => new Map()
 
 
     },
     'TSE': {
-        attachTrackItem: defaultItemAttachFunction,
-        refreshTrackItem: (itemContainer, xScale, trackHeight) => {
-            const mappedData = dataMappers[itemContainer.trackType].dataMapper(itemContainer.dataElement, xScale, trackHeight)
+        attachTrackItem:  defaultItemAttachFunction,        
+        
+        refreshTrackItem: (itemContainer, trackRenderingHints) => {
+            const mappedData = dataMappers[itemContainer.trackType].dataMapper(itemContainer.dataElement, trackRenderingHints)            
             const trackItemHtml = trackItemTemplates[itemContainer.trackType](mappedData)
             $(`#${itemContainer.htmlId}Content`).replaceWith(trackItemHtml)
         },
-        attachHeader: (track, trackHeight,trackRenderingHints) => {
+        attachHeader: (track, trackRenderingHints) => {
+            const trackHeight = trackRenderingHints.get(RENDER_HINTS.trackHeight)
             defaultHeaderAttachFunction(track, trackHeight)
-            trackRenderingHints.set('yscale',d3.scaleLinear().domain(track.yDomain).range([0, trackHeight]))
-            trackRenderingHints.set('ticks',5)
+            trackRenderingHints.set(RENDER_HINTS.yscale, d3.scaleLinear().domain(track.yDomain).range([0, trackHeight]))
+            trackRenderingHints.set(RENDER_HINTS.ticks, 5)
             d3.select('#' + track.timeSeriesAxisGutterId)
                 .select('svg')
                 .select('g')
                 .attr('transform', 'translate(25,0)')
+                .attr('transform', 'translate(25,0)')
                 .call(
-                    d3.axisLeft(trackRenderingHints.get('yscale'))
-                    .ticks(trackRenderingHints.get('ticks'))
+                    d3.axisLeft(trackRenderingHints.get(RENDER_HINTS.yscale))
+                        .ticks(trackRenderingHints.get(RENDER_HINTS.ticks))
                 )
-        },
-        rowStripeDecorator: (trackData,trackRenderingHints)=>{
-            const yscale = trackRenderingHints.get('yscale')    
-            const ticks = yscale.ticks(trackRenderingHints.get('ticks'))
-            const tickRules = ticks.map(it=>yscale(it))
-            console.log(tickRules)
+        },        
+        rowStripeDecorator: (trackData, trackRenderingHints) => {
+            const yscale = trackRenderingHints.get(RENDER_HINTS.yscale)
+            const ticks = yscale.ticks(trackRenderingHints.get(RENDER_HINTS.ticks))
+            const tickRules = ticks.map(it => yscale(it))
+            trackRenderingHints.set(RENDER_HINTS.tickRules, tickRules)
             $(`#${rowStripeElementId(trackData)}`).append(TSETrackTemplate({
                 tickRules: tickRules,
-                width: trackRenderingHints.get('viewportWidth')
+                width: trackRenderingHints.get(RENDER_HINTS.viewportWidth)
             }))
         },
-        trackRenderingHints: (track)=>new Map()
+
+        trackRenderingHints: (track) => new Map()
     },
     'sequence': {
         attachTrackItem: defaultItemAttachFunction,
-        refreshTrackItem: (itemContainer, xScale, trackHeight) => {
+        refreshTrackItem: (itemContainer, trackRenderingHints) => {
             $(`#${itemContainer.htmlId}`).css({
                 display: itemContainer.display
             })
         },
         attachHeader: defaultHeaderAttachFunction,
-        rowStripeDecorator: ()=>{},
-        trackRenderingHints: (track)=>new Map()
+        rowStripeDecorator: () => { },
+        trackRenderingHints: (track) => new Map()
     }
 }
 
@@ -183,14 +228,15 @@ export class TimelineRenderer {
 
     // before removing ref to element range
     constructor(dataElement, width) {
-
+        this.headerWidth = 100
         this.trackHeight = 100
         this.viewportWidth = width
         this.dataElement = dataElement
         this.xscale = d3.scaleTime()
         this.originalX = this.xscale
             .domain(dataElement.range.domain())
-            .range([0, width]).nice()
+            .range([0, width])
+            .nice()
 
     }
     resize() {
@@ -199,26 +245,10 @@ export class TimelineRenderer {
     }
 
     redraw() {
-        const axisContainerMaker = (elementId, rowStart, rowEnd) => {
-            const axisElement = $("<div>")
-            axisElement.attr('id', elementId)
-            axisElement.addClass("flowerAxis")
-            axisElement.css({
-                gridRowStart: rowStart,
-                gridRowEnd: rowEnd,
-                gridColumnStart: 'axis_start',
-                gridColumnEnd: 'axis_end',
-
-            })
-            axisElement.append(emptySvg)
-
-            return axisElement
-
-        }
         const tracksCollection = this.dataElement.getTimeTracks()
         const rowCount = tracksCollection.length
 
-        const reckoner = new GridPositionReckoner(this.xscale, tracksCollection)
+        const reckoner = new GridPositionReckoner(this.xscale, tracksCollection,this.headerWidth)
 
 
 
@@ -240,7 +270,6 @@ export class TimelineRenderer {
 
         TimelineRenderer.newOrExistingItem('flowerGridWrapper',
         /*creatorFunc*/() => {
-
                 $('#flowerTimeLineViewportContainer').append(
                     $('<div></div>')
                         .attr('id', 'flowerGridWrapper')
@@ -248,7 +277,7 @@ export class TimelineRenderer {
                             {
                                 display: 'grid',
                                 'grid-template-columns': gridTemplateCss,
-                                gap: '2px',
+                                gap: '0px',
                                 gridTemplateRows: gridTemplateRowsCss,
                                 columnRule: "4px dotted rgb(79 185 227)"
 
@@ -256,15 +285,14 @@ export class TimelineRenderer {
                             }
                         )
                 )
-                
 
                 //row headers
                 var rowCtr = 1
                 this.dataElement.getTimeTracks().forEach(
-                    (trackData) => {                        
+                    (trackData) => {
                         const trackRenderingHints = trackHeaderStrategy(trackData).trackRenderingHints(trackData)
-                        rowCtr++                        
-                        trackRenderingHints.set('viewportWidth',this.viewportWidth )
+                        rowCtr++
+                        trackRenderingHints.set(RENDER_HINTS.viewportWidth, this.viewportWidth)
                         const headerContainerElement = $("<div>")
                         headerContainerElement.css(
                             {
@@ -277,64 +305,64 @@ export class TimelineRenderer {
                         headerContainerElement.addClass('flowerTrackHeadingContainer')
                         headerContainerElement.attr("id", headerHtmlId(trackData))
                         $('#flowerGridWrapper').append(headerContainerElement)
+                        trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
+                        trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
+                        trackHeaderStrategy(trackData).attachHeader(trackData, trackRenderingHints)
 
-                        trackHeaderStrategy(trackData).attachHeader(trackData, this.trackHeight,trackRenderingHints)
 
                         // row stripes
                         const rowStripeElement = $("<div></div")
-                        rowStripeElement.css (
+                        rowStripeElement.css(
                             {
-                            gridRowStart: `${rowCtr}`,
-                            gridRowEnd: `${rowCtr}`,
-                            gridColumnStart: 'axis_start',
-                            gridColumnEnd: 'axis_end',
+                                gridRowStart: `${rowCtr}`,
+                                gridRowEnd: `${rowCtr}`,
+                                gridColumnStart: 'axis_start',
+                                gridColumnEnd: 'axis_end',
                             }
                         )
-                        rowStripeElement.attr("id",rowStripeElementId(trackData))
+                        rowStripeElement.attr("id", rowStripeElementId(trackData))
                         rowStripeElement.addClass("rowStripe")
 
                         $('#flowerGridWrapper').append(rowStripeElement)
-                        trackHeaderStrategy(trackData).rowStripeDecorator(trackData,trackRenderingHints)
+                        trackHeaderStrategy(trackData).rowStripeDecorator(trackData, trackRenderingHints)
+                        // add each item
 
+                        var itemIndex = 1
+                        reckoner.itemComponentsAccumulator.byRowId(trackData.htmlId).forEach(itemContainer => {
+                            trackRenderingHints.set(RENDER_HINTS.itemIndex, itemIndex++)
+                            $('#flowerGridWrapper')
+                                .append(itemMapper(itemContainer))
+                            trackItemStrategy(itemContainer).attachTrackItem(itemContainer, trackRenderingHints)
+                        })
                     }
-
                 )
-                // axes
-                const axisTopId = 'flowerAxisTop'
-                const axisBaseId = 'flowerAxisBase'
-                $('#flowerGridWrapper').append(axisContainerMaker(axisTopId, '1', '1'))
-                d3.select('#flowerAxisTop')
-                    .select('svg')
-                    .select('g')
-                    .attr('transform', 'translate(0,20)')
-                    .call(d3.axisTop(this.xscale))
-
-                const baseAxisRowNumber = tracksCollection.length + 2
-                $('#flowerGridWrapper').append(axisContainerMaker(axisBaseId, baseAxisRowNumber, baseAxisRowNumber))
-                d3.select('#flowerAxisBase')
-                    .select('svg')
-                    .select('g')
-                    .attr('transform', 'translate(0,10)')
-                    .call(d3.axisBottom(this.xscale))
-
-
-                // add each item
-
-                var itemCtr = 1
-                reckoner.itemComponentsAccumulator.components.forEach(itemContainer => {
-                    $('#flowerGridWrapper')
-                        .append(itemMapper(itemContainer))
-                    trackItemStrategy(itemContainer).attachTrackItem(itemContainer, this.xscale, this.trackHeight, itemCtr++,trackRenderingHints)
-                })
 
             },
         /*[updaterFunc])*/[() => {
                 $('#flowerGridWrapper').css({
                     gridTemplateColumns: gridTemplateCss
                 })
-                reckoner.itemComponentsAccumulator.components.forEach(itemContainer => {
-                    trackItemStrategy(itemContainer).refreshTrackItem(itemContainer, this.xscale, this.trackHeight)
-                })
+                this.dataElement.getTimeTracks().forEach(
+                    (trackData) => {
+                        // todo: this can be harmonized with the main create function loop ?
+                        const trackRenderingHints = trackHeaderStrategy(trackData).trackRenderingHints(trackData)
+                        trackRenderingHints.set(RENDER_HINTS.yscale, d3.scaleLinear()
+                            .domain(trackData.yDomain)
+                            .range([0, this.trackHeight]))
+                        const itemsOnThisTrack = reckoner.itemComponentsAccumulator.byRowId(trackData.htmlId)
+                        trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
+                        trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
+                        itemsOnThisTrack.forEach(itemContainer => {
+                            trackItemStrategy(itemContainer).refreshTrackItem(itemContainer, trackRenderingHints)
+                        })
+
+                    }
+                )
+                //axes
+                axisContainerMaker(axisTopId, '1', '1', this.xscale)
+                const baseAxisRowNumber = tracksCollection.length + 2
+                axisContainerMaker(axisBaseId, baseAxisRowNumber, baseAxisRowNumber, this.xscale)
+
             }]
         )
 

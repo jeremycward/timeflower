@@ -1,6 +1,15 @@
 import { TimeSpan  } from "./Timespan"
 
+class CssGridClauseBuilder{
 
+    constructor(){
+
+    }
+    addClause(itemOffset,labels){
+
+    }
+
+}
 
 class ItemComponentsAccumulator {
     constructor() {
@@ -14,7 +23,11 @@ class ItemComponentsAccumulator {
         }
     }
     byRowId(htmlId){
-        return this.components.filter(it=>it.htmlId==htmlId)
+        const retVal = this.components.filter(it=>{
+            const equiv = it.rowHtmlId==htmlId
+            return equiv
+        })                
+        return retVal
     }
     
 }
@@ -55,27 +68,28 @@ const rangeFinderFunctions={
 }
 
 
-const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponentsAccumulator,track,xScale) => {
+const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponentsAccumulator,track,xScale,headerWidth) => {
 
-    const processTrackItem = (trackItem) => {
+    const processTrackItem = (trackItem,headerWidth) => {
         var paddingRequired = 0
+        
         const range = rangeFinderFunctions[track.type](trackItem,xScale)
         const col_start = Math.round(xScale(range.start))
-        const col_end = Math.min(
-            xScale.range()[1],
-            Math.round(xScale(range.end))
-        )        
+        const col_end_ceiling = Math.round(xScale.range()[1]-100)  
+        const col_end_actual = Math.round(xScale(range.end))      
+        const col_end = Math.min(col_end_ceiling,col_end_actual)      
         const col_start_label = `${trackItem.htmlId}Start`
         const col_end_label = `${trackItem.htmlId}End`
 
-        const isVisible  = range.isVisibleInsideScale(xScale)
+        const isVisible  = range.isVisibleInsideScale(xScale,headerWidth)
+        
         var lastComponent = itemComponentsAccumulator.last()
         if (lastComponent && isVisible){
             paddingRequired = col_start - lastComponent.absoluteEndPosition            
         }
         if (paddingRequired>0 ){
             colTagsAccumulator.pushColumnName(lastComponent.absoluteEndPosition,`${lastComponent.htmlId}PaddingStart`)            
-            colTagsAccumulator.pushColumnName(col_start,`${lastComponent.htmlId}PaddingEnd`)            
+            colTagsAccumulator.pushColumnName(Math.min(col_start,col_end_ceiling),`${lastComponent.htmlId}PaddingEnd`)            
         }
         
         if (isVisible){
@@ -91,8 +105,8 @@ const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponents
             gridColumnStart: col_start_label,
             gridColumnEnd: col_end_label,
             gridRow: `${trackNumber+1}`,
-            rowHtmlId : trackItem.htmlId,
-            htmlId: trackItem.htmlId,
+            rowHtmlId : track.htmlId,
+            htmlId: trackItem.htmlId,            
             display: isVisible ? 'grid' : 'none'
         }
         itemComponentsAccumulator.components.push(gridPosnCssInfo)
@@ -100,11 +114,11 @@ const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponents
     
     const childCtr = track.childElementCount
     for (let i=0;i<childCtr;i++){
-        processTrackItem(track.children.item(i))
+        processTrackItem(track.children.item(i),headerWidth)
     }
 }
 export class GridPositionReckoner {
-    constructor(xScale, tracks) {
+    constructor(xScale, tracks,headerWidth) {
         this.xScale = xScale
         this.colTagsAccumulator = new ColulmnTagsAccumulator()
         this.itemComponentsAccumulator = new ItemComponentsAccumulator()
@@ -114,26 +128,30 @@ export class GridPositionReckoner {
                     this.colTagsAccumulator,
                     this.itemComponentsAccumulator,
                     tr,
-                    xScale)
+                    xScale,headerWidth) 
                     trackNumber++            
                 }            
         )
     }
 
-    calcGridColumnCss(viewportWidth) {
-
+    calcGridColumnCss(vpWidth) {
+        const viewportWidth = Math.round(vpWidth)
         const sortedMap = this.colTagsAccumulator.sorted()
+        
         var clauseBody = ""
         var currentOffset = 0
         for (const [key, value] of sortedMap.entries()) {
             const namesClause = `[${value.join(' ')}]`
-            const adjustedPosn = Math.max(0, (key - currentOffset))
+            var adjustedPosn = Math.max(0, (key - currentOffset))            
             const posnClause = `${adjustedPosn}px`
             currentOffset += adjustedPosn
+            currentOffset = Math.min(viewportWidth,currentOffset)
             clauseBody = `${clauseBody}${posnClause} ${namesClause} `
-        }
+        }        
         const finalColumn = Math.max(0,viewportWidth - currentOffset)
-        const retVal = `0px [head_start] 100px [head_end axis_start] ${clauseBody} ${finalColumn}px [axis_end]`        
+
+        const retVal = `0px [head_start] 100px [head_end axis_start] ${clauseBody} ${finalColumn}px [axis_end]`          
+        //console.log(retVal)
         return retVal
     }
 

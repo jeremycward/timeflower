@@ -21,7 +21,7 @@
             <div class="timeSeriesHeaderDescription">{{heading}}</div>
             <div id={{timeSeriesAxisGutterId}} class="timeSeriesAxisGutter" trackId="{{trackId}}" trackType={{type}}>
                 <svg width="30" height="100">
-                    <g> 
+                    <g > 
                     
                     </g>
                  </svg>
@@ -42,28 +42,17 @@
     </script>
 
   <script id="time-series-item-template" type="text/x-handlebars-template">
-        <div class="timeSeriesTrackItemLayout" id="{{id}}">
-     
-            <svg width="100%" height="100%" class="timeSeriesItemSvg">
-                <defs>
-                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#05a"/>
-                    <stop offset="100%" stop-color="#0a5"/>
-                    </linearGradient>
-                    </defs>
-                <g>
-                    {{#each tickRules}}
-                    <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:#E0E0E0;stroke-width:1"/>                     
-                    <circle></circle>
-                    {{/each}}
-                    <path d="{{path}}" fill="transparent" stroke="black"/>                    
+        <div class="timeSeriesTrackItemLayout" id="{{id}}" >     
+            <svg width="100%" height="100%" class="timeSeriesItemSvg" style="left:-1200px">                    
+                <g transform="{{chopLeft leftOverHang }}">
+                    <path d="{{path}}" fill="transparent" stroke="red" stroke-width="2"/>                    
                 </g>
             </svg>            
         </div>
-      </script>
+  </script>
 
 
-      <script id="time-series-row-stripe-template" type="text/x-handlebars-template">
+  <script id="time-series-row-stripe-template" type="text/x-handlebars-template">
         <div>     
             <svg width="100%" height="100%" class="timeSeriesItemSvg">            
                 <g>
@@ -118,63 +107,49 @@
 </head>
 
 <body>
-  <flower-time-line target="timeline_component" id="tldata">
+   <flower-time-line target="timeline_component" id="tldata">
     <flower-track type="eventline" heading="Current Affairs" id="5">
       <event-item id="ca_3393_2" name="1111111" detail1="firstdetail1" detail2="" date="1990-01-01"></event-item>
-      <event-item id="ca_3393_3" name="3333" detail1="firstdetail1" detail2="" date="1950-01-01"/></event-item>
+      <event-item id="ca_3393_3" name="3333" detail1="firstdetail1" detail2="" date="1950-01-01" /></event-item>
       <event-item id="ca_3393_4" name="4" detail1="firstdetail4" detail2="" date="2010-01-01"></event-item>
-      <event-item id="ca_3393_5" name="5" detail1="firstdetail5" detail2="" date="2015-01-01"/></event-item>
-      <event-item id="ca_3393_6" name="sizsiz" detail1="firstdetail5" detail2="" date="2015-02-01"/></event-item>
+      <event-item id="ca_3393_5" name="5" detail1="firstdetail5" detail2="" date="2015-01-01" /></event-item>
+      <event-item id="ca_3393_6" name="sizsiz" detail1="firstdetail5" detail2="" date="2015-02-01" /></event-item>
 
-  </flower-track>
-
+    </flower-track>
 
     <flower-track type="sequence" heading="UK Prime Ministers" id="1">
-
       <track-item name="churchill" detail1="Conservative" detail2="Wood Green" start="1945-01-01 00:00:00"
         end="1963-01-01 00:00:00" id="winnie"
         img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
         additional_info=""></track-item>
-
-
-
       <track-item name="Ted Heath" detail1="Conservative" detail2="Wood Green" start="1990-01-01 00:00:00"
         end="2000-01-01 00:00:00" id="THeath"
         img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
         additional_info=""></track-item>
-
-
-
       <track-item name="Theresa May" detail1="Conservative" detail2="Wood Green" start="2010-01-01 00:00:00"
         end="2020-01-01 00:00:00" id="TMay"
         img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
         additional_info="">
       </track-item>
-
     </flower-track>
-
     <flower-track type="sequence" heading="monarchs" id="row2monarchs">
-      <track-item name="QE2" detail1="" detail2="" start="1953-01-01 00:00:00" end="2023-01-01 00:00:00" id="LizII"
+      <track-item name="QE2" detail1="" detail2="" start="1950-01-01 00:00:00" end="2023-01-01 00:00:00" id="LizII"
         img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
         additional_info="">
       </track-item>
-
     </flower-track>
 
     <flower-track type="TSE" id='4' heading="Cost of living" maxY="150" minY="10">
-      <time-series-item name="Cost of living" start="2015-01-01" end="2019-12-31" id="costofLv">
-        <time-series-plot value="20" date="2015-01-01"></time-series-plot>
-        <time-series-plot value="30" date="2015-06-04"></time-series-plot>
-        <time-series-plot value="40" date="2016-01-01"></time-series-plot>
-        <time-series-plot value="50" date="2018-01-01"></time-series-plot>
+      <time-series-item name="Cost of living" start="1950-01-01" end="2020-01-01" id="costofLv">
+        <time-series-plot value="150" date="1950-01-01"></time-series-plot>
+        <time-series-plot value="80" date="2015-06-04"></time-series-plot>
+        <time-series-plot value="90" date="2016-01-01"></time-series-plot>
+        <time-series-plot value="70" date="2018-01-01"></time-series-plot>
         <time-series-plot value="60" date="2018-06-04"></time-series-plot>
-        <time-series-plot value="133" date="2019-12-31"></time-series-plot>
+        <time-series-plot value="150" date="2019-01-01"></time-series-plot>
+        <time-series-plot value="60" date="2020-01-01"></time-series-plot>
       </time-series-item>
     </flower-track>
-
-
- 
-
 
   </flower-time-line>
 
