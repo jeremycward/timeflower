@@ -1,7 +1,7 @@
 
 
 body {
-  height: 100vh;
+  height: 95vh;
   display: flex;
   background: black;
   flex-direction: column;
@@ -9,6 +9,7 @@ body {
   margin: 0px;
   font-size: small;
   font-family: sans-serif;
+  overflow: hidden;
 }
 
 .flowerTrackItemsContainer {
@@ -68,9 +69,7 @@ body {
 }
 
 .flowerTimelineContainer {
-  border-color: black;
-  border-style: solid;
-  border-width: 1px;
+ 
 
 }
 
@@ -86,27 +85,28 @@ body {
   
 }
 
-.rowStripe {
-  
+.rowStripe {  
   background: linear-gradient(to bottom, bisque, beige,bisque);
-
 
 }
 
 .flowerGridMain {
   border: 3px solid darkgrey;
-  flex-grow: 100;
-  height: 80vh;
+  flex-grow: 100;  
   display: flex;
 }
 
 .flowerAxis {
-  height: 3vh;
+  min-height: 3vh;
+  flex-grow: 0;
+}
+.flowerAxisViewPortCanvasStretcher{
+  
+  flex-grow: 5;
+  background-color: red;
 }
 
 .flowerAxisViewport {
-  height: 10vh;
-  flex-grow: 100;
   background-color: white;
 }
 
@@ -144,25 +144,34 @@ body {
 
 .mainFooter {
   background-color: black;
-  color: blue;
+  color:gray;
   height: 40px;
 }
 
 .mainContent {
   background-color: whitesmoke;
+  flex-grow: 100;
+  min-height: 100%;
+  max-height: 100%;
 }
 
 .mainContentFlexLayout {
   display: flex;
   flex-direction: row;
   flex-grow: 100;
+  min-height: 100%;
+  max-height: 100%;
+
 }
 
 .flowerGridLeft {
   width: 300px;
   min-width:300px;
   max-width: 300px;
-  background-color: grey;
+  min-height: 100%;
+  max-height: 100%;
+  background-color:grey;
+  border-style: solid;
 
 }
 
@@ -178,4 +187,10 @@ body {
 
 .flowerTrackItemContainer {
   overflow: visible;
+}
+.flowerGridAxisDecorator{  
+  display: flex;
+  flex-grow: 100;
+  flex-direction: column;
+
 }

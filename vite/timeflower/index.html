@@ -82,7 +82,6 @@
     
     </script>
   <script id="eventline-item-template" type="text/x-handlebars-template">
-
     <svg width="100%" height="100%" >
         <style>
             .small {
@@ -107,7 +106,7 @@
 </head>
 
 <body>
-   <flower-time-line target="timeline_component" id="tldata">
+  <flower-time-line target="timeline_component" id="tldata">
     <flower-track type="eventline" heading="Current Affairs" id="5">
       <event-item id="ca_3393_2" name="1111111" detail1="firstdetail1" detail2="" date="1990-01-01"></event-item>
       <event-item id="ca_3393_3" name="3333" detail1="firstdetail1" detail2="" date="1950-01-01" /></event-item>
@@ -165,7 +164,14 @@
 
       <div class="flowerGridMain">
         <div class="flowerViewport" id="flowerViewport">
-          <div class="flowerAxisViewport" id="flowerTimeLineViewportContainer">
+          <div id="axisDecorator" class="flowerGridAxisDecorator">
+            <div id="flowerAxisTop_placeHolder" class="flowerAxis">
+            </div>
+            <div class="flowerAxisViewPortCanvasStretcher">
+              <div class="flowerAxisViewport" id="flowerTimeLineViewportContainer"></div>
+            </div>
+
+            <div id="flowerAxisBottom_placeHolder" class="flowerAxis"></div>
           </div>
         </div>
       </div>
@@ -177,7 +183,7 @@
   </div>
 
   <div class="mainFooter">
-
+    <h2>footer</h2>
   </div>
 
 
