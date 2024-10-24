@@ -20,31 +20,6 @@ const headerHtmlId = track => `${track.htmlId}_header`
 const rowStripeElementId = track => `${track.htmlId}_rowStripeElement`
 const trackHeaderStrategy = (trackData) => itemTemplateStrategies[trackData.type]
 
-const axisContainerMaker_old = (elementId, rowStart, rowEnd, xScale) => {
-    const axisElement = $("<div>")
-    axisElement.attr('id', elementId)
-    axisElement.addClass("flowerAxis")
-    axisElement.css({
-        gridRowStart: rowStart,
-        gridRowEnd: rowEnd,
-        gridColumnStart: 'axis_start',
-        gridColumnEnd: 'axis_end',
-
-    })
-
-    $('#flowerGridWrapper').append(axisElement)
-
-    axisElement.append(emptySvg)
-    const isTopAxis = rowStart == 1 && rowEnd == 1
-    const transFormAmount = isTopAxis ? 29 : 0
-    d3.select(`#${elementId}`)
-
-        .select('svg')
-        .select('g')
-        .attr('transform', `translate(0,${transFormAmount})`)
-        .call(isTopAxis ? d3.axisTop(xScale) : d3.axisBottom(xScale))
-
-}
 
 
 
@@ -61,7 +36,7 @@ const axisContainerMaker = (elementId, xScale, transformAmount, axisFunction, gr
     tableWrapperElement.css({
         display: 'grid',
         gridTemplateColumns: gridTemplateCss,
-        gridTemplateRows: 'auto'
+        gridTemplateRows: '30px'
     })
 
     const headerFillerElement = $("<div>")
@@ -319,6 +294,10 @@ export class TimelineRenderer {
 
         TimelineRenderer.newOrExistingItem('flowerGridWrapper',
         /*creatorFunc*/() => {
+                //axes
+                axisContainerMaker(axisTopId, this.xscale, 29, d3.axisTop, gridTemplateCss)
+                axisContainerMaker(axisBaseId, this.xscale,3, d3.axisBottom,gridTemplateCss)
+
                 $('#flowerTimeLineViewportContainer').append(
                     $('<div></div>')
                         .attr('id', 'flowerGridWrapper')
@@ -405,9 +384,6 @@ export class TimelineRenderer {
 
                     }
                 )
-                //axes
-                axisContainerMaker(axisTopId, this.xscale, 29, d3.axisTop, gridTemplateCss)                
-                axisContainerMaker(axisBaseId, this.xscale,3, d3.axisBottom,gridTemplateCss)
 
             }]
         )

@@ -47,8 +47,6 @@ class ColulmnTagsAccumulator {
         }
         this.colTags.get(xOffset).push(name)
     }
-
-
 }
 
 const defaultRangeFinderFunction  = (trackItem,xScale)=>{

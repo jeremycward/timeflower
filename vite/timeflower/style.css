@@ -103,7 +103,7 @@ body {
 .flowerAxisViewPortCanvasStretcher{
   
   flex-grow: 5;
-  background-color: red;
+  background-color: darkgray;
 }
 
 .flowerAxisViewport {
