@@ -47,8 +47,6 @@ class ColulmnTagsAccumulator {
         }
         this.colTags.get(xOffset).push(name)
     }
-
-
 }
 
 const defaultRangeFinderFunction  = (trackItem,xScale)=>{
@@ -104,7 +102,7 @@ const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponents
             absoluteEndPosition : col_end,
             gridColumnStart: col_start_label,
             gridColumnEnd: col_end_label,
-            gridRow: `${trackNumber+1}`,
+            gridRow: `${trackNumber}`,
             rowHtmlId : track.htmlId,
             htmlId: trackItem.htmlId,            
             display: isVisible ? 'grid' : 'none'
