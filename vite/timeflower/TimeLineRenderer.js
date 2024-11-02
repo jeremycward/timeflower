@@ -305,9 +305,9 @@ export class TimelineRenderer {
                             {
                                 display: 'grid',
                                 'grid-template-columns': gridTemplateCss,
-                                gap: '0px',
+                                gap: '15px',
                                 gridTemplateRows: gridTemplateRowsCss,
-                                columnRule: "4px dotted rgb(79 185 227)"
+                                rowRule: "14px dotted rgb(79 185 227)"
                             }
                         )
                 )
@@ -325,7 +325,7 @@ export class TimelineRenderer {
                                 gridRowStart: `${rowCtr}`,
                                 gridRowEnd: `${rowCtr}`,
                                 gridColumnStart: 'head_start',
-                                gridColumnEnd: 'head_end',
+                                gridColumnEnd: 'head_end'
                             }
                         )
                         headerContainerElement.addClass('flowerTrackHeadingContainer')
