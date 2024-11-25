@@ -22,9 +22,8 @@
       <div class="timeSeriesHeaderDescription">{{heading}}</div>
 
       <div id={{timeSeriesAxisGutterId}} class="timeSeriesAxisGutter" trackId="{{trackId}}" trackType={{type}}>
-          <svg width="100%" height="100%">
-              <g > 
-              
+          <svg width="100%" height="100%" >
+              <g >               
               </g>
            </svg>
       </div>
@@ -35,26 +34,20 @@
 
   </script>
 
+
   <script id="sequence-track-header" type="text/x-handlebars-template">
-  
-       <div class="panel-1" style="margin: 10px;">hello</div>
-  
+
+        <div class="panel-1" style="width:100%;height:100%;border-color: black;border-style: solid;border-radius: 5px;">hello</div>  
+
+
+       
   </script>
 
 
 
-  <script id="sequence-track-header-old" type="text/x-handlebars-template">
-
-    <div>
-    <div class="flowerTrackHeadingContainer" style="height:{{trackHeight}}px">
-            <span>{{heading}}</span>        
-        </div>
-      </div>       
-    </script>
-
   <script id="eventline-track-header" type="text/x-handlebars-template">
 
-      <div class="flowerTrackHeadingContainer panel-1">
+      <div class="flowerTrackHeadingContainer panel-9">
         <span>{{heading}}</span>        
     
 
@@ -63,27 +56,18 @@
     </script>
 
   <script id="time-series-item-template" type="text/x-handlebars-template">
-        <div class="timeSeriesTrackItemLayout panel-9" id="{{id}}" >     
-            <svg width="100%" height="100%" class="timeSeriesItemSvg" style="left:-1200px">                    
-                <g transform="{{chopLeft leftOverHang }}">
-                    <path d="{{path}}" fill="transparent" stroke="red" stroke-width="2"/>                    
-                </g>
-            </svg>            
+
+        <div class="sequenceTrackItemLayout panel-1" id="{{id}}" >     
+          <svg width="100%" height="100%" class="timeSeriesItemSvg" style="left:-1200px">                    
+            <g transform="{{chopLeft leftOverHang }}">
+                <path d="{{path}}" fill="transparent" stroke="red" stroke-width="2"/>                    
+            </g>
+        </svg>            
+
         </div>
+
   </script>
 
-
-  <script id="time-series-row-stripe-template" type="text/x-handlebars-template">
-        <div>     
-            <svg width="100%" height="100%" class="timeSeriesItemSvg">            
-                <g>
-                  {{#each tickRules}}
-                  <line x1="0" y1="{{this}}" x2="{{@root.width}}" y2="{{this}}" style="stroke:#E0E0E0;stroke-width:1"/>                                       
-                  {{/each}}
-                </g>
-            </svg>            
-        </div>
-      </script>
 
 
 
@@ -99,31 +83,51 @@
                 {{/each}}
             </div>
             
-        </div>
+        </div>  
     
     </script>
+
   <script id="eventline-item-template" type="text/x-handlebars-template">
-    <div class="eventlineTrackItemLayout">
-    <svg width="100%" height="100%" >
-        <style>
-            .small {
-              font: bold 12px sans-serif;
-            }
-        
-        </style>
-        <g>
-                <line x1="{{0}}" y1="{{yoffset idx}}" x2="{{0}}" y2="100" style="stroke:black;stroke-width:1"/>                                                
-                <foreignobject class="node" x="{{0}}" y="{{yoffset idx}}" width="80" height="100">
-                    <div class="panel-9">
-                      <div class="eventlinePlotItemHeading ">
-                      {{name}}
-                    </div>                
-                </foreignobject>                
-        </g>
-    </svg>
-  </div>
+      <div class="sequenceTrackItemLayout  panel-1" >
+        <div class="layerContainer">
+
+          <div class="eventlineLayer">
+            {{#each events}}
+            <div class="eventLineEventItem" style="left:{{{eventxPos}}}; top:15px">{{eventName}}</div>                          
+            {{/each}}
+          </div>          
       
-</script>
+        
+          <div class="eventlineLayer">
+            <svg width="100%" height="100%">
+              <g id="horizRule">
+                <line stroke-width="1px" stroke="black" x1="0" x2="100%" y1="10%" y2="10%">
+
+                </line>
+              </g>
+              <g id="circles">
+              </g>                        
+            </svg>         
+          </div>
+        </div>
+          
+      </div>
+
+  
+      </div>
+        
+  </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -132,13 +136,7 @@
 
 
   <flower-time-line target="timeline_component" id="tldata">
-    <!-- <flower-track type="eventline" heading="Current Affairs" id="5">
-      <event-item id="ca_3393_2" name="1111111" detail1="firstdetail1" detail2="" date="1990-01-01"></event-item>
-      <event-item id="ca_3393_3" name="3333" detail1="firstdetail1" detail2="" date="1950-01-01" /></event-item>
-      <event-item id="ca_3393_4" name="4" detail1="firstdetail4" detail2="" date="2010-01-01"></event-item>
-      <event-item id="ca_3393_5" name="5" detail1="firstdetail5" detail2="" date="2015-01-01" /></event-item>
-      <event-item id="ca_3393_6" name="sizsiz" detail1="firstdetail5" detail2="" date="2015-02-01" /></event-item>
-    </flower-track> -->
+
 
     <flower-track type="sequence" heading="UK Prime Ministers" id="1">
       <track-item name="churchill" detail1="Conservative" detail2="Wood Green" start="1945-01-01 00:00:00"
@@ -162,7 +160,26 @@
       </track-item>
     </flower-track>
 
-    <!-- <flower-track type="TSE" id='4' heading="Cost of living" maxY="150" minY="10">
+
+    <flower-track type="eventline" heading="Current Affairs" id="5">
+      <track-item start="1950-01-01" end="2040-01-01" id="559223x">
+        <event-item id="ca_3393_2" name="Suez Crisis" detail1="firstdetail1" detail2="" date="1990-07-01"></event-item>
+        <event-item id="ca_3393_3" name="VCong invade saigon" detail1="det1" detail2="" date="1950-01-01"></event-item>
+        <event-item id="ca_3393_4" name="Earthquake in Brazil" detail1="firstdetail4" detail2=""
+          date="2011-01-01"></event-item>
+        <event-item id="ca_3393_5" name="PM resigns" detail1="firstdetail5" detail2="" date="2010-01-01"></event-item>
+        <event-item id="ca_3393_6" name="Inflation Peaks" detail1="firstdetail5" detail2=""
+          date="2015-01-01"></event-item>
+      </track-item>
+    </flower-track>
+    <flower-track type="sequence" heading="monarchs" id="monbot">
+      <track-item name="KingCHarley" detail1="" detail2="" start="1950-01-01 00:00:00" end="2023-01-01 00:00:00"
+        id="Charley"
+        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
+        additional_info="">
+      </track-item>
+    </flower-track>
+    <flower-track type="TSE" id='4' heading="Cost of living" maxY="150" minY="10">
       <time-series-item name="Cost of living" start="1950-01-01" end="2020-01-01" id="costofLv">
         <time-series-plot value="150" date="1950-01-01"></time-series-plot>
         <time-series-plot value="80" date="2015-06-04"></time-series-plot>
@@ -172,7 +189,11 @@
         <time-series-plot value="150" date="2019-01-01"></time-series-plot>
         <time-series-plot value="60" date="2020-01-01"></time-series-plot>
       </time-series-item>
-    </flower-track> -->
+    </flower-track>
+
+
+
+
 
   </flower-time-line>
 
@@ -194,18 +215,36 @@
       <div class=" flowerGridMain">
         <div class="flowerViewport" id="flowerViewport">
           <div id="axisDecorator" class="flowerGridAxisDecorator">
-            <div id="flowerAxisTop_placeHolder" class="flowerAxis "></div>
-
+            <div id="flowerAxisTop_placeHolder" class="flowerAxis"></div>
             <div class="flowerAxisViewPortCanvasStretcher ">
-              <div id="flowerTimeLineViewportContainer"></div>
+              <div class="svg-background-wrapper">
+                <div class="svg-background-layer" id="svg_viewport_background_placeholder" width="100%" height="100%">
+                  <svg width="100%" height="100%">
+                    <g transform="translate(100,0)" id="tickLines">
+
+                    </g>
+
+
+
+
+                  </svg>
+
+                </div>
+                <div class="svg-foreground-layer">
+                  <div id="flowerTimeLineViewportContainer"></div>
+                </div>
+
+
+              </div>
             </div>
 
-            <div id="flowerAxisBottom_placeHolder" class="flowerAxis "></div>
+
+            <div id="flowerAxisBottom_placeHolder" class="flowerAxis"></div>
           </div>
         </div>
       </div>
 
-      <div class="   flowerGridRight" id="flowerGridRight">
+      <div class="flowerGridRight" id="flowerGridRight">
         <h2>RHS</h2>
       </div>
     </div>

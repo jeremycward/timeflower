@@ -55,10 +55,11 @@ const defaultRangeFinderFunction  = (trackItem,xScale)=>{
 }
 const rangeFinderFunctions={
     'eventline' : (trackItem,xScale)=>{
-        const startDate = trackItem.date
+        const startDate = new Date(trackItem.attributes.start.value)
+        const endDate = new Date(trackItem.attributes.end.value)
         const beginOffset = xScale(startDate)
         const endOffset = beginOffset+ 100
-        const endDate = xScale.invert(endOffset)
+        
         return new TimeSpan(startDate,endDate)
     },
     'TSE': defaultRangeFinderFunction,
@@ -78,6 +79,8 @@ const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponents
         const col_end = Math.min(col_end_ceiling,col_end_actual)      
         const col_start_label = `${trackItem.htmlId}Start`
         const col_end_label = `${trackItem.htmlId}End`
+        
+        
 
         const isVisible  = range.isVisibleInsideScale(xScale,headerWidth)
         
@@ -104,7 +107,8 @@ const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponents
             gridColumnEnd: col_end_label,
             gridRow: `${trackNumber}`,
             rowHtmlId : track.htmlId,
-            htmlId: trackItem.htmlId,            
+            htmlId: trackItem.htmlId,    
+            colStart: col_start,        
             display: isVisible ? 'grid' : 'none'
         }
         itemComponentsAccumulator.components.push(gridPosnCssInfo)

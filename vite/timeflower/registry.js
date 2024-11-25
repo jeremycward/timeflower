@@ -29,6 +29,14 @@ Handlebars.registerHelper("chopLeft", function (px) {
 
 })
 
+Handlebars.registerHelper("eventName", function () {    
+    return this.name        
+})
+
+Handlebars.registerHelper("eventxPos",function(){
+    return `${this.xPos}px`
+})
+
 
 
 
