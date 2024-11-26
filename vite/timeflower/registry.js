@@ -36,6 +36,10 @@ Handlebars.registerHelper("eventName", function () {
 Handlebars.registerHelper("eventxPos",function(){
     return `${this.xPos}px`
 })
+Handlebars.registerHelper("getTrackHeading",function(){
+    return this.getAttribute("heading")
+})
+
 
 
 

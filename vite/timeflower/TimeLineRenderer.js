@@ -1,7 +1,7 @@
 import { TimeSpan } from "./Timespan"
 import { GridPositionReckoner } from "./GridPositionReckoner"
 import Handlebars from "handlebars"
-import { color } from "d3"
+
 
 const EVENT_RENDER_HINTS= {
     xPos: 1,
@@ -18,7 +18,7 @@ const RENDER_HINTS = {
     topOfEventLine: 7,
     events: 8
 }
-const eventline_slot_divisor = 4
+
 const placeHolderSuffix = '_placeHolder'
 const axisTopId = 'flowerAxisTop'
 const axisBaseId = 'flowerAxisBottom'
@@ -197,48 +197,6 @@ const defaultItemAttachFunction = (itemComp, trackRenderingHints) => {
 const defaultHeaderAttachFunction = (track) => {
     $(`#${headerHtmlId(track)}`).append(headingTemplates[track.type](track))
 }
-const eventLineSvg = (itemComp, trackRenderingHints) => {
-    const xPos = trackRenderingHints.get(RENDER_HINTS.xscale)(itemComp.dataElement['date'])
-    const line_htmlId = `line_${itemComp.htmlId}`
-    const itemComponent = $(`#${itemComp.htmlId} .eventlineTrackItemLayout`)
-    const topOfLine = itemComponent.position().top + (itemComponent.height() / 2)
-    trackRenderingHints.set(RENDER_HINTS.topOfEventLine, topOfLine)
-
-    d3.select(`#${svgBackgroundPlaceHolder}`)
-        .select("svg")
-        .select("#eventLines")
-        .selectAll(`#${line_htmlId}`)
-        .data([xPos])
-        .join("line")
-        .attr("id", line_htmlId)
-        .attr("x1", d => d)
-        .attr("x2", d => d)
-        .attr("y1", 0)
-        .attr("y2", "100%")
-        .attr("stroke-dasharray", "2 2")
-        .attr("stroke", "black")
-}
-const eventHorizLineSvg = (itemComp, trackRenderingHints) => {
-    const xPos = trackRenderingHints.get(RENDER_HINTS.xscale)(itemComp.dataElement['date'])
-    const line_htmlId = `line_${itemComp.htmlId}`
-    const itemComponent = $(`#${itemComp.htmlId} .eventlineTrackItemLayout`)
-    const topOfLine = itemComponent.position().top + (itemComponent.height() / 2)
-    trackRenderingHints.set(RENDER_HINTS.topOfEventLine, topOfLine)
-
-    d3.select(`#${svgBackgroundPlaceHolder}`)
-        .select("svg")
-        .select("#eventLines")
-        .selectAll(`#${line_htmlId}`)
-        .data([xPos])
-        .join("line")
-        .attr("id", line_htmlId)
-        .attr("x1", d => d)
-        .attr("x2", d => d)
-        .attr("y1", 0)
-        .attr("y2", "100%")
-        .attr("stroke-dasharray", "2 2")
-        .attr("stroke", "black")
-}
 export const calcEventxPos =(itemComponent,eventData,xScale)=>{
     const eventDate = new Date(eventData.getAttribute('date'))
     const eventPosnAbsolute = xScale(eventDate)
@@ -275,11 +233,6 @@ const eventCircleSvg = (itemComp, trackRenderingHints) => {
         .attr("stroke", "black")
 
 }
-
-
-
-
-
 
 const itemTemplateStrategies = {
     'eventline': {
@@ -451,6 +404,7 @@ export class TimelineRenderer {
                             }
                         )
                         headerContainerElement.addClass('flowerTrackHeadingContainer')
+                        headerContainerElement.addClass('panel-1')
                         headerContainerElement.attr("id", headerHtmlId(trackData))
                         $('#flowerGridWrapper').append(headerContainerElement)
                         trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)

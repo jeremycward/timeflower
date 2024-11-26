@@ -34,3 +34,14 @@ def index(request):
 
    return HttpResponse(template.render(context, request))
 
+def time_line(request):
+    template = loader.get_template("flowerapp/htmlx/timeline.html")
+    context = {
+       "timeline_data" : Track.objects.all()
+    }
+    return HttpResponse(template.render(context, request))
+
+
+    
+        
+    
