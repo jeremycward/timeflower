@@ -1,3 +1,4 @@
 *.pyc
 vite/timeflower/static/
 venv/
+python/flower/flowerapp/templatetags/__pycache__
