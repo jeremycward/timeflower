@@ -1,29 +1,26 @@
 
+{% load flower_tags%}
+{% comment %} <flower-time-line  id="timeLineData" >    
+    {% for track in  timeline_data %}   
+       {% if track.itemType == "SER" %}
+       {% event_track track %}
+       {% elif track.itemType == "EVE" %}
+         {% EVE_track track  %}         
+       {% elif track.itemType == "TSE" %}
+          {% TSE_track track %}
+       {% endif %}
+    {% endfor%}
 
-  <flower-time-line target="timeline_component" id="tldata">
+</flower-time-line>  {% endcomment %}
+ 
 
-    <flower-track type="sequence" heading="UK Prime Ministers" id="1">
-      <track-item name="churchill" detail1="Conservative" detail2="Wood Green" start="1945-01-01 00:00:00"
-        end="1963-01-01 00:00:00" id="winnie"
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
-        additional_info=""></track-item>
-      <track-item name="Ted Heath" detail1="Conservative" detail2="Wood Green" start="1990-01-01 00:00:00"
-        end="2000-01-01 00:00:00" id="THeath"
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
-        additional_info=""></track-item>
-      <track-item name="Theresa May" detail1="Conservative" detail2="Wood Green" start="2010-01-01 00:00:00"
-        end="2020-01-01 00:00:00" id="TMay"
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
-        additional_info="">
-      </track-item>
-    </flower-track>
-    <flower-track type="sequence" heading="monarchs" id="row2monarchs">
-      <track-item name="QE2" detail1="" detail2="" start="1950-01-01 00:00:00" end="2023-01-01 00:00:00" id="LizII"
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
-        additional_info="">
-      </track-item>
-    </flower-track>
 
+
+
+
+
+
+ <flower-time-line target="timeline_component" id="timeLineData">
 
     <flower-track type="eventline" heading="Current Affairs" id="5">
       <track-item start="1950-01-01" end="2040-01-01" id="559223x">
@@ -34,25 +31,23 @@
         <event-item id="ca_3393_5" name="PM resigns" detail1="firstdetail5" detail2="" date="2010-01-01"></event-item>
         <event-item id="ca_3393_6" name="Inflation Peaks" detail1="firstdetail5" detail2=""
           date="2015-01-01"></event-item>
-      </track-item>
+       </track-item>
     </flower-track>
-    <flower-track type="sequence" heading="monarchs" id="monbot">
-      <track-item name="KingCHarley" detail1="" detail2="" start="1950-01-01 00:00:00" end="2023-01-01 00:00:00"
-        id="Charley"
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg"
-        additional_info="">
-      </track-item>
-    </flower-track>
-    <flower-track type="TSE" id='4' heading="Cost of living" maxY="150" minY="10">
-      <time-series-item name="Cost of living" start="1950-01-01" end="2020-01-01" id="costofLv">
-        <time-series-plot value="150" date="1950-01-01"></time-series-plot>
-        <time-series-plot value="80" date="2015-06-04"></time-series-plot>
-        <time-series-plot value="90" date="2016-01-01"></time-series-plot>
-        <time-series-plot value="70" date="2018-01-01"></time-series-plot>
-        <time-series-plot value="60" date="2018-06-04"></time-series-plot>
-        <time-series-plot value="150" date="2019-01-01"></time-series-plot>
-        <time-series-plot value="60" date="2020-01-01"></time-series-plot>
-      </time-series-item>
-    </flower-track>
+
+
+<flower-track type="eventline" heading="WarInUkrane" id="5">
+
+      <track-item start="2024-07-01" end="2024-09-02" id="5xddhh">
+
+               <event-item id="3d3" name="Russian shelling of Nikopol" detail1="Two people killed" detail2="" date="2024-08-01"></event-item>       
+
+
+               <event-item id="394" name="Missile attacks across Crimean Peninsula" detail1="" detail2="" date="2024-08-02"></event-item>
+
+
+       </track-item>
+    </flower-track>    
+
+
 
   </flower-time-line>

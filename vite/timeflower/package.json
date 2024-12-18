@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build; ",
     "preview": "vite preview",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "4django": "vite build && cp dist/static/* dist && ls -l dist/static && cp data/timelinedata.html dist/flowerapp && cp data/timelinedata.html data/time_line.html"
   },
   "devDependencies": {
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
-    "vite": "^5.4.1"
+    "vite": "^5.4.11"
   },
   "dependencies": {
     "d3": "^7.9.0",

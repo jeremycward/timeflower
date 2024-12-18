@@ -5,6 +5,8 @@ from ..time_span_utils import NormalisedTimeSeriesTrack, NormalisedTimeSeriesPlo
 register = template.Library()
 import datetime as dt
 from dataclasses import dataclass
+from ..tse_value_objects import TSE_track_constructor,TSE_track,Time_series_item,Time_series_plot
+from ..eve_value_objects import EVE_track_constructor
 
 def tfmt(dte):
     return dte.strftime("%Y-%m-%d %H:%M:%S")    
@@ -13,6 +15,15 @@ def tfmt(dte):
 def dfmt(dte):
     return dte.strftime("%Y-%m-%d")    
 
+
+
+@register.inclusion_tag("flowerapp/htmlx/time_series_track.html")
+def TSE_track(track):
+    return {
+           "track" : TSE_track_constructor(track)
+    }
+    
+    
 
 @register.inclusion_tag("flowerapp/time_series_track.html")
 def time_series_track(track):
@@ -35,6 +46,11 @@ def timeline_data():
 @register.inclusion_tag("flowerapp/event_track.html")
 def event_track(track):
     return {"eventTrack" : SequencedEventTrack(track)}        
+
+@register.inclusion_tag("flowerapp/htmlx/event_track.html")
+def EVE_track(track):
+    return {"track" :  EVE_track_constructor(track)}        
+
 
 def build_seq_items_from_model_items(model_items):
     items:list[SequencedEventItem] = []

@@ -1,0 +1,3630 @@
+[
+{
+  "model": "flowerapp.track",
+  "pk": 1,
+  "fields": {
+    "name": "UK Prime Ministers",
+    "itemType": "SER"
+  }
+},
+{
+  "model": "flowerapp.track",
+  "pk": 2,
+  "fields": {
+    "name": "UK No 1 Hits",
+    "itemType": "SER"
+  }
+},
+{
+  "model": "flowerapp.track",
+  "pk": 3,
+  "fields": {
+    "name": "UK Unemployment",
+    "itemType": "TSE"
+  }
+},
+{
+  "model": "flowerapp.track",
+  "pk": 4,
+  "fields": {
+    "name": "Cost of living",
+    "itemType": "TSE"
+  }
+},
+{
+  "model": "flowerapp.track",
+  "pk": 5,
+  "fields": {
+    "name": "WarInUkrane",
+    "itemType": "EVE"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 2,
+  "fields": {
+    "track": 1,
+    "name": "Ted Heath",
+    "detail1": "Cons.",
+    "detail2": null,
+    "start": "1970-06-19",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Edward_Heath_%28cropped%29.jpg/220px-Edward_Heath_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Edward_Heath"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 3,
+  "fields": {
+    "track": 1,
+    "name": "Harold Macmillan",
+    "detail1": null,
+    "detail2": null,
+    "start": "1957-01-10",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Harold_Wilson"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 4,
+  "fields": {
+    "track": 1,
+    "name": "James Callaghan",
+    "detail1": null,
+    "detail2": null,
+    "start": "1976-04-05",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Prime_Minister_James_Callaghan_%28cropped%29.jpg/220px-Prime_Minister_James_Callaghan_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/James_Callaghan"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 5,
+  "fields": {
+    "track": 1,
+    "name": "Margaret Thatcher",
+    "detail1": null,
+    "detail2": null,
+    "start": "1979-05-04",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Margaret_Thatcher_%281983%29.jpg/220px-Margaret_Thatcher_%281983%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Margaret_Thatcher"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 6,
+  "fields": {
+    "track": 1,
+    "name": "John Major",
+    "detail1": null,
+    "detail2": null,
+    "start": "1990-11-28",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Major_PM_full_%28cropped%29.jpg/220px-Major_PM_full_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/John_Major"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 7,
+  "fields": {
+    "track": 1,
+    "name": "Tony Blair",
+    "detail1": null,
+    "detail2": null,
+    "start": "1997-05-02",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tony_Blair_in_2002_%28cropped%29.jpg/220px-Tony_Blair_in_2002_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Tony_Blair"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 8,
+  "fields": {
+    "track": 1,
+    "name": "Alec Douglas Hume",
+    "detail1": null,
+    "detail2": null,
+    "start": "1963-10-18",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Alec_Douglas-Home_%28c1963%29_%28cropped%29.jpg/220px-Alec_Douglas-Home_%28c1963%29_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Alec_Douglas-Home"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 9,
+  "fields": {
+    "track": 1,
+    "name": "Harold Wilson",
+    "detail1": null,
+    "detail2": null,
+    "start": "1964-10-16",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Harold_Wilson"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 10,
+  "fields": {
+    "track": 1,
+    "name": "Harold Macmillan",
+    "detail1": null,
+    "detail2": null,
+    "start": "1957-01-10",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Harold_Macmillan_%28cropped%29.jpg/220px-Harold_Macmillan_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Harold_Wilson"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 11,
+  "fields": {
+    "track": 1,
+    "name": "Anthony Eden",
+    "detail1": null,
+    "detail2": null,
+    "start": "1955-04-06",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Anthony_Eden_%28retouched%29_%28cropped%29.jpg/220px-Anthony_Eden_%28retouched%29_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Anthony_Eden"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 12,
+  "fields": {
+    "track": 1,
+    "name": "Winston Churchill",
+    "detail1": null,
+    "detail2": null,
+    "start": "1940-05-10",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sir_Winston_Churchill_%28cropped%29.jpg/220px-Sir_Winston_Churchill_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Winston_Churchill"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 13,
+  "fields": {
+    "track": 1,
+    "name": "Clement Atlee",
+    "detail1": null,
+    "detail2": null,
+    "start": "1945-06-26",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Clement_Attlee_%28cropped%29.jpg/220px-Clement_Attlee_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Clement_Attlee"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 14,
+  "fields": {
+    "track": 1,
+    "name": "Winston Churchill",
+    "detail1": null,
+    "detail2": null,
+    "start": "1951-10-26",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sir_Winston_Churchill_%28cropped%29.jpg/220px-Sir_Winston_Churchill_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Winston_Churchill"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 15,
+  "fields": {
+    "track": 1,
+    "name": "Neville Chamberlain",
+    "detail1": null,
+    "detail2": null,
+    "start": "1937-05-28",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Chamberlain_Neville.jpg/220px-Chamberlain_Neville.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Neville_Chamberlain"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 16,
+  "fields": {
+    "track": 1,
+    "name": "Harold Wilson",
+    "detail1": null,
+    "detail2": null,
+    "start": "1974-03-04",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Harold_Wilson.jpg/220px-Harold_Wilson.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Harold_Wilson"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 17,
+  "fields": {
+    "track": 2,
+    "name": "MIchael Jackson",
+    "detail1": "Earth Song",
+    "detail2": null,
+    "start": "1995-03-12",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://th.bing.com/th?id=OVFT.IcQnjpkemb6_VNnCzUbrji&pid=News&w=80&h=80&c=14&rs=2&qlt=90&dpr=1.4",
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 18,
+  "fields": {
+    "track": 2,
+    "name": "Robson and Jerome",
+    "detail1": "I Believe",
+    "detail2": null,
+    "start": "1995-11-05",
+    "end": "1996-05-05",
+    "startTime": null,
+    "endTime": null,
+    "img": "https://www.bing.com/th?id=OPEC.I6FR3ie31db6bw474C474&o=5&pid=21.1&w=160&h=160&qlt=100&dpr=1.4&c=8&pcl=f5f5f5",
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 19,
+  "fields": {
+    "track": 2,
+    "name": "Coolio featuring LV",
+    "detail1": "Ganstas Paradise",
+    "detail2": null,
+    "start": "1995-10-22",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://th.bing.com/th?id=OSK.mmcol8OrxoKUPeTxkOSmKQWEowpCqjDGuc3UZwPTFGV6vQc4&w=76&h=100&c=8&o=6&dpr=1.4&pid=SANGAM",
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 20,
+  "fields": {
+    "track": 2,
+    "name": "Simply Red",
+    "detail1": "Fairgound",
+    "detail2": null,
+    "start": "1995-09-24",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://www.bing.com/th?id=OPEC.3k%2f1IVDp7Mg6kw474C474&o=5&pid=21.1&w=148&h=163&qlt=100&dpr=1.4&bw=6&bc=FFFFFF",
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 21,
+  "fields": {
+    "track": 2,
+    "name": "Shaggy",
+    "detail1": "Bombastic",
+    "detail2": null,
+    "start": "1995-09-17",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 22,
+  "fields": {
+    "track": 2,
+    "name": "Michael Jackson",
+    "detail1": null,
+    "detail2": null,
+    "start": "1995-09-03",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 23,
+  "fields": {
+    "track": 2,
+    "name": "Blur",
+    "detail1": "Country House",
+    "detail2": null,
+    "start": "1995-08-20",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 24,
+  "fields": {
+    "track": 2,
+    "name": "Take That",
+    "detail1": "Never Forget",
+    "detail2": null,
+    "start": "1995-07-30",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 25,
+  "fields": {
+    "track": 2,
+    "name": "The Outhere Brohers",
+    "detail1": "Boom Boom Boom",
+    "detail2": null,
+    "start": "1995-07-02",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 26,
+  "fields": {
+    "track": 1,
+    "name": "Gordon Brown",
+    "detail1": null,
+    "detail2": null,
+    "start": "2007-06-26",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Gordon_Brown_official_%28cropped_2%29.jpg/220px-Gordon_Brown_official_%28cropped_2%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Gordon_Brown"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 27,
+  "fields": {
+    "track": 1,
+    "name": "David Cameron",
+    "detail1": null,
+    "detail2": null,
+    "start": "2010-05-11",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/David_Cameron_official_%28cropped%29.jpg/220px-David_Cameron_official_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/David_Cameron"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 28,
+  "fields": {
+    "track": 1,
+    "name": "Theresa May",
+    "detail1": null,
+    "detail2": null,
+    "start": "2016-07-13",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Theresa_May_%282016%29_%28cropped%29.jpg/220px-Theresa_May_%282016%29_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Theresa_May"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 29,
+  "fields": {
+    "track": 1,
+    "name": "Boris Johnson",
+    "detail1": null,
+    "detail2": null,
+    "start": "2019-07-24",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/220px-Boris_Johnson_official_portrait_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Boris_Johnson"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 30,
+  "fields": {
+    "track": 1,
+    "name": "Liz Truss",
+    "detail1": null,
+    "detail2": null,
+    "start": "2022-09-06",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Official_portrait_of_Liz_Truss_%28cropped%29.jpg/220px-Official_portrait_of_Liz_Truss_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Liz_Truss"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 31,
+  "fields": {
+    "track": 1,
+    "name": "Rishi Sunak",
+    "detail1": null,
+    "detail2": null,
+    "start": "2022-10-25",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg/220px-Portrait_of_Prime_Minister_Rishi_Sunak_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Rishi_Sunak"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 32,
+  "fields": {
+    "track": 1,
+    "name": "Keir Starmer",
+    "detail1": null,
+    "detail2": null,
+    "start": "2024-07-05",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg/220px-Prime_Minister_Sir_Keir_Starmer_Official_Portrait_%28cropped%29.jpg",
+    "additional_info": "https://en.wikipedia.org/wiki/Keir_Starmer"
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 33,
+  "fields": {
+    "track": 5,
+    "name": "Russian shelling of Nikopol",
+    "detail1": "Two people killed",
+    "detail2": null,
+    "start": "2024-08-01",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.item",
+  "pk": 34,
+  "fields": {
+    "track": 5,
+    "name": "Missile attacks across Crimean Peninsula",
+    "detail1": null,
+    "detail2": null,
+    "start": "2024-08-02",
+    "end": null,
+    "startTime": null,
+    "endTime": null,
+    "img": null,
+    "additional_info": null
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 19736276,
+  "fields": {
+    "track": 4,
+    "date": "2020-03-09",
+    "value": 122.24
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 24598237,
+  "fields": {
+    "track": 4,
+    "date": "2024-03-25",
+    "value": 145.06
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 85089150,
+  "fields": {
+    "track": 4,
+    "date": "2019-06-10",
+    "value": 128.89
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 98864347,
+  "fields": {
+    "track": 4,
+    "date": "2019-10-14",
+    "value": 126.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 153027981,
+  "fields": {
+    "track": 4,
+    "date": "2020-02-10",
+    "value": 124.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 178927344,
+  "fields": {
+    "track": 4,
+    "date": "2021-02-08",
+    "value": 119.67
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 187994796,
+  "fields": {
+    "track": 4,
+    "date": "2023-06-05",
+    "value": 142.9
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 213067655,
+  "fields": {
+    "track": 4,
+    "date": "2021-06-14",
+    "value": 129.47
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 236908915,
+  "fields": {
+    "track": 4,
+    "date": "2018-06-25",
+    "value": 127.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 252588532,
+  "fields": {
+    "track": 4,
+    "date": "2022-01-31",
+    "value": 145.74
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 310037814,
+  "fields": {
+    "track": 4,
+    "date": "2019-02-18",
+    "value": 119.05
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 328101106,
+  "fields": {
+    "track": 4,
+    "date": "2019-02-11",
+    "value": 118.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 387060261,
+  "fields": {
+    "track": 4,
+    "date": "2018-11-26",
+    "value": 125.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 416012360,
+  "fields": {
+    "track": 4,
+    "date": "2018-10-22",
+    "value": 130.98
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 433328393,
+  "fields": {
+    "track": 4,
+    "date": "2023-02-13",
+    "value": 147.98
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 484224852,
+  "fields": {
+    "track": 4,
+    "date": "2020-08-31",
+    "value": 113.29
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 516252201,
+  "fields": {
+    "track": 4,
+    "date": "2020-10-12",
+    "value": 113.19
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 523481471,
+  "fields": {
+    "track": 4,
+    "date": "2023-12-11",
+    "value": 143.8
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 555536927,
+  "fields": {
+    "track": 4,
+    "date": "2023-02-06",
+    "value": 148.34
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 625994769,
+  "fields": {
+    "track": 4,
+    "date": "2019-02-25",
+    "value": 119.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 630150232,
+  "fields": {
+    "track": 4,
+    "date": "2023-05-22",
+    "value": 143.64
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 633522017,
+  "fields": {
+    "track": 4,
+    "date": "2021-04-12",
+    "value": 125.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 650941350,
+  "fields": {
+    "track": 4,
+    "date": "2023-05-15",
+    "value": 144.65
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 683593246,
+  "fields": {
+    "track": 4,
+    "date": "2023-11-06",
+    "value": 153.2
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 727814821,
+  "fields": {
+    "track": 4,
+    "date": "2018-03-19",
+    "value": 119.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 871345529,
+  "fields": {
+    "track": 4,
+    "date": "2018-11-12",
+    "value": 128.94
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 873642001,
+  "fields": {
+    "track": 4,
+    "date": "2018-01-08",
+    "value": 120.52
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 908947672,
+  "fields": {
+    "track": 4,
+    "date": "2023-06-19",
+    "value": 142.95
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 911856387,
+  "fields": {
+    "track": 4,
+    "date": "2020-03-16",
+    "value": 120.33
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 920420381,
+  "fields": {
+    "track": 4,
+    "date": "2022-11-21",
+    "value": 163.28
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 972655273,
+  "fields": {
+    "track": 4,
+    "date": "2024-01-01",
+    "value": 140.78
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1029128954,
+  "fields": {
+    "track": 4,
+    "date": "2018-07-16",
+    "value": 127.47
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1039502362,
+  "fields": {
+    "track": 4,
+    "date": "2021-10-18",
+    "value": 139.46
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1045230096,
+  "fields": {
+    "track": 4,
+    "date": "2019-10-28",
+    "value": 125.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1083338863,
+  "fields": {
+    "track": 4,
+    "date": "2022-04-04",
+    "value": 161.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1106220466,
+  "fields": {
+    "track": 4,
+    "date": "2018-10-01",
+    "value": 129.98
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1205306247,
+  "fields": {
+    "track": 4,
+    "date": "2019-09-16",
+    "value": 126.92
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1265710461,
+  "fields": {
+    "track": 4,
+    "date": "2024-03-04",
+    "value": 144.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1271788068,
+  "fields": {
+    "track": 4,
+    "date": "2022-01-03",
+    "value": 145.04
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1280747555,
+  "fields": {
+    "track": 4,
+    "date": "2020-03-02",
+    "value": 122.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1320032658,
+  "fields": {
+    "track": 4,
+    "date": "2019-04-15",
+    "value": 124.06
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1343526804,
+  "fields": {
+    "track": 4,
+    "date": "2022-10-03",
+    "value": 162.67
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1371862409,
+  "fields": {
+    "track": 4,
+    "date": "2021-08-30",
+    "value": 134.66
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1403528791,
+  "fields": {
+    "track": 4,
+    "date": "2023-10-30",
+    "value": 153.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1478481981,
+  "fields": {
+    "track": 4,
+    "date": "2022-02-07",
+    "value": 146.33
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1494062576,
+  "fields": {
+    "track": 4,
+    "date": "2022-05-23",
+    "value": 167.59
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1582051161,
+  "fields": {
+    "track": 4,
+    "date": "2022-01-24",
+    "value": 144.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1587278612,
+  "fields": {
+    "track": 4,
+    "date": "2020-12-14",
+    "value": 113.82
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1607061546,
+  "fields": {
+    "track": 4,
+    "date": "2022-08-15",
+    "value": 174.19
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1648544805,
+  "fields": {
+    "track": 4,
+    "date": "2021-12-20",
+    "value": 145.16
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1706611275,
+  "fields": {
+    "track": 4,
+    "date": "2022-11-28",
+    "value": 161.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1785368243,
+  "fields": {
+    "track": 4,
+    "date": "2021-02-15",
+    "value": 120.53
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1824737011,
+  "fields": {
+    "track": 4,
+    "date": "2018-09-24",
+    "value": 130.59
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1867051922,
+  "fields": {
+    "track": 4,
+    "date": "2019-07-29",
+    "value": 128.03
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1930754813,
+  "fields": {
+    "track": 4,
+    "date": "2018-12-10",
+    "value": 122.37
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1947946885,
+  "fields": {
+    "track": 4,
+    "date": "2022-12-26",
+    "value": 151.94
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1956660552,
+  "fields": {
+    "track": 4,
+    "date": "2022-01-10",
+    "value": 144.82
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1972723235,
+  "fields": {
+    "track": 4,
+    "date": "2020-12-21",
+    "value": 114.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 1998658674,
+  "fields": {
+    "track": 4,
+    "date": "2024-06-17",
+    "value": 145.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2018820724,
+  "fields": {
+    "track": 4,
+    "date": "2021-03-15",
+    "value": 123.9
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2022071237,
+  "fields": {
+    "track": 4,
+    "date": "2021-07-05",
+    "value": 131.7
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2035171027,
+  "fields": {
+    "track": 4,
+    "date": "2022-11-07",
+    "value": 165.62
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2038294154,
+  "fields": {
+    "track": 4,
+    "date": "2022-07-04",
+    "value": 191.55
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2052565691,
+  "fields": {
+    "track": 4,
+    "date": "2022-10-17",
+    "value": 162.81
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2058509604,
+  "fields": {
+    "track": 4,
+    "date": "2020-02-24",
+    "value": 123.45
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2120161937,
+  "fields": {
+    "track": 4,
+    "date": "2019-05-27",
+    "value": 129.14
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2122864997,
+  "fields": {
+    "track": 4,
+    "date": "2021-09-20",
+    "value": 134.86
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2196224078,
+  "fields": {
+    "track": 4,
+    "date": "2021-11-29",
+    "value": 147.53
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2226008583,
+  "fields": {
+    "track": 4,
+    "date": "2020-05-25",
+    "value": 104.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2259021990,
+  "fields": {
+    "track": 4,
+    "date": "2022-01-17",
+    "value": 144.8
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2307691293,
+  "fields": {
+    "track": 4,
+    "date": "2019-08-19",
+    "value": 128.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2312124665,
+  "fields": {
+    "track": 4,
+    "date": "2021-09-06",
+    "value": 134.76
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2326710057,
+  "fields": {
+    "track": 4,
+    "date": "2021-07-19",
+    "value": 133.2
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2332842503,
+  "fields": {
+    "track": 4,
+    "date": "2019-12-02",
+    "value": 124.81
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2376203322,
+  "fields": {
+    "track": 4,
+    "date": "2021-01-11",
+    "value": 116.14
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2416161026,
+  "fields": {
+    "track": 4,
+    "date": "2024-05-27",
+    "value": 147.65
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2449044960,
+  "fields": {
+    "track": 4,
+    "date": "2021-04-05",
+    "value": 125.24
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2461990356,
+  "fields": {
+    "track": 4,
+    "date": "2018-05-21",
+    "value": 125.93
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2479511871,
+  "fields": {
+    "track": 4,
+    "date": "2020-01-13",
+    "value": 127.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2496221161,
+  "fields": {
+    "track": 4,
+    "date": "2023-11-27",
+    "value": 147.99
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2539027136,
+  "fields": {
+    "track": 4,
+    "date": "2023-09-18",
+    "value": 154.06
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2553112560,
+  "fields": {
+    "track": 4,
+    "date": "2023-02-27",
+    "value": 147.55
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2576293972,
+  "fields": {
+    "track": 4,
+    "date": "2018-01-01",
+    "value": 120.19
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2593200069,
+  "fields": {
+    "track": 4,
+    "date": "2018-03-12",
+    "value": 119.11
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2598349468,
+  "fields": {
+    "track": 4,
+    "date": "2023-10-16",
+    "value": 155.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2605559854,
+  "fields": {
+    "track": 4,
+    "date": "2018-07-23",
+    "value": 127.5
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2654511743,
+  "fields": {
+    "track": 4,
+    "date": "2019-12-23",
+    "value": 124.16
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2665730194,
+  "fields": {
+    "track": 4,
+    "date": "2022-02-14",
+    "value": 146.95
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2707905659,
+  "fields": {
+    "track": 4,
+    "date": "2019-09-23",
+    "value": 126.78
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2763864558,
+  "fields": {
+    "track": 4,
+    "date": "2018-10-29",
+    "value": 130.64
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2786655100,
+  "fields": {
+    "track": 4,
+    "date": "2018-10-15",
+    "value": 130.81
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2807063384,
+  "fields": {
+    "track": 4,
+    "date": "2022-04-11",
+    "value": 161.78
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2854110097,
+  "fields": {
+    "track": 4,
+    "date": "2021-05-17",
+    "value": 127.19
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2900634064,
+  "fields": {
+    "track": 4,
+    "date": "2019-11-11",
+    "value": 125.59
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2901287556,
+  "fields": {
+    "track": 4,
+    "date": "2020-02-03",
+    "value": 125.85
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2907131853,
+  "fields": {
+    "track": 4,
+    "date": "2023-05-01",
+    "value": 145.71
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2907268374,
+  "fields": {
+    "track": 4,
+    "date": "2020-04-27",
+    "value": 107.88
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2915082892,
+  "fields": {
+    "track": 4,
+    "date": "2020-06-29",
+    "value": 108.31
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2945974584,
+  "fields": {
+    "track": 4,
+    "date": "2019-08-26",
+    "value": 128.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2947630518,
+  "fields": {
+    "track": 4,
+    "date": "2019-05-06",
+    "value": 127.5
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2976147758,
+  "fields": {
+    "track": 4,
+    "date": "2021-02-01",
+    "value": 119.14
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 2980848093,
+  "fields": {
+    "track": 4,
+    "date": "2024-01-29",
+    "value": 139.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3043578416,
+  "fields": {
+    "track": 4,
+    "date": "2023-01-23",
+    "value": 148.21
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3098254326,
+  "fields": {
+    "track": 4,
+    "date": "2024-05-06",
+    "value": 149.54
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3117836469,
+  "fields": {
+    "track": 4,
+    "date": "2022-10-10",
+    "value": 162.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3138559208,
+  "fields": {
+    "track": 4,
+    "date": "2019-12-09",
+    "value": 124.75
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3211592177,
+  "fields": {
+    "track": 4,
+    "date": "2024-01-15",
+    "value": 139.49
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3232189160,
+  "fields": {
+    "track": 4,
+    "date": "2021-11-15",
+    "value": 145.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3255743197,
+  "fields": {
+    "track": 4,
+    "date": "2023-03-06",
+    "value": 147.12
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3259059093,
+  "fields": {
+    "track": 4,
+    "date": "2020-09-07",
+    "value": 113.37
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3312070551,
+  "fields": {
+    "track": 4,
+    "date": "2019-03-11",
+    "value": 120.1
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3390776885,
+  "fields": {
+    "track": 4,
+    "date": "2019-12-16",
+    "value": 124.33
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3447943051,
+  "fields": {
+    "track": 4,
+    "date": "2023-07-03",
+    "value": 143.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3469924246,
+  "fields": {
+    "track": 4,
+    "date": "2020-06-15",
+    "value": 106.37
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3485693550,
+  "fields": {
+    "track": 4,
+    "date": "2020-11-16",
+    "value": 112.35
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3575195252,
+  "fields": {
+    "track": 4,
+    "date": "2021-04-26",
+    "value": 125.8
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3624382092,
+  "fields": {
+    "track": 4,
+    "date": "2020-08-10",
+    "value": 113.02
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3691740454,
+  "fields": {
+    "track": 4,
+    "date": "2021-12-13",
+    "value": 146.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3696595522,
+  "fields": {
+    "track": 4,
+    "date": "2019-04-01",
+    "value": 121.7
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3820550213,
+  "fields": {
+    "track": 4,
+    "date": "2023-12-18",
+    "value": 141.51
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3849134486,
+  "fields": {
+    "track": 4,
+    "date": "2020-05-11",
+    "value": 107.45
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3851506451,
+  "fields": {
+    "track": 4,
+    "date": "2024-02-12",
+    "value": 141.28
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3866531225,
+  "fields": {
+    "track": 4,
+    "date": "2023-09-11",
+    "value": 153.1
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3888185517,
+  "fields": {
+    "track": 4,
+    "date": "2019-10-21",
+    "value": 126.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3913019133,
+  "fields": {
+    "track": 4,
+    "date": "2023-04-24",
+    "value": 145.84
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3920922951,
+  "fields": {
+    "track": 4,
+    "date": "2022-10-31",
+    "value": 165.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3945851700,
+  "fields": {
+    "track": 4,
+    "date": "2020-10-26",
+    "value": 113.14
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 3952272246,
+  "fields": {
+    "track": 4,
+    "date": "2018-01-15",
+    "value": 120.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4080298016,
+  "fields": {
+    "track": 4,
+    "date": "2018-01-29",
+    "value": 121.69
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4110130321,
+  "fields": {
+    "track": 4,
+    "date": "2018-08-27",
+    "value": 129.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4135992675,
+  "fields": {
+    "track": 4,
+    "date": "2018-12-31",
+    "value": 120.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4176316247,
+  "fields": {
+    "track": 4,
+    "date": "2021-10-04",
+    "value": 136.1
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4180193865,
+  "fields": {
+    "track": 4,
+    "date": "2022-03-21",
+    "value": 165.37
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4239054578,
+  "fields": {
+    "track": 4,
+    "date": "2018-06-11",
+    "value": 128.61
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4253279967,
+  "fields": {
+    "track": 4,
+    "date": "2018-07-09",
+    "value": 126.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4323985423,
+  "fields": {
+    "track": 4,
+    "date": "2019-11-04",
+    "value": 125.56
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4330400021,
+  "fields": {
+    "track": 4,
+    "date": "2020-07-27",
+    "value": 112.66
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4462985263,
+  "fields": {
+    "track": 4,
+    "date": "2021-06-21",
+    "value": 130.1
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4463252297,
+  "fields": {
+    "track": 4,
+    "date": "2021-07-26",
+    "value": 133.48
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4477377417,
+  "fields": {
+    "track": 4,
+    "date": "2020-05-04",
+    "value": 107.56
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4502424834,
+  "fields": {
+    "track": 4,
+    "date": "2018-05-14",
+    "value": 124.32
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4514413390,
+  "fields": {
+    "track": 4,
+    "date": "2022-08-29",
+    "value": 170.12
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4518219097,
+  "fields": {
+    "track": 4,
+    "date": "2022-11-14",
+    "value": 164.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4560163197,
+  "fields": {
+    "track": 4,
+    "date": "2021-06-28",
+    "value": 130.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4690989879,
+  "fields": {
+    "track": 4,
+    "date": "2021-04-19",
+    "value": 125.48
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4794550730,
+  "fields": {
+    "track": 4,
+    "date": "2020-11-23",
+    "value": 112.42
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4803314475,
+  "fields": {
+    "track": 4,
+    "date": "2018-04-30",
+    "value": 122.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4812288881,
+  "fields": {
+    "track": 4,
+    "date": "2018-11-19",
+    "value": 127.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4881416090,
+  "fields": {
+    "track": 4,
+    "date": "2020-07-13",
+    "value": 111.24
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4896986522,
+  "fields": {
+    "track": 4,
+    "date": "2021-12-06",
+    "value": 146.89
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4918183340,
+  "fields": {
+    "track": 4,
+    "date": "2020-09-21",
+    "value": 113.31
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 4957353853,
+  "fields": {
+    "track": 4,
+    "date": "2020-04-20",
+    "value": 108.63
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5002889418,
+  "fields": {
+    "track": 4,
+    "date": "2023-01-30",
+    "value": 148.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5017313757,
+  "fields": {
+    "track": 4,
+    "date": "2019-07-15",
+    "value": 127.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5018077796,
+  "fields": {
+    "track": 4,
+    "date": "2020-07-06",
+    "value": 109.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5037089102,
+  "fields": {
+    "track": 4,
+    "date": "2020-05-18",
+    "value": 105.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5060978600,
+  "fields": {
+    "track": 4,
+    "date": "2018-02-05",
+    "value": 121.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5090973485,
+  "fields": {
+    "track": 4,
+    "date": "2018-09-03",
+    "value": 129.76
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5128237595,
+  "fields": {
+    "track": 4,
+    "date": "2018-07-30",
+    "value": 127.54
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5129874421,
+  "fields": {
+    "track": 4,
+    "date": "2022-12-05",
+    "value": 159.2
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5138335226,
+  "fields": {
+    "track": 4,
+    "date": "2024-06-03",
+    "value": 147.27
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5212989391,
+  "fields": {
+    "track": 4,
+    "date": "2024-02-05",
+    "value": 140.55
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5216729192,
+  "fields": {
+    "track": 4,
+    "date": "2021-05-10",
+    "value": 126.53
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5266888759,
+  "fields": {
+    "track": 4,
+    "date": "2022-02-28",
+    "value": 149.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5384932181,
+  "fields": {
+    "track": 4,
+    "date": "2018-03-05",
+    "value": 119.29
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5397857052,
+  "fields": {
+    "track": 4,
+    "date": "2023-10-09",
+    "value": 155.94
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5427760774,
+  "fields": {
+    "track": 4,
+    "date": "2020-03-30",
+    "value": 112.45
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5444182732,
+  "fields": {
+    "track": 4,
+    "date": "2021-02-22",
+    "value": 121.27
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5449930407,
+  "fields": {
+    "track": 4,
+    "date": "2024-02-19",
+    "value": 142.86
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5455915644,
+  "fields": {
+    "track": 4,
+    "date": "2024-04-15",
+    "value": 148.49
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5560072454,
+  "fields": {
+    "track": 4,
+    "date": "2023-08-28",
+    "value": 150.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5574024801,
+  "fields": {
+    "track": 4,
+    "date": "2022-06-13",
+    "value": 182.53
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5574189226,
+  "fields": {
+    "track": 4,
+    "date": "2020-06-01",
+    "value": 105.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5587279195,
+  "fields": {
+    "track": 4,
+    "date": "2018-01-22",
+    "value": 121.5
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5594926403,
+  "fields": {
+    "track": 4,
+    "date": "2018-02-12",
+    "value": 121.58
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5611912635,
+  "fields": {
+    "track": 4,
+    "date": "2020-12-28",
+    "value": 114.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5663042085,
+  "fields": {
+    "track": 4,
+    "date": "2021-11-01",
+    "value": 143.7
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5663825338,
+  "fields": {
+    "track": 4,
+    "date": "2018-08-06",
+    "value": 128.02
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5695234739,
+  "fields": {
+    "track": 4,
+    "date": "2018-09-10",
+    "value": 130.24
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5705434078,
+  "fields": {
+    "track": 4,
+    "date": "2019-06-24",
+    "value": 126.66
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5718533506,
+  "fields": {
+    "track": 4,
+    "date": "2023-10-02",
+    "value": 156.02
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5719783702,
+  "fields": {
+    "track": 4,
+    "date": "2022-10-24",
+    "value": 164.62
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5781050160,
+  "fields": {
+    "track": 4,
+    "date": "2021-03-08",
+    "value": 122.94
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5790078080,
+  "fields": {
+    "track": 4,
+    "date": "2019-03-18",
+    "value": 120.48
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5790718939,
+  "fields": {
+    "track": 4,
+    "date": "2019-02-04",
+    "value": 119.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5803396946,
+  "fields": {
+    "track": 4,
+    "date": "2018-04-23",
+    "value": 121.44
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5817134579,
+  "fields": {
+    "track": 4,
+    "date": "2020-12-07",
+    "value": 113.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5880328641,
+  "fields": {
+    "track": 4,
+    "date": "2023-02-20",
+    "value": 147.86
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5896816564,
+  "fields": {
+    "track": 4,
+    "date": "2023-08-07",
+    "value": 146.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5903651739,
+  "fields": {
+    "track": 4,
+    "date": "2024-04-22",
+    "value": 149.21
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 5976858496,
+  "fields": {
+    "track": 4,
+    "date": "2019-01-07",
+    "value": 120.27
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6002324237,
+  "fields": {
+    "track": 4,
+    "date": "2019-09-30",
+    "value": 126.92
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6027165265,
+  "fields": {
+    "track": 4,
+    "date": "2018-04-16",
+    "value": 120.56
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6036329519,
+  "fields": {
+    "track": 4,
+    "date": "2022-07-11",
+    "value": 190.63
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6074063429,
+  "fields": {
+    "track": 4,
+    "date": "2023-04-17",
+    "value": 145.93
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6079894354,
+  "fields": {
+    "track": 4,
+    "date": "2019-01-28",
+    "value": 119.29
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6089293030,
+  "fields": {
+    "track": 4,
+    "date": "2023-09-25",
+    "value": 155.41
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6181106102,
+  "fields": {
+    "track": 4,
+    "date": "2022-09-26",
+    "value": 164.0
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6185932295,
+  "fields": {
+    "track": 4,
+    "date": "2023-04-10",
+    "value": 145.82
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6259059889,
+  "fields": {
+    "track": 4,
+    "date": "2020-08-17",
+    "value": 113.04
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6276872415,
+  "fields": {
+    "track": 4,
+    "date": "2021-10-11",
+    "value": 137.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6328292465,
+  "fields": {
+    "track": 4,
+    "date": "2020-08-03",
+    "value": 112.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6358595219,
+  "fields": {
+    "track": 4,
+    "date": "2024-03-11",
+    "value": 144.7
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6401346922,
+  "fields": {
+    "track": 4,
+    "date": "2022-09-19",
+    "value": 165.47
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6402282326,
+  "fields": {
+    "track": 4,
+    "date": "2022-08-08",
+    "value": 177.64
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6414257353,
+  "fields": {
+    "track": 4,
+    "date": "2024-04-08",
+    "value": 146.91
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6416668606,
+  "fields": {
+    "track": 4,
+    "date": "2020-08-24",
+    "value": 113.22
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6420140411,
+  "fields": {
+    "track": 4,
+    "date": "2019-03-25",
+    "value": 120.83
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6465150259,
+  "fields": {
+    "track": 4,
+    "date": "2021-08-09",
+    "value": 134.7
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6486095205,
+  "fields": {
+    "track": 4,
+    "date": "2023-08-14",
+    "value": 147.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6548012075,
+  "fields": {
+    "track": 4,
+    "date": "2023-07-10",
+    "value": 142.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6593233843,
+  "fields": {
+    "track": 4,
+    "date": "2022-03-28",
+    "value": 162.65
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6634291688,
+  "fields": {
+    "track": 4,
+    "date": "2022-09-12",
+    "value": 167.61
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6650694638,
+  "fields": {
+    "track": 4,
+    "date": "2019-11-25",
+    "value": 125.32
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6691821702,
+  "fields": {
+    "track": 4,
+    "date": "2018-06-04",
+    "value": 128.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6703916404,
+  "fields": {
+    "track": 4,
+    "date": "2018-12-24",
+    "value": 120.61
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6711449136,
+  "fields": {
+    "track": 4,
+    "date": "2021-11-08",
+    "value": 144.9
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6713736859,
+  "fields": {
+    "track": 4,
+    "date": "2023-11-20",
+    "value": 150.5
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6729165465,
+  "fields": {
+    "track": 4,
+    "date": "2019-11-18",
+    "value": 125.58
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6741739051,
+  "fields": {
+    "track": 4,
+    "date": "2019-06-03",
+    "value": 129.41
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6752418735,
+  "fields": {
+    "track": 4,
+    "date": "2019-05-13",
+    "value": 127.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6753826047,
+  "fields": {
+    "track": 4,
+    "date": "2023-06-26",
+    "value": 143.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6758413342,
+  "fields": {
+    "track": 4,
+    "date": "2021-08-23",
+    "value": 134.68
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6866342243,
+  "fields": {
+    "track": 4,
+    "date": "2023-03-20",
+    "value": 146.62
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6900961923,
+  "fields": {
+    "track": 4,
+    "date": "2021-05-31",
+    "value": 128.15
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6944949581,
+  "fields": {
+    "track": 4,
+    "date": "2019-03-04",
+    "value": 119.72
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 6985790923,
+  "fields": {
+    "track": 4,
+    "date": "2022-08-22",
+    "value": 171.14
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7024395302,
+  "fields": {
+    "track": 4,
+    "date": "2023-05-08",
+    "value": 145.3
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7045384040,
+  "fields": {
+    "track": 4,
+    "date": "2019-05-20",
+    "value": 128.51
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7116125513,
+  "fields": {
+    "track": 4,
+    "date": "2018-12-03",
+    "value": 124.3
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7135833203,
+  "fields": {
+    "track": 4,
+    "date": "2023-08-21",
+    "value": 149.4
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7142075159,
+  "fields": {
+    "track": 4,
+    "date": "2023-07-17",
+    "value": 142.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7143713167,
+  "fields": {
+    "track": 4,
+    "date": "2022-02-21",
+    "value": 147.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7152432680,
+  "fields": {
+    "track": 4,
+    "date": "2024-04-29",
+    "value": 149.49
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7170552468,
+  "fields": {
+    "track": 4,
+    "date": "2021-08-16",
+    "value": 134.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7198897563,
+  "fields": {
+    "track": 4,
+    "date": "2018-05-07",
+    "value": 123.27
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7224669072,
+  "fields": {
+    "track": 4,
+    "date": "2018-05-28",
+    "value": 127.58
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7229096928,
+  "fields": {
+    "track": 4,
+    "date": "2022-04-18",
+    "value": 161.67
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7241740050,
+  "fields": {
+    "track": 4,
+    "date": "2023-03-13",
+    "value": 146.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7242598743,
+  "fields": {
+    "track": 4,
+    "date": "2022-12-19",
+    "value": 154.07
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7256080692,
+  "fields": {
+    "track": 4,
+    "date": "2024-01-08",
+    "value": 139.72
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7279438241,
+  "fields": {
+    "track": 4,
+    "date": "2024-01-22",
+    "value": 139.39
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7301054956,
+  "fields": {
+    "track": 4,
+    "date": "2019-09-09",
+    "value": 127.79
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7323195484,
+  "fields": {
+    "track": 4,
+    "date": "2022-09-05",
+    "value": 168.93
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7344259400,
+  "fields": {
+    "track": 4,
+    "date": "2018-07-02",
+    "value": 126.54
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7354064359,
+  "fields": {
+    "track": 4,
+    "date": "2018-04-09",
+    "value": 119.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7365288452,
+  "fields": {
+    "track": 4,
+    "date": "2018-02-26",
+    "value": 119.55
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7380698942,
+  "fields": {
+    "track": 4,
+    "date": "2019-04-08",
+    "value": 122.75
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7421737991,
+  "fields": {
+    "track": 4,
+    "date": "2022-12-12",
+    "value": 155.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7493688966,
+  "fields": {
+    "track": 4,
+    "date": "2019-06-17",
+    "value": 127.66
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7500003266,
+  "fields": {
+    "track": 4,
+    "date": "2022-07-25",
+    "value": 186.6
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7513454433,
+  "fields": {
+    "track": 4,
+    "date": "2018-02-19",
+    "value": 120.52
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7528150400,
+  "fields": {
+    "track": 4,
+    "date": "2022-04-25",
+    "value": 161.84
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7565538983,
+  "fields": {
+    "track": 4,
+    "date": "2021-10-25",
+    "value": 141.81
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7577162828,
+  "fields": {
+    "track": 4,
+    "date": "2024-03-18",
+    "value": 144.73
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7583817323,
+  "fields": {
+    "track": 4,
+    "date": "2019-01-14",
+    "value": 119.53
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7595328266,
+  "fields": {
+    "track": 4,
+    "date": "2019-08-12",
+    "value": 128.36
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7620035515,
+  "fields": {
+    "track": 4,
+    "date": "2020-10-05",
+    "value": 113.26
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7630971388,
+  "fields": {
+    "track": 4,
+    "date": "2018-04-02",
+    "value": 119.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7727681277,
+  "fields": {
+    "track": 4,
+    "date": "2024-04-01",
+    "value": 146.25
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7738957667,
+  "fields": {
+    "track": 4,
+    "date": "2018-09-17",
+    "value": 130.59
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7743749526,
+  "fields": {
+    "track": 4,
+    "date": "2018-12-17",
+    "value": 121.02
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7765416734,
+  "fields": {
+    "track": 4,
+    "date": "2023-04-03",
+    "value": 145.72
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7784510410,
+  "fields": {
+    "track": 4,
+    "date": "2020-01-20",
+    "value": 127.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7791682731,
+  "fields": {
+    "track": 4,
+    "date": "2020-11-09",
+    "value": 112.5
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7809190530,
+  "fields": {
+    "track": 4,
+    "date": "2022-06-06",
+    "value": 174.99
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7893307583,
+  "fields": {
+    "track": 4,
+    "date": "2022-05-30",
+    "value": 170.36
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 7989512691,
+  "fields": {
+    "track": 4,
+    "date": "2024-05-13",
+    "value": 149.23
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8024724717,
+  "fields": {
+    "track": 4,
+    "date": "2023-01-16",
+    "value": 148.79
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8047721643,
+  "fields": {
+    "track": 4,
+    "date": "2018-03-26",
+    "value": 119.23
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8058606836,
+  "fields": {
+    "track": 4,
+    "date": "2019-07-01",
+    "value": 126.49
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8106253930,
+  "fields": {
+    "track": 4,
+    "date": "2018-11-05",
+    "value": 130.11
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8140545312,
+  "fields": {
+    "track": 4,
+    "date": "2023-11-13",
+    "value": 152.39
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8183351178,
+  "fields": {
+    "track": 4,
+    "date": "2023-07-24",
+    "value": 142.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8202695312,
+  "fields": {
+    "track": 4,
+    "date": "2021-05-03",
+    "value": 126.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8224115222,
+  "fields": {
+    "track": 4,
+    "date": "2023-10-23",
+    "value": 154.63
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8225155321,
+  "fields": {
+    "track": 4,
+    "date": "2019-01-21",
+    "value": 119.12
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8252585497,
+  "fields": {
+    "track": 4,
+    "date": "2021-03-29",
+    "value": 125.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8262260456,
+  "fields": {
+    "track": 4,
+    "date": "2022-06-20",
+    "value": 186.85
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8264882956,
+  "fields": {
+    "track": 4,
+    "date": "2024-05-20",
+    "value": 148.83
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8281571762,
+  "fields": {
+    "track": 4,
+    "date": "2022-05-16",
+    "value": 165.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8290620176,
+  "fields": {
+    "track": 4,
+    "date": "2021-03-01",
+    "value": 122.17
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8301471014,
+  "fields": {
+    "track": 4,
+    "date": "2020-02-17",
+    "value": 123.8
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8314435150,
+  "fields": {
+    "track": 4,
+    "date": "2022-03-07",
+    "value": 152.95
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8347777464,
+  "fields": {
+    "track": 4,
+    "date": "2019-08-05",
+    "value": 128.37
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8381627303,
+  "fields": {
+    "track": 4,
+    "date": "2023-01-09",
+    "value": 149.97
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8425131593,
+  "fields": {
+    "track": 4,
+    "date": "2023-07-31",
+    "value": 144.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8431810296,
+  "fields": {
+    "track": 4,
+    "date": "2023-05-29",
+    "value": 142.94
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8445269629,
+  "fields": {
+    "track": 4,
+    "date": "2021-08-02",
+    "value": 134.21
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8463175502,
+  "fields": {
+    "track": 4,
+    "date": "2024-02-26",
+    "value": 143.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8605037646,
+  "fields": {
+    "track": 4,
+    "date": "2019-07-22",
+    "value": 127.81
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8629752070,
+  "fields": {
+    "track": 4,
+    "date": "2021-01-25",
+    "value": 118.1
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8689395285,
+  "fields": {
+    "track": 4,
+    "date": "2023-12-04",
+    "value": 145.71
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8690863408,
+  "fields": {
+    "track": 4,
+    "date": "2020-07-20",
+    "value": 112.23
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8709422189,
+  "fields": {
+    "track": 4,
+    "date": "2020-06-22",
+    "value": 107.13
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8741320861,
+  "fields": {
+    "track": 4,
+    "date": "2020-06-08",
+    "value": 105.74
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8750834873,
+  "fields": {
+    "track": 4,
+    "date": "2020-01-27",
+    "value": 127.33
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8763475129,
+  "fields": {
+    "track": 4,
+    "date": "2019-04-22",
+    "value": 125.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8765252845,
+  "fields": {
+    "track": 4,
+    "date": "2022-08-01",
+    "value": 182.77
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8802281113,
+  "fields": {
+    "track": 4,
+    "date": "2021-03-22",
+    "value": 124.57
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8823809472,
+  "fields": {
+    "track": 4,
+    "date": "2021-01-04",
+    "value": 115.39
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8849432836,
+  "fields": {
+    "track": 4,
+    "date": "2018-08-13",
+    "value": 128.39
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8855114049,
+  "fields": {
+    "track": 4,
+    "date": "2020-01-06",
+    "value": 126.09
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 8993601318,
+  "fields": {
+    "track": 4,
+    "date": "2020-04-13",
+    "value": 109.27
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9007598913,
+  "fields": {
+    "track": 4,
+    "date": "2020-03-23",
+    "value": 119.64
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9013678993,
+  "fields": {
+    "track": 4,
+    "date": "2019-07-08",
+    "value": 126.86
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9040813477,
+  "fields": {
+    "track": 4,
+    "date": "2020-09-28",
+    "value": 113.3
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9042119607,
+  "fields": {
+    "track": 4,
+    "date": "2021-12-27",
+    "value": 144.92
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9067337291,
+  "fields": {
+    "track": 4,
+    "date": "2021-09-27",
+    "value": 135.19
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9076385638,
+  "fields": {
+    "track": 4,
+    "date": "2019-12-30",
+    "value": 124.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9080077011,
+  "fields": {
+    "track": 4,
+    "date": "2020-11-02",
+    "value": 113.11
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9099298590,
+  "fields": {
+    "track": 4,
+    "date": "2019-09-02",
+    "value": 127.86
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9114641135,
+  "fields": {
+    "track": 4,
+    "date": "2024-06-10",
+    "value": 146.25
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9124092975,
+  "fields": {
+    "track": 4,
+    "date": "2021-09-13",
+    "value": 134.75
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9133299645,
+  "fields": {
+    "track": 4,
+    "date": "2018-06-18",
+    "value": 127.92
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9157603020,
+  "fields": {
+    "track": 4,
+    "date": "2020-10-19",
+    "value": 113.18
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9222966135,
+  "fields": {
+    "track": 4,
+    "date": "2020-04-06",
+    "value": 110.23
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9266192516,
+  "fields": {
+    "track": 4,
+    "date": "2023-09-04",
+    "value": 151.71
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9279270266,
+  "fields": {
+    "track": 4,
+    "date": "2020-09-14",
+    "value": 113.32
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9368836716,
+  "fields": {
+    "track": 4,
+    "date": "2024-06-24",
+    "value": 144.43
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9483509639,
+  "fields": {
+    "track": 4,
+    "date": "2019-10-07",
+    "value": 126.87
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9536852127,
+  "fields": {
+    "track": 4,
+    "date": "2022-03-14",
+    "value": 159.96
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9538631781,
+  "fields": {
+    "track": 4,
+    "date": "2023-06-12",
+    "value": 142.71
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9543942656,
+  "fields": {
+    "track": 4,
+    "date": "2021-11-22",
+    "value": 146.89
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9551741924,
+  "fields": {
+    "track": 4,
+    "date": "2019-04-29",
+    "value": 126.36
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9557172588,
+  "fields": {
+    "track": 4,
+    "date": "2022-06-27",
+    "value": 190.93
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9568953619,
+  "fields": {
+    "track": 4,
+    "date": "2022-07-18",
+    "value": 188.92
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9586327463,
+  "fields": {
+    "track": 4,
+    "date": "2020-11-30",
+    "value": 112.61
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9604979448,
+  "fields": {
+    "track": 4,
+    "date": "2018-10-08",
+    "value": 130.15
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9653571218,
+  "fields": {
+    "track": 4,
+    "date": "2021-01-18",
+    "value": 116.93
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9808410196,
+  "fields": {
+    "track": 4,
+    "date": "2023-12-25",
+    "value": 140.33
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9828309253,
+  "fields": {
+    "track": 4,
+    "date": "2021-07-12",
+    "value": 132.47
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9839617737,
+  "fields": {
+    "track": 4,
+    "date": "2021-05-24",
+    "value": 127.89
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9877641590,
+  "fields": {
+    "track": 4,
+    "date": "2023-03-27",
+    "value": 146.21
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9879346766,
+  "fields": {
+    "track": 4,
+    "date": "2021-06-07",
+    "value": 128.69
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9904532768,
+  "fields": {
+    "track": 4,
+    "date": "2018-08-20",
+    "value": 128.79
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9915167401,
+  "fields": {
+    "track": 4,
+    "date": "2022-05-02",
+    "value": 162.48
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9975069320,
+  "fields": {
+    "track": 4,
+    "date": "2023-01-02",
+    "value": 150.9
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9981300772,
+  "fields": {
+    "track": 4,
+    "date": "2022-05-09",
+    "value": 163.68
+  }
+},
+{
+  "model": "flowerapp.timeseriesplotpoint",
+  "pk": 9993659582,
+  "fields": {
+    "track": 3,
+    "date": "2024-12-05",
+    "value": 4.3
+  }
+}
+]

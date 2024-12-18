@@ -1,4 +1,6 @@
 import { TimeSpan  } from "./Timespan"
+import { RenderStrategy,rangeFinderFunctions } from "./renderSupport"
+
 
 class CssGridClauseBuilder{
 
@@ -40,7 +42,6 @@ class ColulmnTagsAccumulator {
             return lhs[0] - rhs[0] 
         }))
     } 
-
     pushColumnName(xOffset, name) {
         if (!this.colTags.has(xOffset)) {
             this.colTags.set(xOffset, [])
@@ -49,22 +50,6 @@ class ColulmnTagsAccumulator {
     }
 }
 
-const defaultRangeFinderFunction  = (trackItem,xScale)=>{
-    return TimeSpan.valueOf(trackItem)
-
-}
-const rangeFinderFunctions={
-    'eventline' : (trackItem,xScale)=>{
-        const startDate = new Date(trackItem.attributes.start.value)
-        const endDate = new Date(trackItem.attributes.end.value)
-        const beginOffset = xScale(startDate)
-        const endOffset = beginOffset+ 100
-        
-        return new TimeSpan(startDate,endDate)
-    },
-    'TSE': defaultRangeFinderFunction,
-    'sequence': defaultRangeFinderFunction
-}
 
 
 const rowPositionReckonerFunc = (trackNumber, colTagsAccumulator, itemComponentsAccumulator,track,xScale,headerWidth) => {

@@ -1,31 +1,26 @@
 import { TimeSpan } from "./Timespan"
 import { GridPositionReckoner } from "./GridPositionReckoner"
 import Handlebars from "handlebars"
+import { 
+      EventlineRenderStrategy
+    } from "./itemrenderers/eventline"
 
+import { RENDER_HINTS,headerHtmlId } from "./renderSupport"
 
-const EVENT_RENDER_HINTS= {
-    xPos: 1,
-    name: 2
-}
-const RENDER_HINTS = {
-    xscale: 0,
-    trackHeight: 1,
-    yscale: 2,
-    ticks: 3,
-    viewportWidth: 4,
-    itemIndex: 5,
-    tickRules: 6,
-    topOfEventLine: 7,
-    events: 8
-}
 
 const placeHolderSuffix = '_placeHolder'
 const axisTopId = 'flowerAxisTop'
 const axisBaseId = 'flowerAxisBottom'
 const svgBackgroundPlaceHolder = "svg_viewport_background_placeholder"
 
+
+const defaultHeaderAttachFunction = ()=>{
+    alert ("don't call this function !")
+}
+
+
 const trackItemStrategy = (itemComp) => itemTemplateStrategies[itemComp.trackType]
-const headerHtmlId = track => `${track.htmlId}_header`
+
 
 const trackHeaderStrategy = (trackData) => itemTemplateStrategies[trackData.type]
 
@@ -122,23 +117,16 @@ const plot_points_from_ts_item_element = (itemElement) => {
 const headingTemplates = {
     'TSE': Handlebars.compile(document.getElementById('time-series-track-header').innerHTML),
     'sequence': Handlebars.compile(document.getElementById('sequence-track-header').innerHTML),
-    'eventline': Handlebars.compile(document.getElementById('eventline-track-header').innerHTML),
+
 }
 const trackItemTemplates = {
     'TSE': Handlebars.compile(document.getElementById('time-series-item-template').innerHTML),
     'sequence': Handlebars.compile(document.getElementById('track-item-template').innerHTML),
-    'eventline': Handlebars.compile(document.getElementById('eventline-item-template').innerHTML)
+
 }
 
 
 const dataMappers = {
-    'eventline': {
-        dataMapper:
-            (dataElement, trackRenderingHints) => {                
-                return {events: trackRenderingHints.get(RENDER_HINTS.events)}
-            }
-
-    },
     'TSE': {
         dataMapper: (dataElement, trackRenderingHints) => {
             const plotPoints = plot_points_from_ts_item_element(dataElement)
@@ -190,75 +178,13 @@ const dataMappers = {
 
 }
 const defaultItemAttachFunction = (itemComp, trackRenderingHints) => {
-    const mappedData = dataMappers[itemComp.trackType].dataMapper(itemComp.dataElement, trackRenderingHints)
+    const mappedData = evtLineStrategey.dataMapper(itemComp.dataElement, trackRenderingHints)
     const trackItemHtml = trackItemTemplates[itemComp.trackType](mappedData)
     $(`#${itemComp.htmlId}`).append(trackItemHtml)
 }
-const defaultHeaderAttachFunction = (track) => {
-    $(`#${headerHtmlId(track)}`).append(headingTemplates[track.type](track))
-}
-export const calcEventxPos =(itemComponent,eventData,xScale)=>{
-    const eventDate = new Date(eventData.getAttribute('date'))
-    const eventPosnAbsolute = xScale(eventDate)
-    const distanceFromStart = eventPosnAbsolute - Math.max(0, itemComponent.colStart)
-    return distanceFromStart 
 
-}
-const  calcEventRenderingHints = (itemComponent,xScale)=>{
-    const retVal = []    
-    for (let item of itemComponent.dataElement.children) {
-        const xPos = calcEventxPos(itemComponent,item,xScale)        
-
-        const itemHints = {
-            name: item.getAttribute("name"),
-            xPos: xPos
-        }
-        retVal.push(itemHints)
-        
-    }
-    return retVal
-}
-const eventCircleSvg = (itemComp, trackRenderingHints) => {
-    
-    d3.select(`#${itemComp.htmlId} div svg #circles`)
-        .selectAll("circle")
-        .data(trackRenderingHints.get(RENDER_HINTS.events))
-        .join("circle")
-        .attr("r", 5)
-        .attr("cx", (d) => {            
-            return d.xPos
-        })
-        .attr("cy", "10%")
-        .attr("fill", "white")
-        .attr("stroke", "black")
-
-}
 
 const itemTemplateStrategies = {
-    'eventline': {
-        attachTrackItem: (itemComp, trackRenderingHints) => {
-            trackRenderingHints.set(RENDER_HINTS.events,calcEventRenderingHints(itemComp,trackRenderingHints.get(RENDER_HINTS.xscale)) )        
-            defaultItemAttachFunction(itemComp, trackRenderingHints)                
-             eventCircleSvg(itemComp, trackRenderingHints)            
-        },
-        refreshTrackItem: (itemContainer, trackRenderingHints) => {            
-            trackRenderingHints.set(RENDER_HINTS.events,calcEventRenderingHints(itemContainer,trackRenderingHints.get(RENDER_HINTS.xscale)) )        
-            d3.select(`#${itemContainer.htmlId} div svg g`).selectAll("circle").remove()
-            trackRenderingHints.set(RENDER_HINTS.events,calcEventRenderingHints(itemContainer,trackRenderingHints.get(RENDER_HINTS.xscale)) )        
-            eventCircleSvg(itemContainer, trackRenderingHints)
-            d3.selectAll(`.eventlineLayer .eventLineEventItem`)
-            .data(trackRenderingHints.get(RENDER_HINTS.events))            
-            .style("left", d=> `${Math.round(d.xPos)}px`)
-
-        },
-        attachHeader: defaultHeaderAttachFunction,
-        rowStripeDecorator: () => {
-
-        },
-        trackRenderingHints: (track) => new Map()
-
-
-    },
     'TSE': {
         attachTrackItem: defaultItemAttachFunction,
         refreshTrackItem: (itemContainer, trackRenderingHints) => {
@@ -307,6 +233,12 @@ const itemTemplateStrategies = {
     }
 }
 
+function newOrExistingItem(elementId, creatorFunc, updateFuncs) {
+    var foundElement = $(`#${elementId}`)
+    var foundElement = foundElement.length > 0 ? foundElement : creatorFunc()
+    updateFuncs.forEach(func => { func(foundElement) })
+    return foundElement
+}
 
 
 
@@ -314,17 +246,12 @@ const emptySvg = '<svg width="100%" height="100%"><g></g></svg>'
 
 export class TimelineRenderer {
 
-    static newOrExistingItem(elementId, creatorFunc, updateFuncs) {
-        var foundElement = $(`#${elementId}`)
-        var foundElement = foundElement.length > 0 ? foundElement : creatorFunc()
-        updateFuncs.forEach(func => { func(foundElement) })
-        return foundElement
-    }
 
 
 
     // before removing ref to element range
-    constructor(dataElement, width) {
+    constructor(dataElement, width) {        
+        this.evtLineStrategey = new EventlineRenderStrategy()
         this.headerWidth = 100
         this.trackHeight = 100
         this.viewportWidth = width
@@ -346,9 +273,6 @@ export class TimelineRenderer {
         const rowCount = tracksCollection.length
 
         const reckoner = new GridPositionReckoner(this.xscale, tracksCollection, this.headerWidth)
-
-
-
         const itemMapper = (itemComp) => {
             return $(`<div></div>`).css(
                 {
@@ -369,7 +293,7 @@ export class TimelineRenderer {
         axisContainerMaker(axisBaseId, this.xscale, 3, d3.axisBottom, gridTemplateCss)
 
         axisGridLinesMaker(svgBackgroundPlaceHolder, this.xscale)
-        TimelineRenderer.newOrExistingItem('flowerGridWrapper',
+        newOrExistingItem('flowerGridWrapper',
         /*creatorFunc*/() => {
 
 
@@ -391,7 +315,7 @@ export class TimelineRenderer {
                 var rowCtr = 0
                 this.dataElement.getTimeTracks().forEach(
                     (trackData) => {
-                        const trackRenderingHints = trackHeaderStrategy(trackData).trackRenderingHints(trackData)
+                        const trackRenderingHints = this.evtLineStrategey.trackRenderingHints(trackData)
                         rowCtr++
                         trackRenderingHints.set(RENDER_HINTS.viewportWidth, this.viewportWidth)
                         const headerContainerElement = $("<div>")
@@ -409,7 +333,7 @@ export class TimelineRenderer {
                         $('#flowerGridWrapper').append(headerContainerElement)
                         trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
                         trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
-                        trackHeaderStrategy(trackData).attachHeader(trackData, trackRenderingHints)
+                        this.evtLineStrategey.attachHeader(trackData, trackRenderingHints)
 
 
                         // row stripes
@@ -420,7 +344,7 @@ export class TimelineRenderer {
                             trackRenderingHints.set(RENDER_HINTS.itemIndex, itemIndex++)
                             $('#flowerGridWrapper')
                                 .append(itemMapper(itemContainer))
-                            trackItemStrategy(itemContainer).attachTrackItem(itemContainer, trackRenderingHints)
+                            this.evtLineStrategey.attachTrackItem(itemContainer, trackRenderingHints)
                         })
                     }
                 )
@@ -433,7 +357,7 @@ export class TimelineRenderer {
                 this.dataElement.getTimeTracks().forEach(
                     (trackData) => {
                         // todo: this can be harmonized with the main create function loop ?
-                        const trackRenderingHints = trackHeaderStrategy(trackData).trackRenderingHints(trackData)
+                        const trackRenderingHints = this.evtLineStrategey.trackRenderingHints(trackData)
                         trackRenderingHints.set(RENDER_HINTS.yscale, d3.scaleLinear()
                             .domain(trackData.yDomain)
                             .range([0, this.trackHeight]))
@@ -441,7 +365,7 @@ export class TimelineRenderer {
                         trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
                         trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
                         itemsOnThisTrack.forEach(itemContainer => {
-                            trackItemStrategy(itemContainer).refreshTrackItem(itemContainer, trackRenderingHints)
+                            this.evtLineStrategey.refreshTrackItem(itemContainer, trackRenderingHints)
                         })
 
                     }

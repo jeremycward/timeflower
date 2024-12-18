@@ -11,23 +11,6 @@ export class TimeSpan {
         this.end = date2
     }
 
-    startEndOffsets(xScale,headerWidth){
-        const xrange = xScale.range()        
-        const myStart = xScale(this.start)
-        const myEnd = xScale(this.end)
-        const startOffset =  myStart - xrange[0];
-        const endOffset = (myEnd + headerWidth) - xrange[1];        
-        var startOffset_indicator = startOffset + (myEnd - myStart)
-        startOffset_indicator /= Math.abs(startOffset_indicator)
-        var endOffset_indicator = (endOffset -(myEnd -myStart))*-1
-        endOffset_indicator /= Math.abs(endOffset_indicator)
-        const overLapIndicator = startOffset_indicator + endOffset_indicator >0
-        return {overlap: overLapIndicator, startOffset: startOffset_indicator, endOffset: endOffset_indicator}
-
-
-
-
-    }
 
     isVisibleInsideScale(xScale,headerWith) {
         const result = this.startEndOffsets(xScale,headerWith)       

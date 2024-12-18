@@ -1,0 +1,10 @@
+
+    <flower-track type="eventline" heading="{{track.heading}}" id="{{track.id}}">
+      
+      <track-item start="{{track.item.start}}" end="{{track.item.end}}" id="{{track.id}}">
+            {% for evt in  track.item.events %}
+               <event-item id="{{evt.id}}" name="{{evt.name}}" detail1="{{evt.detail1| default_if_none:''}}" detail2="{{evt.detail2| default_if_none:''}}" date="{{evt.date}}"></event-item>
+
+            {% endfor %}   
+       </track-item>
+    </flower-track>

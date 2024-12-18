@@ -10,7 +10,8 @@ test_dates = [
 ]
 
 class TagTests(TestCase):
-    fixtures = ["tracks.json", "items.json","plotpoints.json"]
+    
+    fixtures = ["flowerapp_db.json"]
     
     def testSequencedEventItem(self):        
         #test with start only
@@ -42,29 +43,22 @@ class TagTests(TestCase):
         self.assertEqual(sei.start,"2020-12-25 00:00:00")
         self.assertEqual(sei.end,"2020-12-26 00:00:00")
         
+    
         
     def test_event_track(self):        
         track = Track.objects.get(id__exact=1)
         self.assertEqual(track.name,"UK Prime Ministers")    
         seqt = SequencedEventTrack(track)
-        self.assertEqual(15, len(seqt.items))
+        self.assertEqual(22, len(seqt.items))
         chamberlain = seqt.items[0]
         self.assertEqual(chamberlain.item.name,"Neville Chamberlain")
         self.assertEqual(chamberlain.start,"1937-05-28 00:00:00")
-        self.assertEqual(chamberlain.end,"1940-05-10 00:00:00")
-        blair = seqt.items[len(seqt.items)-1]
+        self.assertEqual(chamberlain.end,"1940-05-10 00:00:00")        
+        blair = findItemByName(seqt.items,"Tony Blair")
         self.assertEqual(blair.item.name,"Tony Blair")
         self.assertEqual(blair.start,"1997-05-02 00:00:00")
-        self.assertIsNone(blair.end)
+        self.assertEqual(blair.end,"2007-06-26 00:00:00")
         self.assertEqual(blair.item.img,"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tony_Blair_in_2002_%28cropped%29.jpg/220px-Tony_Blair_in_2002_%28cropped%29.jpg")
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -79,3 +73,7 @@ def timeless_item(idx, start, startTime,end,endTime):
             end = end
             
         )
+
+def findItemByName(seqt,name):
+        found =[index for (index,item) in enumerate(seqt) if item.item.name==name]        
+        return seqt[found[0]]        

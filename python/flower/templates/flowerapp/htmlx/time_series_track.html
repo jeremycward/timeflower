@@ -1,0 +1,9 @@
+     
+       <flower-track type="{{track.trackType}}" id='{{track.id}}' heading="{{track.heading}}" maxY="{{track.maxY}}" minY="{{track.minY}}">       
+         <time-series-item name ="{{track.heading}}" start="{{track.item.start}}" end="{{track.item.end}}" id="{{track.id}}_">
+           {% for plot in track.item.plots %}
+             <time-series-plot value="{{plot.value}}" date="{{plot.date}}" ></time-series-plot>             
+           {% endfor%}
+         </time-series-item>          
+       </flower-track>          
+
