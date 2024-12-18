@@ -1,2 +1,3 @@
 *.pyc
-vite/timeflower/static
+vite/timeflower/static/
+venv/
