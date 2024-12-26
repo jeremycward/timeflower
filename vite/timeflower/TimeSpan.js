@@ -13,9 +13,7 @@ export class TimeSpan {
 
 
     isVisibleInsideScale(xScale,headerWith) {
-        const result = this.startEndOffsets(xScale,headerWith)       
-        return result.overlap
-        
+        alert('deprecated!')
         
     }
 

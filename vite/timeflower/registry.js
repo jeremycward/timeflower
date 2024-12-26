@@ -9,6 +9,9 @@ import {
     EventlinePlotElement
 } from './HtmlCustomComponents'
 
+import { componentRegistry } from './renderSupport'
+import {EventlineRenderStrategy} from './itemrenderers/eventline'
+
 window.customElements.define('flower-time-line', TimelineElement)
 window.customElements.define('flower-track', FLowerTrackElement)
 window.customElements.define('track-item', TrackItemElement)
@@ -39,6 +42,9 @@ Handlebars.registerHelper("eventxPos",function(){
 Handlebars.registerHelper("getTrackHeading",function(){
     return this.getAttribute("heading")
 })
+
+
+componentRegistry.set('eventline', new EventlineRenderStrategy())
 
 
 

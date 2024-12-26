@@ -54,6 +54,5 @@ export class EventlineRenderStrategy extends RenderStrategy {
         return new Map()
     }
 
-
-
 }
+

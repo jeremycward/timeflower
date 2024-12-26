@@ -1,12 +1,11 @@
 import { TimeSpan } from "./Timespan"
-import { GridPositionReckoner } from "./GridPositionReckoner"
 import Handlebars from "handlebars"
-import { 
-      EventlineRenderStrategy
-    } from "./itemrenderers/eventline"
+import {
+    EventlineRenderStrategy
+} from "./itemrenderers/eventline"
 
-import { RENDER_HINTS,headerHtmlId } from "./renderSupport"
-
+import { RENDER_HINTS, headerHolderHtmlId, componentRegistry, trackHolderHtmlId, itemHolderHtmlId } from "./renderSupport"
+import { renderComponentNames, JquerySelector } from "./renderComponentNames"
 
 const placeHolderSuffix = '_placeHolder'
 const axisTopId = 'flowerAxisTop'
@@ -14,10 +13,119 @@ const axisBaseId = 'flowerAxisBottom'
 const svgBackgroundPlaceHolder = "svg_viewport_background_placeholder"
 
 
-const defaultHeaderAttachFunction = ()=>{
-    alert ("don't call this function !")
+const defaultHeaderAttachFunction = () => {
+    alert("don't call this function !")
 }
 
+const makeHolders = (dataElement, xScale) => {
+    dataElement.getTimeTracks()
+        .forEach((thisTrack) => {            
+
+            //HEADING HOLDERS
+            newOrExistingItem(headerHolderHtmlId(thisTrack),
+                //creator
+                () => {
+                    renderComponentNames.select(renderComponentNames.headingsPaneId)
+                        .append(
+                            $('<div></div>')
+                                .attr('id', headerHolderHtmlId(thisTrack))
+                                .css({ borderStyle: 'solid', borderColor: 'red' })  
+                        )
+                },
+                // updaterFuncs
+                [() => { }]
+
+            )
+
+            //ROW HOLDERS
+            newOrExistingItem(trackHolderHtmlId(thisTrack),
+                // creator func
+                ()=>{
+                    renderComponentNames.select(renderComponentNames.itemsPaneId)
+
+                    .append(
+                        $('<div></div>')
+                            .attr('id', trackHolderHtmlId(thisTrack))
+                            .css({ overflow: 'hidden' })
+    
+                    )    
+
+                },
+                // updater funcs for row holders
+                [()=>{}]                                
+             )
+
+
+
+
+            thisTrack.getTimeTrackItems().forEach((item) => {
+
+                // ITEM HOLDERS
+
+                const range = TimeSpan.valueOf(item)
+                const startPos = xScale(range.start)
+                const endPos = xScale(range.end)
+                const trackHolder = renderComponentNames.select(trackHolderHtmlId(thisTrack))
+                const itemHolderId = itemHolderHtmlId(thisTrack,item)
+                newOrExistingItem(itemHolderId,
+                    // creator
+                    ()=>{
+                        trackHolder.append($('<div></div>')
+                        .attr('id', itemHolderId)
+                        .css({
+                            background: 'yellow',
+                            height: '100%',
+                            position: 'relative',
+                            width: endPos - startPos,
+                            left: `${startPos}px`                        
+                        })
+                    )
+    
+                    },
+                    // updater
+                    [()=>{
+                        renderComponentNames.select(itemHolderId).css({
+                            width: endPos - startPos,
+                            left: `${startPos}px`                        
+                        })
+                    }]
+                )
+
+            })
+        }
+
+
+        )
+
+}
+
+
+const headingSplitMaker = (dataElement, headerWidth, rowHeights) => {
+
+    const viewportContainer = $('#flowerTimeLineViewportContainer')
+
+    viewportContainer.css(
+        { display: 'grid', gridTemplateColumns: `${headerWidth}px auto`, gridTemplateRows: 'auto' }
+    )
+    if (!renderComponentNames.isPresent(renderComponentNames.headingsPaneId)) {
+        viewportContainer.append(
+            $('<div></div>').attr('id', renderComponentNames.headingsPaneId).css({ display: 'grid' }),
+            $('<div></div>').attr('id', renderComponentNames.itemsPaneId).css({ display: 'grid' })
+
+        )
+    }
+    let rowHeightsStr = ""
+    rowHeights.forEach((rh) => {
+        rowHeightsStr += (` ${rh}px `)
+    })
+
+    renderComponentNames.select(renderComponentNames.headingsPaneId)
+        .css({
+            gridTemplateColumns: 'auto',
+            gridTemplateRows: rowHeightsStr
+        })
+
+}
 
 const trackItemStrategy = (itemComp) => itemTemplateStrategies[itemComp.trackType]
 
@@ -40,14 +148,10 @@ const axisGridLinesMaker = (svgBackgroundPlaceHolder, xscale) => {
         .attr("y1", 0)
         .attr("y2", placeHolderElement.height())
         .attr("stroke", "black")
-
-
-
-
 }
 
 
-const axisContainerMaker = (elementId, xScale, transformAmount, axisFunction, gridTemplateCss) => {
+const axisContainerMaker = (elementId, xScale, transformAmount, axisFunction, headerWidth) => {
 
     if (document.getElementById(elementId) === null) {
         const tablePlaceHolderElementId = `${elementId}${placeHolderSuffix}`
@@ -58,16 +162,20 @@ const axisContainerMaker = (elementId, xScale, transformAmount, axisFunction, gr
 
         tableWrapperElement.css({
             display: 'grid',
-            gridTemplateColumns: gridTemplateCss,
+            gridTemplateColumns: `${headerWidth}px auto`,
             gridTemplateRows: '30px'
         })
+
+
+
+
 
         const headerFillerElement = $("<div>")
         headerFillerElement.css({
             gridRowStart: 1,
             gridRowEnd: 1,
-            gridColumnStart: 'head_start',
-            gridColumnEnd: 'head_end',
+            gridColumnStart: 1,
+            gridColumnEnd: 1
         })
 
         const axisElement = $("<div>")
@@ -75,8 +183,8 @@ const axisContainerMaker = (elementId, xScale, transformAmount, axisFunction, gr
         axisElement.css({
             gridRowStart: 1,
             gridRowEnd: 1,
-            gridColumnStart: 'axis_start',
-            gridColumnEnd: 'axis_end',
+            gridColumnStart: 2,
+            gridColumnEnd: 2,
 
         })
         axisElement.append(emptySvg)
@@ -214,7 +322,7 @@ const itemTemplateStrategies = {
             // trackRenderingHints.set(RENDER_HINTS.tickRules, tickRules)
             // $(`#${rowStripeElementId(trackData)}`).append(TSETrackTemplate({
             //     tickRules: tickRules,
-            //     width: trackRenderingHints.get(RENDER_HINTS.viewportWidth)
+            //     width: trackRenderingHints.get(RENDER_HINTS.headerWidth)
             // }))
         },
 
@@ -233,6 +341,7 @@ const itemTemplateStrategies = {
     }
 }
 
+
 function newOrExistingItem(elementId, creatorFunc, updateFuncs) {
     var foundElement = $(`#${elementId}`)
     var foundElement = foundElement.length > 0 ? foundElement : creatorFunc()
@@ -246,139 +355,39 @@ const emptySvg = '<svg width="100%" height="100%"><g></g></svg>'
 
 export class TimelineRenderer {
 
-
-
-
     // before removing ref to element range
-    constructor(dataElement, width) {        
+    constructor(dataElement, width) {
         this.evtLineStrategey = new EventlineRenderStrategy()
         this.headerWidth = 100
-        this.trackHeight = 100
-        this.viewportWidth = width
         this.dataElement = dataElement
         this.xscale = d3.scaleTime()
         this.originalX = this.xscale
-            .domain(dataElement.range.domain())
+            .domain(TimeSpan.valueOf(dataElement).domain())
             .range([0, width])
             .nice()
 
     }
-    resize() {
-        this.viewportWidth = $('#flowerViewport').width()
-        this.redraw()
-    }
 
-    redraw() {
+    redraw(transformations) {
+        transformations.forEach((it) => {
+            console.log(it)
+            this.xscale = it.rescaleX(this.originalX)
+        })
         const tracksCollection = this.dataElement.getTimeTracks()
+        const rowHeights = []
+        Array.from(tracksCollection).forEach(() => rowHeights.push(100))
+
         const rowCount = tracksCollection.length
-
-        const reckoner = new GridPositionReckoner(this.xscale, tracksCollection, this.headerWidth)
-        const itemMapper = (itemComp) => {
-            return $(`<div></div>`).css(
-                {
-                    gridColumnStart: itemComp.gridColumnStart,
-                    gridColumnEnd: itemComp.gridColumnEnd,
-                    gridRowStart: itemComp.gridRow,
-                    gridRowEnd: itemComp.gridRow,
-                    display: itemComp.display
-                }
-            ).attr('id', itemComp.htmlId)
-        }
-
-        // todo fix me .. need to parameterize header width
-        const gridTemplateCss = reckoner.calcGridColumnCss(this.viewportWidth - 100)
-        const gridTemplateRowsCss = `repeat(${rowCount},100px )`
-
-        axisContainerMaker(axisTopId, this.xscale, 29, d3.axisTop, gridTemplateCss)
-        axisContainerMaker(axisBaseId, this.xscale, 3, d3.axisBottom, gridTemplateCss)
-
+        axisContainerMaker(axisTopId, this.xscale, 29, d3.axisTop, this.headerWidth)
+        axisContainerMaker(axisBaseId, this.xscale, 3, d3.axisBottom, this.headerWidth)
         axisGridLinesMaker(svgBackgroundPlaceHolder, this.xscale)
-        newOrExistingItem('flowerGridWrapper',
-        /*creatorFunc*/() => {
-
-
-                $('#flowerTimeLineViewportContainer').append(
-                    $('<div></div>')
-                        .attr('id', 'flowerGridWrapper')
-                        .css(
-                            {
-                                display: 'grid',
-                                'grid-template-columns': gridTemplateCss,
-                                gap: '0px',
-                                gridTemplateRows: gridTemplateRowsCss,
-                                rowRule: "14px dotted rgb(79 185 227)"
-                            }
-                        )
-                )
-
-                //row headers
-                var rowCtr = 0
-                this.dataElement.getTimeTracks().forEach(
-                    (trackData) => {
-                        const trackRenderingHints = this.evtLineStrategey.trackRenderingHints(trackData)
-                        rowCtr++
-                        trackRenderingHints.set(RENDER_HINTS.viewportWidth, this.viewportWidth)
-                        const headerContainerElement = $("<div>")
-                        headerContainerElement.css(
-                            {
-                                gridRowStart: `${rowCtr}`,
-                                gridRowEnd: `${rowCtr}`,
-                                gridColumnStart: 'head_start',
-                                gridColumnEnd: 'head_end'
-                            }
-                        )
-                        headerContainerElement.addClass('flowerTrackHeadingContainer')
-                        headerContainerElement.addClass('panel-1')
-                        headerContainerElement.attr("id", headerHtmlId(trackData))
-                        $('#flowerGridWrapper').append(headerContainerElement)
-                        trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
-                        trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
-                        this.evtLineStrategey.attachHeader(trackData, trackRenderingHints)
-
-
-                        // row stripes
-                        // add each item
-
-                        var itemIndex = 1
-                        reckoner.itemComponentsAccumulator.byRowId(trackData.htmlId).forEach(itemContainer => {
-                            trackRenderingHints.set(RENDER_HINTS.itemIndex, itemIndex++)
-                            $('#flowerGridWrapper')
-                                .append(itemMapper(itemContainer))
-                            this.evtLineStrategey.attachTrackItem(itemContainer, trackRenderingHints)
-                        })
-                    }
-                )
-
-            },
-        /*[updaterFunc])*/[() => {
-                $('#flowerGridWrapper').css({
-                    gridTemplateColumns: gridTemplateCss
-                })
-                this.dataElement.getTimeTracks().forEach(
-                    (trackData) => {
-                        // todo: this can be harmonized with the main create function loop ?
-                        const trackRenderingHints = this.evtLineStrategey.trackRenderingHints(trackData)
-                        trackRenderingHints.set(RENDER_HINTS.yscale, d3.scaleLinear()
-                            .domain(trackData.yDomain)
-                            .range([0, this.trackHeight]))
-                        const itemsOnThisTrack = reckoner.itemComponentsAccumulator.byRowId(trackData.htmlId)
-                        trackRenderingHints.set(RENDER_HINTS.trackHeight, this.trackHeight)
-                        trackRenderingHints.set(RENDER_HINTS.xscale, this.xscale)
-                        itemsOnThisTrack.forEach(itemContainer => {
-                            this.evtLineStrategey.refreshTrackItem(itemContainer, trackRenderingHints)
-                        })
-
-                    }
-                )
-
-            }]
-        )
+        headingSplitMaker(this.dataElement, this.headerWidth, rowHeights)
+        makeHolders(this.dataElement, this.xscale)
+        // makeRowLanes(this.dataElement)
+        // makeHeadings(this.dataElement)
 
     }
 
-    rescale(transform) {
-        this.xscale = transform.rescaleX(this.originalX)
-    }
 
 }
 

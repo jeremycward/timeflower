@@ -29,12 +29,11 @@ document.addEventListener('htmx:afterSwap', function (evt) {
 function allLoaded() {
   const renderer = new TimelineRenderer(document.getElementById('timeLineData')
     , $('#flowerViewport').width())
-  renderer.redraw()
+  renderer.redraw([])
 
   d3.select('#flowerViewport').call(d3.zoom()
-    .on('zoom', (evt, dat) => {
-      renderer.rescale(evt.transform)
-      renderer.redraw()
+    .on('zoom', (evt, dat) => {      
+      renderer.redraw([evt.transform])
     }))
 
 

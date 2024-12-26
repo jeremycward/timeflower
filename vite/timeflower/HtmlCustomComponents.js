@@ -1,5 +1,4 @@
 import { TimeSpan } from "./Timespan"
-import { GridPositionReckoner } from "./GridPositionReckoner"
 import Handlebars from "handlebars"
 
 export class TimelineElement extends HTMLElement {
@@ -34,6 +33,14 @@ export class FLowerTrackElement extends HTMLElement {
         'sequence': 0,
         'eventline': 100,
     }
+    getTimeTrackItems() {
+        var ret_val = []
+        for (let i = 0; i < this.children.length; i++) {
+            ret_val.push(this.children.item(i))
+        }
+        return [...ret_val]
+    }
+
 
 
 
@@ -42,36 +49,12 @@ export class FLowerTrackElement extends HTMLElement {
         this.yDomain = (this.hasAttribute('maxY') && this.hasAttribute('minY'))   ?
               [parseInt(this.getAttribute('maxY')),parseInt(this.getAttribute('minY'))] : [0,0]
         this.range = TimeSpan.empty()
-        this.timeTrackItems = []
         this.width = 0
         this.maxYValue = 0
         this.heading = this.getAttribute('heading')
         this.type = this.getAttribute('type')
         this.trackId = this.getAttribute('id')
         this.timeSeriesAxisGutterId = `timeSeriesAxisGutterId_${this.trackId}`
-
-        this.gutterFuncs = {
-            'TSE': () => {
-                let seln = d3.select(`#${this.timeSeriesAxisGutterId}`)
-                    .select('svg')
-                    .select('g')
-                    .call(d3.axisLeft(this.y))
-            },
-            'sequence': () => {
-            },
-            'eventline': () => {
-            }
-
-        }
-        FLowerTrackElement.trackRegistry.set(this.trackId, this)
-    }
-    renderHeader() {
-        let newEl = document.createElement('div');
-        const template = FLowerTrackElement.headingTemplates[this.type]
-        this.trackHeight = 100
-        newEl.innerHTML = template(this)
-        $('#flowerTimeLineHeadingContainer').append(newEl)
-        this.gutterFuncs[this.type]()
     }
 
 

@@ -5,6 +5,8 @@ export const defaultRangeFinderFunction  = (trackItem,xScale)=>{
     return TimeSpan.valueOf(trackItem)
 }
 
+export const componentRegistry = new Map()
+
 
 export const rangeFinderFunctions={
     'eventline' : (trackItem,xScale)=>{
@@ -58,7 +60,10 @@ export const  calcEventRenderingHints = (itemComponent,xScale)=>{
 }
 
 
-export const headerHtmlId = track => `${track.htmlId}_header`
+export const headerHolderHtmlId = track => `${track.htmlId}_headerHolder`
+
+export const trackHolderHtmlId = track => `${track.htmlId}_trackHolder`
+export const itemHolderHtmlId = (track,item) => `${track.htmlId}_${item.id}_itemHolder`
 
 
 export class RenderStrategy{
@@ -78,7 +83,7 @@ export class RenderStrategy{
         
     }
     attachHeader(track, trackRenderingHints){
-        $(`#${headerHtmlId(track)}`).append(this.headingTemplate(track))
+        $(`#${headerHolderHtmlId(track)}`).append(this.headingTemplate(track))
     }
     rowStripeDecorator(){
         
