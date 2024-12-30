@@ -71,6 +71,9 @@ export class RenderStrategy{
         this.itemTemplate = itemTemplate
         this.headingTemplate = headingTemplate        
     }
+    redraw(transformations){
+
+    }
     getMappedData(dataElement,trackRenderingHints){
         return new Map()
     }

@@ -6,11 +6,10 @@ import {
     FLowerTrackElement,
     TimelineElement,
     EventlineItemElement,
-    EventlinePlotElement
+    EventlinePlotElement,
+    EventTrackItemElement
 } from './HtmlCustomComponents'
 
-import { componentRegistry } from './renderSupport'
-import {EventlineRenderStrategy} from './itemrenderers/eventline'
 
 window.customElements.define('flower-time-line', TimelineElement)
 window.customElements.define('flower-track', FLowerTrackElement)
@@ -20,6 +19,8 @@ window.customElements.define('time-series-item', TimeSeriesItemElement)
 window.customElements.define('timetrack-item-view', HTMLElement)
 window.customElements.define('event-item', EventlineItemElement)
 window.customElements.define('event-plot', EventlinePlotElement)
+window.customElements.define('event-track-item', EventTrackItemElement)
+
 
 Handlebars.registerHelper("yoffset", function (idx) {    
     
@@ -44,7 +45,7 @@ Handlebars.registerHelper("getTrackHeading",function(){
 })
 
 
-componentRegistry.set('eventline', new EventlineRenderStrategy())
+
 
 
 

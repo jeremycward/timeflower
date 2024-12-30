@@ -1,6 +1,8 @@
 import './style.css' with { type: "css" }
 import { TimelineRenderer } from './TimeLineRenderer'
-var onceOnly = false
+
+
+
 
 const swapElement = document.getElementById('timeline_getter')
 console.log(`timelinegetter ${swapElement}`)

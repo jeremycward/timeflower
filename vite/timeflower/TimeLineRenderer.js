@@ -4,13 +4,26 @@ import {
     EventlineRenderStrategy
 } from "./itemrenderers/eventline"
 
-import { RENDER_HINTS, headerHolderHtmlId, componentRegistry, trackHolderHtmlId, itemHolderHtmlId } from "./renderSupport"
-import { renderComponentNames, JquerySelector } from "./renderComponentNames"
+import { RENDER_HINTS, headerHolderHtmlId, trackHolderHtmlId, itemHolderHtmlId } from "./renderSupport"
+import { renderComponentNames, JquerySelector, RenderComponentNames } from "./renderComponentNames"
+
 
 const placeHolderSuffix = '_placeHolder'
 const axisTopId = 'flowerAxisTop'
 const axisBaseId = 'flowerAxisBottom'
 const svgBackgroundPlaceHolder = "svg_viewport_background_placeholder"
+
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutationRecord) {
+        console.log(mutationRecord);
+    });    
+});
+const resizeObserver = new ResizeObserver(entries => {
+    for (let entry of entries) {
+        console.log('Width:', entry.contentRect.width);
+        console.log('Height:', entry.contentRect.height);
+    }
+});
 
 
 const defaultHeaderAttachFunction = () => {
@@ -18,8 +31,9 @@ const defaultHeaderAttachFunction = () => {
 }
 
 const makeHolders = (dataElement, xScale) => {
+    const itemsToRender = []
     dataElement.getTimeTracks()
-        .forEach((thisTrack) => {            
+        .forEach((thisTrack) => {
 
             //HEADING HOLDERS
             newOrExistingItem(headerHolderHtmlId(thisTrack),
@@ -29,7 +43,7 @@ const makeHolders = (dataElement, xScale) => {
                         .append(
                             $('<div></div>')
                                 .attr('id', headerHolderHtmlId(thisTrack))
-                                .css({ borderStyle: 'solid', borderColor: 'red' })  
+                                .css({ borderStyle: 'solid', borderColor: 'red' })
                         )
                 },
                 // updaterFuncs
@@ -40,62 +54,68 @@ const makeHolders = (dataElement, xScale) => {
             //ROW HOLDERS
             newOrExistingItem(trackHolderHtmlId(thisTrack),
                 // creator func
-                ()=>{
+                () => {
                     renderComponentNames.select(renderComponentNames.itemsPaneId)
 
-                    .append(
-                        $('<div></div>')
-                            .attr('id', trackHolderHtmlId(thisTrack))
-                            .css({ overflow: 'hidden' })
-    
-                    )    
+                        .append(
+                            $('<div></div>')
+                                .attr('id', trackHolderHtmlId(thisTrack))
+                                .css({ overflow: 'hidden' })
+
+                        )
 
                 },
                 // updater funcs for row holders
-                [()=>{}]                                
-             )
-
-
-
+                [() => { }]
+            )
 
             thisTrack.getTimeTrackItems().forEach((item) => {
-
                 // ITEM HOLDERS
-
                 const range = TimeSpan.valueOf(item)
                 const startPos = xScale(range.start)
                 const endPos = xScale(range.end)
                 const trackHolder = renderComponentNames.select(trackHolderHtmlId(thisTrack))
-                const itemHolderId = itemHolderHtmlId(thisTrack,item)
+                const itemHolderId = itemHolderHtmlId(thisTrack, item)
                 newOrExistingItem(itemHolderId,
                     // creator
-                    ()=>{
+                    () => {
                         trackHolder.append($('<div></div>')
-                        .attr('id', itemHolderId)
-                        .css({
-                            background: 'yellow',
-                            height: '100%',
-                            position: 'relative',
-                            width: endPos - startPos,
-                            left: `${startPos}px`                        
-                        })
-                    )
-    
+                            .attr('id', itemHolderId)
+                            .css({
+                                background: 'yellow',
+                                height: '100%',
+                                position: 'relative',
+                                width: endPos - startPos,
+                                left: `${startPos}px`
+                            })
+                        )
+                        const itHolderHtmlId = itemHolderHtmlId(thisTrack,item)                       
+                        const newItem = $(`<div>${item.htmlId}</div>`)
+                        newItem.appendTo(renderComponentNames.idPath(itHolderHtmlId))
+                        renderComponentNames.select(itHolderHtmlId).on('mouseenter',(evt)=>{
+                            console.log(evt)
+                        })                        
+                        resizeObserver.observe(document.getElementById(itemHolderId))
+
+
                     },
                     // updater
-                    [()=>{
+                    [() => {
                         renderComponentNames.select(itemHolderId).css({
                             width: endPos - startPos,
-                            left: `${startPos}px`                        
+                            left: `${startPos}px`
                         })
                     }]
                 )
-
+                itemsToRender.push(item)
             })
+
         }
 
 
         )
+    return itemsToRender
+
 
 }
 
@@ -370,7 +390,7 @@ export class TimelineRenderer {
 
     redraw(transformations) {
         transformations.forEach((it) => {
-            console.log(it)
+
             this.xscale = it.rescaleX(this.originalX)
         })
         const tracksCollection = this.dataElement.getTimeTracks()
@@ -382,9 +402,14 @@ export class TimelineRenderer {
         axisContainerMaker(axisBaseId, this.xscale, 3, d3.axisBottom, this.headerWidth)
         axisGridLinesMaker(svgBackgroundPlaceHolder, this.xscale)
         headingSplitMaker(this.dataElement, this.headerWidth, rowHeights)
-        makeHolders(this.dataElement, this.xscale)
-        // makeRowLanes(this.dataElement)
-        // makeHeadings(this.dataElement)
+        const itemsToFill = makeHolders(this.dataElement, this.xscale)
+        itemsToFill.forEach(
+            (item)=>{                
+            }
+        )
+
+
+
 
     }
 

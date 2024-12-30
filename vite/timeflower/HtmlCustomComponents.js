@@ -1,5 +1,6 @@
 import { TimeSpan } from "./Timespan"
 import Handlebars from "handlebars"
+import { EventlineRenderStrategy } from "./itemrenderers/eventline"
 
 export class TimelineElement extends HTMLElement {
 
@@ -21,7 +22,6 @@ export class TimelineElement extends HTMLElement {
         }
         return [...ret_val]
     }
-
 }
 
 export class FLowerTrackElement extends HTMLElement {
@@ -55,6 +55,7 @@ export class FLowerTrackElement extends HTMLElement {
         this.type = this.getAttribute('type')
         this.trackId = this.getAttribute('id')
         this.timeSeriesAxisGutterId = `timeSeriesAxisGutterId_${this.trackId}`
+        console.log(`track connected ${this.htmlId}`)
     }
 
 
@@ -92,12 +93,32 @@ export class TimeSeriesItemElement extends SVGPlottableItemElement {
 
 
 export class TrackItemElement extends HTMLElement {
-    connectedCallback() {
-        this.htmlId = `track_item_${this.id}`
+    constructor(itemRenderer){
+        super()
+        this.itemRenderer = itemRenderer
     }
-
-
+    
+    connectedCallback() {
+    
+        this.htmlId = `track_item_${this.id}`
+        console.log(`I'm connected ${this.htmlId}`)
+    }    
+        
 }
+export class EventTrackItemElement extends TrackItemElement{
+    constructor(){
+        super(new EventlineRenderStrategy() )
+    }
+    connectedCallback() {
+        super.connectedCallback()
+        console.log(`I'm connected also ${this.htmlId}`)
+    }    
+
+    
+}
+
+
+
 
 export class EventlineItemElement extends SVGPlottableItemElement {   
     connectedCallback(){

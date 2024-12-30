@@ -6,11 +6,15 @@ export class RenderComponentNames{
         this.itemsPaneId = "itemsPane"
     }
     select(name){
-        const selectorStr = `#${name}`;
-        return $(selectorStr)
+        
+        return $(this.idPath(name))
     }
     isPresent(name){
         return this.select(name).length > 0
+    }
+    idPath(name){
+        return `#${name}`;
+
     }
 
 }
