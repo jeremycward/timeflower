@@ -4,6 +4,8 @@ export class RenderComponentNames{
     constructor(){        
         this.headingsPaneId = "headingsPane"
         this.itemsPaneId = "itemsPane"
+        this.topScaleHolder = "scale_holder_top"
+        this.bottomScaleHolder = "scale_holder_bottom"
     }
     select(name){
         
