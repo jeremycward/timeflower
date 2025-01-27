@@ -6,6 +6,9 @@ export class RenderComponentNames{
         this.itemsPaneId = "itemsPane"
         this.topScaleHolder = "scale_holder_top"
         this.bottomScaleHolder = "scale_holder_bottom"
+        this.svgBackgroundLayer="svg-background-layer"
+        this.tickLines="tickLines"
+        this.foregroundLayer = "svg-foreground-layer"
     }
     select(name){
         

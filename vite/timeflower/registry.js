@@ -1,25 +1,12 @@
 import Handlebars from 'handlebars'
-import {
-    TrackItemElement,
-    TimeSeriesItemElement,
-    TimeSeriesPlotElement,
-    FLowerTrackElement,
+import {    
     TimelineElement,
-    EventlineItemElement,
-    EventlinePlotElement,
-    EventTrackItemElement
 } from './HtmlCustomComponents'
+import {EventLineFLowerTrackElement} from './itemrenderers/eventline'
 
 
 window.customElements.define('flower-time-line', TimelineElement)
-window.customElements.define('flower-track', FLowerTrackElement)
-window.customElements.define('track-item', TrackItemElement)
-window.customElements.define('time-series-plot', TimeSeriesPlotElement)
-window.customElements.define('time-series-item', TimeSeriesItemElement)
-window.customElements.define('timetrack-item-view', HTMLElement)
-window.customElements.define('event-item', EventlineItemElement)
-window.customElements.define('event-plot', EventlinePlotElement)
-window.customElements.define('event-track-item', EventTrackItemElement)
+window.customElements.define('event-flower-track',EventLineFLowerTrackElement)
 
 
 Handlebars.registerHelper("yoffset", function (idx) {    

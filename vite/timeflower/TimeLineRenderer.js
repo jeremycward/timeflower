@@ -154,7 +154,6 @@ const trackHeaderStrategy = (trackData) => itemTemplateStrategies[trackData.type
 
 const axisGridLinesMaker = (svgBackgroundPlaceHolder, xscale) => {
     const placeHolderElement = $(`#${svgBackgroundPlaceHolder}`)
-
     const tickXpositions = []
     xscale.ticks().forEach(tick => { tickXpositions.push(xscale(tick)) })
     d3.select(`#${svgBackgroundPlaceHolder}`)

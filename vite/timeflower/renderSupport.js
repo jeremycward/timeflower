@@ -5,7 +5,32 @@ export const defaultRangeFinderFunction  = (trackItem,xScale)=>{
     return TimeSpan.valueOf(trackItem)
 }
 
-export const componentRegistry = new Map()
+
+
+export class TrackRenderStrategy{
+    constructor(attachHeaderFunc){
+        this.attachHeaderFunc = attachHeaderFunc
+    }
+}
+
+
+export class DefaultTrackRenderStrategy extends TrackRenderStrategy{
+    constructor(){
+        super((trackElement)=>{
+            const retVal = document.createElement('div')
+            retVal.style.background='#00000040'
+            retVal.style.width='100%'
+            retVal.style.height='100%'
+            retVal.innerHTML= trackElement.getAttribute('heading')
+            return retVal            
+        })
+    }
+
+
+}
+
+
+
 
 
 export const rangeFinderFunctions={

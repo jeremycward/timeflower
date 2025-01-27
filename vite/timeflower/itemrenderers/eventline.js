@@ -1,5 +1,9 @@
-import { RENDER_HINTS, RenderStrategy,calcEventRenderingHints } from "../renderSupport"
+import { TrackRenderStrategy } from "../renderSupport"
+import { FLowerTrackElement } from "../HtmlCustomComponents"
+import { RENDER_HINTS, RenderStrategy,calcEventRenderingHints,DefaultTrackRenderStrategy } from "../renderSupport"
 import Handlebars from "handlebars"
+import { renderComponentNames } from "../renderComponentNames"
+
 
 
 
@@ -56,3 +60,10 @@ export class EventlineRenderStrategy extends RenderStrategy {
 
 }
 
+export class EventLineFLowerTrackElement extends FLowerTrackElement{
+    constructor(){
+        super(new DefaultTrackRenderStrategy())
+    }
+
+
+}
