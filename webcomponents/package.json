@@ -1,0 +1,34 @@
+{
+  "name": "timeflower",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build; ",
+    "preview": "vite preview",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "4django": "vite build && cp dist/static/* dist && ls -l dist/static && cp data/timelinedata.html dist/flowerapp && cp data/timelinedata.html data/time_line.html"
+  },
+  "jest": {
+    "setupFiles": [
+      "./src/setup-jest.js"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "handlebars": "^4.7.8",
+    "htmx": "^0.0.2",
+    "jcw-web-component": "^1.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jquery": "^3.7.1",
+    "jsdom": "^26.0.0",
+    "split": "^1.0.1"
+  }
+}
