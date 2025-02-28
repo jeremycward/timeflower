@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@beforesemicolon/markup": "^1.14.1",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
@@ -9,4 +10,3 @@
     "@babel/preset-env": "^7.26.0"
   }
 }
-  

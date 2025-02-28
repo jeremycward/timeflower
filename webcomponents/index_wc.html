@@ -50,13 +50,12 @@
   <script id="eventline-item-template" type="text/x-handlebars-template">
       <div class="sequenceTrackItemLayout  panel-1" >
         <div class="layerContainer">
-
           <div class="eventlineLayer">
             {{#each events}}
             <div class="eventLineEventItem" style="left:{{{eventxPos}}}; top:15px">{{eventName}}</div>                          
             {{/each}}
           </div>          
-      
+  
         
           <div class="eventlineLayer">
             <svg width="100%" height="100%">
@@ -87,24 +86,24 @@
 
 
     
-  <flower-time-line target="timeline_component" id="timeLineData" start="1950-01-01" end ="1960-01-01">
+  <flower-time-line target="timeline_component" id="timeLineData" start="1950-01-01" end ="1959-06-01" >
 
     <event-flower-track type="eventline" heading="Current Affairs1" id="A">
-      <event-track-item start="1959-01-01" end="2020-01-01" id="A1">        
-        <event-item id="A1_1" name="VCong invade saigon" detail1="A1_1" detail2="A1_1_detail" date="1960-01-01"></event-item>        
-        <event-item id="A1_2" name="event two name" detail1="A1_2" detail2="A2_1_detail" date="196-01-01"></event-item>        
+      <event-track-item start="1959-01-01" end="1959-07-01" id="A1">        
+        <event-item id="A1_1" name="VCong invade saigon" detail1="A1_1" detail2="A1_1_detail" date="1959-01-18"></event-item>        
+        <event-item id="A1_2" name="event two name" detail1="A1_2" detail2="A2_1_detail" date="1959-03-01"></event-item>        
        </event-track-item>
     </event-flower-track>
 
     <event-flower-track type="eventline" heading="Current Affairs2" id="B">
       <event-track-item start="1953-01-01" end="1958-01-01" id="B1">        
         <event-item id="B1_1" name="VCong invade saigon" detail1="B1_1" detail2="A1_1_detail" date="1954-01-01"></event-item>        
-        <event-item id="B1_2" name="event two name" detail1="B1_2" detail2="B2_1_detail" date="1955-01-01"></event-item>        
+        <event-item id="B1_2" name="event two name" detail1="B1_2" detail2="B2_1_detail" date="1955-06-01"></event-item>        
        </event-track-item>
     </event-flower-track>
 
     <event-flower-track type="eventline" heading="Current Affairs3" id="C">
-      <event-track-item start="1944-01-01" end="1952-01-01" id="C1">        
+      <event-track-item start="1944-01-01" end="1954-01-01" id="C1">        
         <event-item id="C1_1" name="VCong invade saigon" detail1="C1_1" detail2="A1_1_detail" date="1944-04-01"></event-item>        
         <event-item id="C1_2" name="event two name" detail1="C1_2" detail2="C2_1_detail" date="1951-03-01"></event-item>        
        </event-track-item>
@@ -119,18 +118,23 @@
 
     <event-flower-track type="eventline" heading="Current Affairs5" id="E">
       <event-track-item start="1944-01-01" end="1962-01-01" id="E1">        
-        <event-item id="E1_1" name="VCong invade saigon" detail1="E1_1" detail2="E1_1_detail" date="1944-04-01"></event-item>        
-        <event-item id="E1_2" name="event two name" detail1="D1_2" detail2="D2_1_detail" date="1963-03-01"></event-item>        
+        <event-item id="E1_1" name="VCong invade saigon" detail1="E1_1" detail2="E1_1_detail" date="1954-04-01"></event-item>        
+        <event-item id="E1_2" name="event two name" detail1="D1_2" detail2="D2_1_detail" date="1958-03-01"></event-item>        
        </event-track-item>
     </event-flower-track>
+
+
+    <event-flower-track type="eventline" heading="LongTimeAgo" id="LTA">
+      <event-track-item start="1944-01-01" end="1944-09-01" id="LTA_1">        
+        <event-item id="LTA_1_1" name="WW2" detail1="w" detail2="w" date="1944-04-01"></event-item>                
+       </event-track-item>
+    </event-flower-track>
+
 
   </flower-time-line>
 
 
 </body>
  
-
-
-
 
 </html>
